@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>FinTeens Prototype</title>
+  <style>
+    /* Enhanced styles for creativity and visual appeal */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    *{box-sizing:border-box;font-family:'Inter', system-ui, Arial, sans-serif}
+    :root{
+      --primary:#0b66b3;
+      --accent:#ffb703;
+      --accent-dark:#fb5607;
+      --success:#28a745;
+      --bg1:#fff3e8;
+      --bg2:#e8f7ff;
+      --shadow-light:0 4px 12px rgba(11,102,179,0.1);
+      --shadow-hover:0 8px 24px rgba(11,102,179,0.15);
+    }
+    body{
+      background:linear-gradient(135deg,var(--bg1),var(--bg2));
+      margin:0;padding:18px;color:#06283d;
+      animation:fadeIn 0.8s ease-out;
+    }
+    @keyframes fadeIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+    .container{max-width:980px;margin:0 auto}
+    .topbar{
+      display:flex;justify-content:space-between;align-items:center;
+      background:linear-gradient(135deg,white, rgba(255,255,255,0.8));
+      padding:16px 20px;border-radius:16px;margin-bottom:20px;
+      box-shadow:var(--shadow-light);
+      backdrop-filter:blur(10px);
+    }
+    h1{margin:0;color:var(--primary);font-weight:700;font-size:1.8em;letter-spacing:-0.5px;}
+    .card{
+      background:linear-gradient(145deg,white, rgba(255,255,255,0.9));
+      padding:24px;border-radius:20px;margin-top:20px;box-shadow:var(--shadow-light);
+      transition:transform 0.3s ease, box-shadow 0.3s ease;
+      position:relative;overflow:hidden;
+    }
+    .card::before{content:'';position:absolute;top:0;left:0;width:100%;height:4px;background:linear-gradient(90deg,var(--primary),var(--accent));}
+    .card:hover{transform:translateY(-4px);box-shadow:var(--shadow-hover);}
+    .center{text-align:center}
+    .small{font-size:13px}
+    .hidden{display:none}
+    input{
+      display:block;padding:14px;margin:12px 0;border-radius:12px;border:2px solid #e6eef7;
+      width:100%;font-size:16px;transition:border-color 0.3s ease;
+      background:rgba(255,255,255,0.8);
+    }
+    input:focus{border-color:var(--primary);outline:none;box-shadow:0 0 0 3px rgba(11,102,179,0.1);}
+    button{
+      background:linear-gradient(135deg,var(--primary),#085a9a);color:#fff;border:none;
+      padding:12px 20px;border-radius:12px;cursor:pointer;font-weight:500;
+      transition:transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    button:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(11,102,179,0.3);}
+    button.ghost{
+      background:transparent;color:var(--primary);border:2px solid #cfe6ff;
+      transition:border-color 0.3s ease, color 0.3s ease;
+    }
+    button.ghost:hover{border-color:var(--accent);color:var(--accent);background:rgba(255,183,3,0.1);}
+    .row{display:flex;gap:12px;align-items:center;flex-wrap:wrap;}
+    .row.space{justify-content:space-between}
+    .welcomeCard{flex:1}
+    .actions{display:flex;flex-direction:column;gap:10px;min-width:150px}
+    .progressbar{
+      background:#f1f5f9;border-radius:12px;height:8px;overflow:hidden;margin-top:12px;
+      box-shadow:inset 0 2px 4px rgba(0,0,0,0.05);
+    }
+    .bar{
+      height:100%;width:0%;background:linear-gradient(90deg,var(--accent),var(--accent-dark));
+      border-radius:12px;transition:width 0.6s ease-out;
+      box-shadow:0 0 10px rgba(255,183,3,0.5);
+    }
+    .badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+    .badge{
+      padding:10px 14px;border-radius:50px;background:linear-gradient(135deg,#ffd6a5,#fdc49b);
+      color:#6b2a00;font-weight:600;font-size:14px;
+      display:flex;align-items:center;gap:6px;
+      transition:transform 0.2s ease;
+      box-shadow:0 2px 8px rgba(251,86,7,0.2);
+    }
+    .badge:hover{transform:scale(1.05);}
+    .badge::before{content:'🏆';font-size:16px;}
+    .muted{color:#667784;font-style:italic;}
+    .cardsGrid{
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:16px;
+    }
+    .learnCard, .activityCard{
+      padding:20px;border-radius:16px;background:linear-gradient(145deg,#fff,#fffef6);
+      box-shadow:var(--shadow-light);transition:transform 0.3s ease, box-shadow 0.3s ease;
+      position:relative;overflow:hidden;
+    }
+    .learnCard::before, .activityCard::before{
+      content:'';position:absolute;top:0;left:0;right:0;height:4px;
+      background:linear-gradient(90deg,var(--primary),var(--accent));
+    }
+    .learnCard:hover, .activityCard:hover{transform:translateY(-6px);box-shadow:var(--shadow-hover);}
+    .learnBtn, .activityBtn{
+      margin-top:12px;background:linear-gradient(135deg,var(--accent),var(--accent-dark));
+      color:#fff;border:none;padding:10px;border-radius:10px;width:100%;font-weight:600;
+      transition:transform 0.2s ease;
+    }
+    .learnBtn:hover, .activityBtn:hover{transform:scale(1.02);}
+    .lesson{margin-top:16px}
+    .mentorBox{display:flex;flex-direction:column;gap:12px}
+    .mentorLog{
+      min-height:140px;border-radius:14px;padding:16px;background:#f8fafc;
+      border:2px dashed #d1e3f8;overflow:auto;
+      animation:fadeIn 0.5s ease-out;
+    }
+    .mentorEntry, .mentorBot {
+      margin:12px 0;padding:12px;border-left:4px solid #ccc;border-radius:8px;
+      animation:slideIn 0.3s ease-out;
+    }
+    @keyframes slideIn{from{opacity:0;transform:translateX(-20px);}to{opacity:1;transform:translateX(0);}}
+    .mentorEntry { border-left-color: var(--primary); background:rgba(11,102,179,0.05); }
+    .mentorBot { border-left-color: var(--success); background:#f8f9fa; }
+    footer{
+      margin-top:20px;text-align:center;color:#234;
+      background:linear-gradient(135deg,white, rgba(255,255,255,0.8));
+      padding:16px;border-radius:16px;box-shadow:var(--shadow-light);
+    }
+    #answers button{
+      display:block;width:100%;text-align:left;margin:10px 0;
+      background:#f1f5f9;color:#06283d;border-radius:10px;padding:14px;border:none;
+      transition:background 0.3s ease, transform 0.2s ease;
+    }
+    #answers button:hover{transform:translateX(4px);}...
