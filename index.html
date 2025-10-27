@@ -24,7 +24,7 @@
       margin:0;padding:18px;color:#06283d;
       animation:fadeIn 0.8s ease-out;
     }
-    @keyframes fadeIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);} }
     .container{max-width:1100px;margin:0 auto}
     .topbar{
       display:flex;justify-content:space-between;align-items:center;
@@ -160,6 +160,9 @@
     .watch-item{display:flex;justify-content:space-between;padding:8px;border-radius:8px;background:#fff;border:1px solid #eef6fb}
     .order-book, .orders, .order-history{max-height:160px;overflow:auto;padding:8px;border-radius:8px;background:#fff;border:1px solid #eef6fb}
     .row-inline{display:flex;gap:8px;align-items:center}
+    .challenge-item{padding:8px;border-radius:8px;margin:6px 0;border:1px dashed transparent;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+    .challenge-item.completed{background:linear-gradient(135deg,#e6f9f0,#ddf3e7);border-color:rgba(40,167,69,0.08)}
+    .challenge-item .muted{font-size:12px}
     @media (max-width:900px){ .trade-grid{grid-template-columns:1fr} .actions{min-width:unset} }
   </style>
 </head>
@@ -317,22 +320,22 @@
           <div class="activityCard">
             <h3>Budget Simulator 💰</h3>
             <p>Allocate ₹1000 pocket money to categories. See how choices affect savings!</p>
-            <button class="activityBtn" onclick="startBudgetActivity()">Play Now! 🎯</button>
+            <button class="activityBtn" id="startBudgetBtn">Play Now! 🎯</button>
           </div>
           <div class="activityCard">
             <h3>Savings Goal Calculator 🐷</h3>
             <p>Set a goal and see how long it takes to save with interest! (2025 RBI rates)</p>
-            <button class="activityBtn" onclick="startSavingsActivity()">Calculate! 📊</button>
+            <button class="activityBtn" id="startSavingsBtn">Calculate! 📊</button>
           </div>
           <div class="activityCard level-locked hidden" id="stockGameCard">
             <h3>Stock Market Mini-Game 📈</h3>
             <p>Make virtual investments and track returns. Risk vs reward! Enhanced with SEBI tips.</p>
-            <button class="activityBtn" onclick="startStockActivity()">Invest Virtually! 🎲</button>
+            <button class="activityBtn" id="startStockBtn">Invest Virtually! 🎲</button>
           </div>
           <div class="activityCard">
             <h3>UPI Transaction Simulator 📱</h3>
             <p>Simulate safe UPI payments and learn fraud avoidance. Based on 2025 volumes!</p>
-            <button class="activityBtn" onclick="startUPIActivity()">Send UPI! ⚡</button>
+            <button class="activityBtn" id="startUPIBtn">Send UPI! ⚡</button>
           </div>
         </div>
         <div id="activityArea" class="hidden"></div>
@@ -447,7 +450,9 @@
        - Provide updateUI(), renderPortfolio(), renderPortfolioSnapshot(), showReward(), closeReward(), triggerConfetti(), checkDailyLogin()
        - Provide orderIdCounter and references to trading modal elements
        - Wire missing event handlers: placeBuy/placeSell/closeTrading/refreshMarket/cancelAllOrders
-       These were the root cause: missing functions/vars caused JS runtime errors which prevented startBtn and back-buttons from working.
+       - Implement Fun Activities functions (budget, savings, stock, UPI)
+       - Make Challenges interactive with claimRewards flow
+       - Improve Mentor reply to feel async/AI-like and mark challenge
     */
 
     // Full 50-question bank (5 levels × 10 questions)
@@ -605,6 +610,7 @@
       streak: 0,
       lastLogin: null,
       challenges: {quiz:false,lesson:false,activity:false,mentor:false,upi:false,streak7:false,stock:false},
+      challengesClaimed: {}, // track which challenge rewards claimed
       currentQ: 0,
       score: 0,
       mentorLog: [],
@@ -655,6 +661,14 @@
             badgesEl.appendChild(el);
           });
         }
+        // show/hide stock game card based on unlockedGameLevels
+        const stockCard = document.getElementById('stockGameCard');
+        if(state.unlockedGameLevels && Object.keys(state.unlockedGameLevels).length >= 2){
+          if(stockCard) stockCard.classList.remove('hidden');
+        } else {
+          if(stockCard) stockCard.classList.add('hidden');
+        }
+        updateChallengesUI();
       } catch(e){
         console.warn('updateUI error', e);
       }
@@ -743,6 +757,8 @@
         state.lastLogin = today;
         saveState();
       }
+      // mark streak7 challenge if streak reaches 7
+      if(state.streak >= 7 && !state.challenges.streak7){ state.challenges.streak7 = true; saveState(); updateUI(); }
       updateUI();
     }
 
@@ -751,7 +767,7 @@
 
     // load/save helpers (re-using names)
     function saveState(){ try{ localStorage.setItem('finteens_state', JSON.stringify(state)); }catch(e){console.warn(e);} }
-    function loadState(){ try{ const s = localStorage.getItem('finteens_state'); if(s){ const parsed = JSON.parse(s); state = Object.assign(state, parsed); state.wallet = state.wallet || {balance:2000}; state.portfolio = state.portfolio || {}; state.marketPrices = state.marketPrices || {A:100,B:120,C:80}; state.orders = state.orders || []; state.orderHistory = state.orderHistory || []; state.quizProgress = state.quizProgress || {level:0,index:0}; state.unlockedGameLevels = state.unlockedGameLevels || {1:true}; } }catch(e){console.warn(e);} updateUI(); renderPortfolio(); renderMarketWatch(); renderOpenOrders(); renderOrderHistory(); renderOrderBook(); renderPortfolioSnapshot(); }
+    function loadState(){ try{ const s = localStorage.getItem('finteens_state'); if(s){ const parsed = JSON.parse(s); state = Object.assign(state, parsed); state.wallet = state.wallet || {balance:2000}; state.portfolio = state.portfolio || {}; state.marketPrices = state.marketPrices || {A:100,B:120,C:80}; state.orders = state.orders || []; state.orderHistory = state.orderHistory || []; state.quizProgress = state.quizProgress || {level:0,index:0}; state.unlockedGameLevels = state.unlockedGameLevels || {1:true}; state.challengesClaimed = state.challengesClaimed || {}; } }catch(e){console.warn(e);} updateUI(); renderPortfolio(); renderMarketWatch(); renderOpenOrders(); renderOrderHistory(); renderOrderBook(); renderPortfolioSnapshot(); renderMentorLog(); }
 
     // showSection helper (used elsewhere)
     function showSection(id){
@@ -812,6 +828,8 @@
           // unlock next game level
           const unlockedCount = Object.keys(state.unlockedGameLevels || {}).length;
           state.unlockedGameLevels[unlockedCount+1] = true;
+          // Mark quiz challenge complete
+          if(!state.challenges.quiz){ state.challenges.quiz = true; state.challengesClaimed.quiz = state.challengesClaimed.quiz || false; }
           saveState(); updateUI(); alert(`Quiz level complete! Bonus +${bonus} pts. Next game level unlocked.`);
           showSection('dashboard');
         }
@@ -858,11 +876,11 @@
       const nav = document.createElement('div'); nav.className='row'; nav.style.marginTop='12px';
       const prev = document.createElement('button'); prev.className='ghost'; prev.textContent='Prev'; prev.addEventListener('click', ()=> { if(cur>0){ cur--; renderSlide(); }});
       const mark = document.createElement('button'); mark.textContent='Mark as Read (+15 pts)'; mark.addEventListener('click', ()=> {
-        if(!state.lessonsCompleted[id]){ state.lessonsCompleted[id] = true; state.points += 15; saveState(); updateUI(); showReward('Lesson marked','+15 pts'); }
+        if(!state.lessonsCompleted[id]){ state.lessonsCompleted[id] = true; state.points += 15; state.challenges.lesson = true; saveState(); updateUI(); showReward('Lesson marked','+15 pts'); }
       });
       const close = document.createElement('button'); close.className='ghost'; close.textContent='Close'; close.addEventListener('click', ()=> { lessonEl.classList.add('hidden'); });
       const next = document.createElement('button'); next.className='ghost'; next.textContent='Next'; next.addEventListener('click', ()=> { if(cur < topic.slides.length -1) { cur++; renderSlide(); } else { // finish lesson
-        if(!state.lessonsCompleted[id]){ state.lessonsCompleted[id] = true; state.points += 15; saveState(); updateUI(); showReward('Lesson complete','+15 pts'); }
+        if(!state.lessonsCompleted[id]){ state.lessonsCompleted[id] = true; state.points += 15; state.challenges.lesson = true; saveState(); updateUI(); showReward('Lesson complete','+15 pts'); }
         lessonEl.classList.add('hidden');
       }});
       nav.appendChild(prev); nav.appendChild(next); nav.appendChild(mark); nav.appendChild(close);
@@ -907,6 +925,7 @@
 
     function renderOpenOrders(){
       const openOrdersEl = document.getElementById('openOrders');
+      if(!openOrdersEl) return;
       openOrdersEl.innerHTML='';
       if(state.orders.length===0){ openOrdersEl.innerHTML = '<div class="muted small" style="padding:6px">No open orders</div>'; return; }
       state.orders.forEach(o=>{
@@ -920,6 +939,7 @@
 
     function renderOrderHistory(){
       const orderHistoryEl = document.getElementById('orderHistory');
+      if(!orderHistoryEl) return;
       orderHistoryEl.innerHTML='';
       if(!state.orderHistory || state.orderHistory.length===0){ orderHistoryEl.innerHTML = '<div class="muted small" style="padding:6px">No trades yet</div>'; return; }
       state.orderHistory.slice().reverse().forEach(h=>{
@@ -931,6 +951,7 @@
 
     function renderOrderBook(){
       const orderBookEl = document.getElementById('orderBook');
+      if(!orderBookEl) return;
       orderBookEl.innerHTML='';
       if(state.orders.length===0){ orderBookEl.innerHTML = '<div class="muted small" style="padding:6px">Order book empty</div>'; return; }
       const groups = {};
@@ -1051,12 +1072,36 @@
       state.portfolio = {}; state.points += 20; saveState(); updateUI(); renderPortfolio(); showReward('Liquidated','All holdings sold at market price');
     });
 
-    // mentor handlers
-    document.getElementById('askMentor').addEventListener('click', ()=> {
-      const q = document.getElementById('mentorQ').value.trim(); if(!q) return;
-      const a = (()=>{ const low=q.toLowerCase(); if(low.includes('upi')) return 'UPI is instant & secure. Verify recipient name & never share OTP.'; if(low.includes('rbi')) return 'RBI updates vary; teens 10+ can now run their own accounts (demo).'; if(low.includes('sebi')) return 'SEBI recommends registered platforms, diversification and research.'; return 'Nice question! Explore the Hub lessons to learn more.'; })();
-      state.mentorLog = state.mentorLog||[]; state.mentorLog.push({q,a}); saveState(); renderMentorLog(); document.getElementById('mentorQ').value=''; if(!state.challenges.mentor){ state.challenges.mentor=true; state.points+=10; saveState(); updateUI(); showReward('Mentor used','+10 points'); }
+    // mentor handlers (improved: simulate typing + challenge marking)
+    document.getElementById('askMentor').addEventListener('click', async ()=> {
+      const qEl = document.getElementById('mentorQ');
+      const q = qEl.value.trim(); if(!q) return;
+      // show user's message immediately
+      state.mentorLog = state.mentorLog||[]; state.mentorLog.push({q,'a':'...'}); saveState(); renderMentorLog();
+      qEl.value='';
+      // simulate thinking/typing
+      const mentorLogEl = document.getElementById('mentorLog');
+      const botTyping = document.createElement('div'); botTyping.className='mentorBot'; botTyping.innerText = 'Buddy: typing...';
+      mentorLogEl.appendChild(botTyping);
+      mentorLogEl.scrollTop = mentorLogEl.scrollHeight;
+      await new Promise(r => setTimeout(r, 700 + Math.random()*600));
+      // compute answer
+      const low=q.toLowerCase();
+      let a = 'Nice question! Explore the Hub lessons to learn more.';
+      if(low.includes('upi')) a = 'UPI (Unified Payments Interface) is an instant payment system. Always verify the recipient name and do not share OTP or UPI PIN.';
+      else if(low.includes('rbi')) a = 'RBI is the central bank; it issues guidelines for banks and payments. For teens, many banks support minor accounts with parent consent.';
+      else if(low.includes('sebi')) a = 'SEBI regulates stock markets. It encourages investor education, registered intermediaries, and KYC.';
+      else if(low.includes('saving') || low.includes('save')) a = 'Tip: Pay yourself first—save a part of any money you get. Small regular amounts grow with time.';
+      else if(low.includes('stock') || low.includes('share')) a = 'Stocks are ownership in companies. Start small, diversify, and learn via demo trading before using real money.';
+      // replace placeholder '...' with answer in state. We'll update last entry's answer
+      const lastIdx = state.mentorLog.length - 1;
+      if(lastIdx >= 0){ state.mentorLog[lastIdx].a = a; saveState(); }
+      // remove typing indicator and re-render
+      renderMentorLog();
+      // mark challenge
+      if(!state.challenges.mentor){ state.challenges.mentor = true; state.points+=10; saveState(); updateUI(); showReward('Mentor used','+10 points'); }
     });
+
     document.getElementById('clearLog').addEventListener('click', ()=> { state.mentorLog = []; saveState(); renderMentorLog(); });
 
     function renderMentorLog(){ const mentorLog = document.getElementById('mentorLog'); mentorLog.innerHTML=''; (state.mentorLog||[]).forEach(e=>{ const ue=document.createElement('div'); ue.className='mentorEntry'; ue.innerText='You: '+e.q; mentorLog.appendChild(ue); const be=document.createElement('div'); be.className='mentorBot'; be.innerText='Buddy: '+e.a; mentorLog.appendChild(be); }); }
@@ -1110,6 +1155,260 @@
     });
 
     document.getElementById('resetBtn').addEventListener('click', ()=> { if(confirm('Reset demo?')){ localStorage.removeItem('finteens_state'); location.reload(); } });
+
+    // --- Activities functions (make playables work) ---
+    const activityArea = document.getElementById('activityArea');
+    function showActivityUI(html){
+      activityArea.innerHTML = html;
+      activityArea.classList.remove('hidden');
+    }
+    function hideActivityUI(){
+      activityArea.innerHTML = '';
+      activityArea.classList.add('hidden');
+    }
+
+    // Budget Simulator
+    function startBudgetActivity(){
+      const html = `
+        <div class="card small">
+          <h3>Budget Simulator — ₹1000</h3>
+          <p class="muted">Drag or type amounts for Needs, Wants and Savings. Use 50/30/20 as a guide.</p>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <div style="flex:1;min-width:160px;">
+              <label>Needs (₹)</label><input id="bNeeds" type="number" value="500" />
+            </div>
+            <div style="flex:1;min-width:160px;">
+              <label>Wants (₹)</label><input id="bWants" type="number" value="300" />
+            </div>
+            <div style="flex:1;min-width:160px;">
+              <label>Savings (₹)</label><input id="bSave" type="number" value="200" />
+            </div>
+          </div>
+          <div style="margin-top:10px;display:flex;gap:8px;">
+            <button id="evalBudget">Evaluate</button>
+            <button class="ghost" id="closeBudget">Close</button>
+          </div>
+          <div id="budgetResult" style="margin-top:10px;"></div>
+        </div>
+      `;
+      showActivityUI(html);
+      document.getElementById('closeBudget').addEventListener('click', ()=> hideActivityUI());
+      document.getElementById('evalBudget').addEventListener('click', ()=> {
+        const needs = Number(document.getElementById('bNeeds').value)||0;
+        const wants = Number(document.getElementById('bWants').value)||0;
+        const save = Number(document.getElementById('bSave').value)||0;
+        const total = needs + wants + save;
+        const res = document.getElementById('budgetResult');
+        if(total !== 1000){ res.innerHTML = `<div class="muted">Total should be ₹1000. You entered ₹${total}. Adjust to continue.</div>`; return; }
+        // score against 50/30/20
+        const needsScore = Math.max(0, 50 - Math.abs(50 - (needs/10)));
+        const wantsScore = Math.max(0, 30 - Math.abs(30 - (wants/10)));
+        const saveScore = Math.max(0, 20 - Math.abs(20 - (save/10)));
+        const overall = Math.round((needsScore + wantsScore + saveScore)/3);
+        res.innerHTML = `<div><strong>Good job!</strong> Your allocation: Needs ₹${needs}, Wants ₹${wants}, Savings ₹${save}. <div class="muted">Match to 50/30/20 gives score ${overall} / 50.</div></div>`;
+        // award points and mark activity challenge
+        if(!state.activitiesCompleted.budget){
+          state.activitiesCompleted.budget = true;
+          if(!state.challenges.activity) state.challenges.activity = true;
+          state.points += 15;
+          saveState(); updateUI();
+          showReward('Budget Complete', '+15 pts (demo)');
+        }
+      });
+    }
+    window.startBudgetActivity = startBudgetActivity;
+    document.getElementById('startBudgetBtn').addEventListener('click', startBudgetActivity);
+
+    // Savings Goal Calculator
+    function startSavingsActivity(){
+      const html = `
+        <div class="card small">
+          <h3>Savings Goal Calculator</h3>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <div style="flex:1"><label>Goal Amount (₹)</label><input id="goalAmt" type="number" value="20000" /></div>
+            <div style="flex:1"><label>Monthly Save (₹)</label><input id="monthlySave" type="number" value="1000" /></div>
+            <div style="flex:1"><label>Annual Rate (%)</label><input id="annualRate" type="number" value="6" /></div>
+          </div>
+          <div style="margin-top:10px;display:flex;gap:8px;">
+            <button id="calcSave">Calculate</button>
+            <button class="ghost" id="closeSave">Close</button>
+          </div>
+          <div id="saveResult" style="margin-top:10px;"></div>
+        </div>
+      `;
+      showActivityUI(html);
+      document.getElementById('closeSave').addEventListener('click', ()=> hideActivityUI());
+      document.getElementById('calcSave').addEventListener('click', ()=> {
+        const goal = Number(document.getElementById('goalAmt').value) || 0;
+        const pmnt = Number(document.getElementById('monthlySave').value) || 0;
+        const apr = Number(document.getElementById('annualRate').value) || 0;
+        const res = document.getElementById('saveResult');
+        if(goal <= 0 || pmnt <= 0){ res.innerHTML = '<div class="muted">Enter valid numbers.</div>'; return; }
+        // iterate months to reach goal with monthly compounding
+        const monthlyRate = apr/12/100;
+        let bal = 0;
+        let months = 0;
+        while(bal < goal && months < 1200){
+          months++;
+          bal = bal*(1+monthlyRate) + pmnt;
+        }
+        const years = Math.floor(months/12);
+        const remMonths = months % 12;
+        res.innerHTML = `<div class="muted">At ₹${pmnt}/month at ${apr}% APR you'll reach ₹${goal} in approx ${years} years and ${remMonths} months (${months} months).</div>`;
+        if(!state.activitiesCompleted.savings){
+          state.activitiesCompleted.savings = true;
+          state.points += 10;
+          if(!state.challenges.activity) state.challenges.activity = true;
+          saveState(); updateUI();
+          showReward('Savings calc done','+10 pts');
+        }
+      });
+    }
+    window.startSavingsActivity = startSavingsActivity;
+    document.getElementById('startSavingsBtn').addEventListener('click', startSavingsActivity);
+
+    // Stock mini-game — uses trading modal for a simple experience
+    function startStockActivity(){
+      // require unlocked level 2 (or more)
+      const unlockedCount = Object.keys(state.unlockedGameLevels || {}).length;
+      if(unlockedCount < 2){ alert('Unlock Level 2 by completing the quiz level first.'); return; }
+      // open trading modal in "game" mode: small tutorial + free buy with demo funds
+      tradingModal.classList.remove('hidden');
+      tradingModal.setAttribute('aria-hidden','false');
+      modalWallet.innerText = `₹${Number(state.wallet.balance).toLocaleString()}`;
+      renderMarketWatch(); renderOpenOrders(); renderOrderHistory(); renderOrderBook(); renderPortfolio(); renderPortfolioSnapshot();
+      // mark stock challenge not yet claimed until player executes trade; show hint
+      showReward('Stock Game', 'Use the trading desk to buy/sell demo stocks. Complete a trade to finish the mini-game.');
+    }
+    window.startStockActivity = startStockActivity;
+    document.getElementById('startStockBtn') && document.getElementById('startStockBtn').addEventListener('click', startStockActivity);
+
+    // UPI Simulator
+    function startUPIActivity(){
+      const html = `
+        <div class="card small">
+          <h3>UPI Transaction Simulator</h3>
+          <p class="muted">Practice a safe UPI transfer. This is simulated — no real money moves.</p>
+          <label>Recipient Name</label><input id="upiName" value="Ravi Kumar" />
+          <label>UPI ID</label><input id="upiId" value="ravi@upi" />
+          <label>Amount (₹)</label><input id="upiAmt" type="number" value="50" />
+          <div style="margin-top:10px;display:flex;gap:8px;">
+            <button id="sendUpi">Send (Simulate)</button>
+            <button class="ghost" id="closeUpi">Close</button>
+          </div>
+          <div id="upiResult" style="margin-top:10px;"></div>
+        </div>
+      `;
+      showActivityUI(html);
+      document.getElementById('closeUpi').addEventListener('click', ()=> hideActivityUI());
+      document.getElementById('sendUpi').addEventListener('click', ()=> {
+        const name = document.getElementById('upiName').value.trim();
+        const id = document.getElementById('upiId').value.trim();
+        const amt = Number(document.getElementById('upiAmt').value) || 0;
+        const res = document.getElementById('upiResult');
+        if(!name || !id || amt <= 0){ res.innerHTML = '<div class="muted">Enter valid recipient & amount.</div>'; return; }
+        // safety checks: do not "enter OTP" here; check name matches known recipient (simulate)
+        res.innerHTML = `<div><strong>Success (simulated)</strong> ₹${amt} sent to ${name} (${id}). <div class="muted">Remember: verify recipient name and never share OTP/UPI PIN.</div></div>`;
+        if(!state.activitiesCompleted.upi){
+          state.activitiesCompleted.upi = true;
+          state.points += 15;
+          state.challenges.upi = true;
+          saveState(); updateUI();
+          showReward('UPI Simulated', '+15 pts — safe payment practiced');
+        }
+      });
+    }
+    window.startUPIActivity = startUPIActivity;
+    document.getElementById('startUPIBtn') && document.getElementById('startUPIBtn').addEventListener('click', startUPIActivity);
+
+    // update challenge UI and claim behavior
+    function updateChallengesUI(){
+      const list = document.getElementById('challengeList');
+      if(!list) return;
+      const items = list.querySelectorAll('.challenge-item');
+      items.forEach(it => {
+        const key = it.dataset.challenge;
+        if(state.challenges && state.challenges[key]){
+          it.classList.add('completed');
+        } else {
+          it.classList.remove('completed');
+        }
+      });
+      // show claim button when there are completed but unclaimed challenges
+      const claimBtn = document.getElementById('claimRewards');
+      if(!claimBtn) return;
+      let hasUnclaimed = false;
+      const mapping = { quiz:20, lesson:15, activity:25, mentor:10, upi:15, streak7:35, stock:30 };
+      for(const k of Object.keys(mapping)){
+        if(state.challenges[k] && !state.challengesClaimed[k]){ hasUnclaimed = true; break; }
+      }
+      if(hasUnclaimed){ claimBtn.classList.remove('hidden'); }
+      else { claimBtn.classList.add('hidden'); }
+    }
+
+    // click handler for challenge items to show instructions or navigate
+    document.getElementById('challengeList').addEventListener('click', (e) => {
+      const el = e.target.closest('.challenge-item');
+      if(!el) return;
+      const key = el.dataset.challenge;
+      if(key === 'quiz'){ showSection('quiz'); renderQuiz(); }
+      else if(key === 'lesson'){ showSection('hub'); renderHub(); }
+      else if(key === 'activity'){ showSection('activities'); }
+      else if(key === 'mentor'){ showSection('mentor'); renderMentorLog(); }
+      else if(key === 'upi'){ showSection('activities'); startUPIActivity(); }
+      else if(key === 'stock'){ showSection('activities'); startStockActivity(); }
+      else if(key === 'streak7'){ alert('Maintain daily logins to build streaks. Come back tomorrow!'); }
+    });
+
+    // claim rewards flow
+    document.getElementById('claimRewards').addEventListener('click', ()=> {
+      const mapping = { quiz:20, lesson:15, activity:25, mentor:10, upi:15, streak7:35, stock:30 };
+      let total = 0;
+      let newlyClaimed = [];
+      for(const k of Object.keys(mapping)){
+        if(state.challenges[k] && !state.challengesClaimed[k]){
+          total += mapping[k];
+          state.challengesClaimed[k] = true;
+          newlyClaimed.push(k);
+        }
+      }
+      if(total === 0){ alert('No unclaimed rewards'); updateChallengesUI(); return; }
+      state.points += total;
+      // award badges for some achievements
+      if(newlyClaimed.includes('quiz')) state.badges.push('Quiz Finisher');
+      if(newlyClaimed.includes('lesson')) state.badges.push('Lesson Starter');
+      if(newlyClaimed.includes('activity')) state.badges.push('Activity Hero');
+      saveState(); updateUI(); showReward('Rewards Claimed', `You earned +${total} pts and badges!`);
+      updateChallengesUI();
+    });
+
+    // ensure challenge section toggling
+    document.getElementById('challengesBtn').addEventListener('click', ()=> {
+      const ch = document.getElementById('challenges');
+      if(ch.classList.contains('hidden')) ch.classList.remove('hidden');
+      else ch.classList.add('hidden');
+      updateChallengesUI();
+    });
+
+    // Mark stock challenge when user executes at least one trade in orderHistory as part of mini-game
+    const originalExecuteTrade = executeTrade;
+    executeTrade = function(order){
+      originalExecuteTrade(order);
+      // if a trade executed and user came from stock mini-game, mark stock challenge & activity
+      if(order && order.type){
+        // treat any first trade as stock game success
+        if(!state.activitiesCompleted.stock){
+          state.activitiesCompleted.stock = true;
+          state.challenges.stock = true;
+          saveState();
+          updateUI();
+          showReward('Stock mini-game', '+30 pts available to claim (claim in Challenges)');
+        }
+      }
+    };
+
+    // Navigation wiring for activity back
+    document.getElementById('backDashAct').addEventListener('click', ()=> { hideActivityUI(); showSection('dashboard'); });
 
     // Initialize state and UI
     loadState();
