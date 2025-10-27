@@ -275,8 +275,8 @@
         <div id="questionArea"></div>
         <div id="answers"></div>
         <div class="row">
-          <button id="prevQ" class="ghost hidden">⬅ Previous</button>
-          <button id="nextQ" class="ghost hidden">Next ➡</button>
+          <button id="prevQ" class="ghost hidden">⬅️ Previous</button>
+          <button id="nextQ" class="ghost hidden">Next ➡️</button>
           <button id="finish" class="hidden">Finish Quiz & Celebrate! 🎊</button>
           <button id="quitQuiz" class="ghost">Back to Dash 🔙</button>
         </div>
@@ -312,7 +312,7 @@
             <button class="learnBtn" data-topic="loans">Borrow Smart! 💡</button>
           </div>
           <div class="learnCard level-locked" id="insuranceCard" style="display:none;">
-            <h3>Insurance Essentials 🛡</h3>
+            <h3>Insurance Essentials 🛡️</h3>
             <p>Why you need it, types like health and life insurance for teens.</p>
             <button class="learnBtn" data-topic="insurance">Protect Yourself! 🔒</button>
           </div>
@@ -374,14 +374,14 @@
           <input id="mentorQ" placeholder="Type a question like: 'UPI stats 2025?' 💭" />
           <div class="row">
             <button id="askMentor">Ask Buddy! 🚀</button>
-            <button id="clearLog" class="ghost">Clear Chat 🗑</button>
+            <button id="clearLog" class="ghost">Clear Chat 🗑️</button>
             <button id="backDash2" class="ghost">Back 🔙</button>
           </div>
         </div>
       </section>
 
       <footer class="card small center">
-        <small>Prototype demo — no server. Works offline in browser. Updated Oct 2025 with latest RBI/SEBI data. Built for hackathon with love! ❤</small>
+        <small>Prototype demo — no server. Works offline in browser. Updated Oct 2025 with latest RBI/SEBI data. Built for hackathon with love! ❤️</small>
       </footer>
     </main>
   </div>
@@ -400,8 +400,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button id="prevStep" class="ghost">⬅ Previous</button>
-        <button id="nextStep">Next ➡</button>
+        <button id="prevStep" class="ghost">⬅️ Previous</button>
+        <button id="nextStep">Next ➡️</button>
         <button id="finishTour">Got It! 🚀</button>
       </div>
     </div>
@@ -475,7 +475,7 @@
       digital: {title:"Digital Payments 📱", text:"UPI is an instant payment method. 2025 stats: 10,637 crore txns in H1, ₹143 lakh crore value! Always check recipient's name, avoid sharing OTPs. Stay safe and speedy! ⚡"},
       investing: {title:"Safe Investing (SEBI Tips) 📈", text:"SEBI's 2025 tips for beginners: 1. Invest early for compounding. 2. Use registered entities. 3. Understand risks—avoid quick money traps, gambling, free tips, influencers. 4. Diversify. 5. Check docs. 6. Verify apps via SCORES. 7. Set goals. 8. Monitor. 9. Report fraud. Start with SIPs ₹500/month! 🌟"},
       loans: {title:"Understanding Loans 🏦", text:"Good debt (education, home) builds wealth; bad debt (high-interest) drains it. Always compare rates (RBI caps), read terms, borrow only what you need. 2025: Focus on credit scores early. Start small! 💡"},
-      insurance: {title:"Insurance Essentials 🛡", text:"Health insurance covers medical bills; life insurance protects family. For teens: Start with PMJJBY (₹2L cover, ₹436/year). 2025 push: Include in emergency funds. Don't wait—protect early! 🔒"},
+      insurance: {title:"Insurance Essentials 🛡️", text:"Health insurance covers medical bills; life insurance protects family. For teens: Start with PMJJBY (₹2L cover, ₹436/year). 2025 push: Include in emergency funds. Don't wait—protect early! 🔒"},
       entre: {title:"Teen Entrepreneurship 💼", text:"Ideas: Tutoring, crafts, apps. Budget for costs, track profits. 2025 CSR: Companies fund literacy projects—pitch your hustle! Learn from failures—every big biz started small! 🚀"},
       literacy: {title:"Financial Literacy Week 2025 🌟", text:"Feb 24-28: Theme 'Women's Prosperity'. RBI/SEBI/NCFE quiz coming—focus on inclusion, schemes like PMJDY. Join for badges & knowledge. Empower yourself & others! 📅"}
     };
@@ -621,7 +621,7 @@
         state.lastLogin = today;
         saveState();
         updateUI();
-        showReward('Daily Login Bonus!', +${5 * state.streak} points for streak of ${state.streak}! 🔥);
+        showReward('Daily Login Bonus!', `+${5 * state.streak} points for streak of ${state.streak}! 🔥`);
         triggerConfetti();
         if (state.streak >= 7) {
           if (!state.badges.includes('Streak Master 🔥')) {
@@ -636,7 +636,7 @@
 
     function updateStreak() {
       streakDisplay.style.display = state.streak > 0 ? 'inline-flex' : 'none';
-      if (state.streak > 0) streakDisplay.innerHTML = Streak: ${state.streak} 🔥;
+      if (state.streak > 0) streakDisplay.innerHTML = `Streak: ${state.streak} 🔥`;
     }
 
     function updateLevelContent() {
@@ -696,7 +696,7 @@
     }
 
     function updateUI(){
-      welcomeMsg.innerText = state.name ? Hi ${state.name}! 🌟 : 'Hi! 👋';
+      welcomeMsg.innerText = state.name ? `Hi ${state.name}! 🌟` : 'Hi! 👋';
       userNameDisplay.innerText = state.name ? state.name : '';
       pointsEl.innerText = state.points || 0;
       levelEl.innerText = state.level || 1;
@@ -748,7 +748,7 @@
         state.points += totalReward;
         saveState();
         updateUI();
-        showReward('Challenges Complete!', +${totalReward} bonus points! 🎁);
+        showReward('Challenges Complete!', `+${totalReward} bonus points! 🎁`);
         triggerConfetti();
         updateChallenges();
       }
@@ -770,12 +770,12 @@
 
     function renderQuestion(){
       const q = state.questions[state.currentQ];
-      questionArea.innerHTML = <h3>Q${state.currentQ+1}. ${q.q} ❓</h3>;
+      questionArea.innerHTML = `<h3>Q${state.currentQ+1}. ${q.q} ❓</h3>`;
       answers.innerHTML = '';
       state.quizAnswered = false;
       q.options.forEach((opt,i)=>{
         const btn = document.createElement('button');
-        btn.innerText = • ${opt};
+        btn.innerText = `• ${opt}`;
         btn.onclick = ()=> checkAnswer(i);
         answers.appendChild(btn);
       });
@@ -794,7 +794,7 @@
       });
       const explain = document.createElement('p');
       explain.className = 'muted';
-      explain.innerHTML = <strong>💡 Tip:</strong> ${q.explain};
+      explain.innerHTML = `<strong>💡 Tip:</strong> ${q.explain}`;
       explain.style.marginTop = '12px';
       questionArea.appendChild(explain);
       if(i === q.a){
@@ -842,7 +842,7 @@
       else badgeToAdd = 'Getting Started 🌱';
       if(badgeToAdd && !badges.includes(badgeToAdd)){
         badges.push(badgeToAdd);
-        showReward('Badge Unlocked!', ${badgeToAdd} earned! 🏅);
+        showReward('Badge Unlocked!', `${badgeToAdd} earned! 🏅`);
         triggerConfetti();
       }
       state.badges = badges;
@@ -854,7 +854,7 @@
       saveState();
       updateUI();
       showSection('dashboard');
-      alert(Quiz complete! You scored ${state.score}/${totalQs} 🎉 Great job with 2025 updates!);
+      alert(`Quiz complete! You scored ${state.score}/${totalQs} 🎉 Great job with 2025 updates!`);
     }
 
     quitQuiz.onclick = ()=> showSection('dashboard');
@@ -866,13 +866,13 @@
       const requiredLevel = {literacy: 2, loans: 3, insurance: 5, entre: 7}[t] || 1;
       if (lessons[t] && state.level >= requiredLevel) {
         lessonBox.classList.remove('hidden');
-        lessonBox.innerHTML = <h4 style="color:var(--primary);">${lessons[t].title}</h4><p style="line-height:1.5;">${lessons[t].text}</p><div class="row"><button id="markDone" class="ghost">Mark Done & Earn! ⭐</button></div>;
+        lessonBox.innerHTML = `<h4 style="color:var(--primary);">${lessons[t].title}</h4><p style="line-height:1.5;">${lessons[t].text}</p><div class="row"><button id="markDone" class="ghost">Mark Done & Earn! ⭐</button></div>`;
         const markBtn = document.getElementById('markDone');
         if(markBtn) markBtn.onclick = ()=>{
           state.challenges.lesson = true;
           state.lessonsCompleted = (state.lessonsCompleted || 0) + 1;
           state.badges = state.badges || [];
-          const badgeName = ${lessons[t].title.split(' ')[0]} Expert;
+          const badgeName = `${lessons[t].title.split(' ')[0]} Expert`;
           if(!state.badges.includes(badgeName)) state.badges.push(badgeName);
           state.points = (state.points || 0) + 15;
           if (state.lessonsCompleted >= 4) {
@@ -883,8 +883,8 @@
             }
           }
           if (state.lessonsCompleted >= 8) { // Updated for new lesson
-            if (!state.badges.includes('Finance Wizard 🧙‍♂')) {
-              state.badges.push('Finance Wizard 🧙‍♂');
+            if (!state.badges.includes('Finance Wizard 🧙‍♂️')) {
+              state.badges.push('Finance Wizard 🧙‍♂️');
               showReward('Ultimate Learner!', 'Finance Wizard badge! 🎓');
               triggerConfetti();
             }
@@ -897,7 +897,7 @@
           alert('Lesson completed! +15 points & badge unlocked! 🎊');
         };
       } else {
-        alert(Level ${requiredLevel} required to unlock this lesson! 📚 Keep earning points.);
+        alert(`Level ${requiredLevel} required to unlock this lesson! 📚 Keep earning points.`);
       }
     });
 
@@ -964,7 +964,7 @@
       activityArea.innerHTML = `
         <h3>Savings Goal Calculator 🐷</h3>
         <p>Goal: ₹<input id="goal" type="number" value="5000"> | Monthly Save: ₹<input id="monthly" type="number" value="500"> | Interest Rate: <input id="rate" type="number" step="0.01" value="8.05">% (RBI 2025)</p>
-        <button onclick="calculateSavings()">Calculate Time! ⏱</button>
+        <button onclick="calculateSavings()">Calculate Time! ⏱️</button>
         <div id="savingsResult" class="activity-result"></div>
       `;
       activityArea.classList.remove('hidden');
@@ -994,7 +994,7 @@
         state.badges.push('Savings Pro 🏅');
         showReward('Goal Achieved!', 'Savings Pro badge! +25 pts 📈');
       }
-      result.innerHTML = <p style="color:green;">Takes ${Math.ceil(months / 12)} years & ${months % 12} months! Great planning at ${document.getElementById('rate').value}%! +25 points 🎉</p>;
+      result.innerHTML = `<p style="color:green;">Takes ${Math.ceil(months / 12)} years & ${months % 12} months! Great planning at ${document.getElementById('rate').value}%! +25 points 🎉</p>`;
       saveState();
       updateUI();
       triggerConfetti();
@@ -1020,7 +1020,7 @@
         <h3>Stock Mini-Game 📈 (SEBI 2025 Edition)</h3>
         <p>Invest ₹1000: Choose wisely—remember SEBI: Diversify, avoid traps! <br><small>Tech: Risky (+/-20%), Safe: Stable (+5-8%). Roll for outcome.</small></p>
         <button onclick="playStock('tech')">Tech Stock! 🚀 (High Risk)</button>
-        <button onclick="playStock('safe')">Safe Bond! 🛡 (Low Risk)</button>
+        <button onclick="playStock('safe')">Safe Bond! 🛡️ (Low Risk)</button>
         <div id="stockResult" class="activity-result"></div>
       `;
       activityArea.classList.remove('hidden');
@@ -1040,15 +1040,15 @@
       } else {
         change = Math.floor(Math.random() * 40) + 50; // 50-90
         sebiTip = "Steady growth—SEBI loves calculated risks!";
-        badge = 'Safe Investor 🛡';
+        badge = 'Safe Investor 🛡️';
       }
       state.points += Math.max(10, Math.abs(change)); // Min 10 pts
       state.activitiesCompleted.stock = true;
       if (!state.badges.includes(badge)) {
         state.badges.push(badge);
-        showReward('Investment Made!', ${badge} badge! +${Math.abs(change)} pts 💰);
+        showReward('Investment Made!', `${badge} badge! +${Math.abs(change)} pts 💰`);
       }
-      result.innerHTML = <p style="color:${change > 0 ? 'green' : 'orange'};">Your ₹1000 became ₹${1000 + change}! ${sebiTip} 🎉</p>;
+      result.innerHTML = `<p style="color:${change > 0 ? 'green' : 'orange'};">Your ₹1000 became ₹${1000 + change}! ${sebiTip} 🎉</p>`;
       saveState();
       updateUI();
       triggerConfetti();
@@ -1097,9 +1097,9 @@
       const badge = score === 3 ? 'UPI Pro 🔒' : 'UPI Learner 📱';
       if (!state.badges.includes(badge)) {
         state.badges.push(badge);
-        showReward('UPI Sent!', ${badge} badge! +${score*10} pts ⚡);
+        showReward('UPI Sent!', `${badge} badge! +${score*10} pts ⚡`);
       }
-      result.innerHTML = <p style="color:${score===3 ? 'green' : 'orange'};">${feedback} Transaction success! ${score}/3 safe steps. 🎉</p>;
+      result.innerHTML = `<p style="color:${score===3 ? 'green' : 'orange'};">${feedback} Transaction success! ${score}/3 safe steps. 🎉</p>`;
       saveState();
       updateUI();
       triggerConfetti();
@@ -1120,13 +1120,13 @@
       mentorLog.innerHTML = '';
       (state.mentorLog || []).forEach((item, index)=>{
         const el = document.createElement('div');
-        el.style.animationDelay = ${index * 0.1}s;
+        el.style.animationDelay = `${index * 0.1}s`;
         if(item.from === 'user'){
           el.className = 'mentorEntry';
-          el.innerHTML = <b>You:</b> ${escapeHtml(item.text)} 💬;
+          el.innerHTML = `<b>You:</b> ${escapeHtml(item.text)} 💬`;
         } else {
           el.className = 'mentorBot';
-          el.innerHTML = <b>Mentor:</b> ${escapeHtml(item.text)} 🤖;
+          el.innerHTML = `<b>Mentor:</b> ${escapeHtml(item.text)} 🤖`;
         }
         mentorLog.appendChild(el);
       });
@@ -1155,9 +1155,132 @@
       else if(q.includes('sebi')) resp = "SEBI: Stock guardian. 2025 tips: Early investing, no influencer traps, diversify. Verify on sebi.gov.in! 📊";
       else if(q.includes('invest') || q.includes('stock') || q.includes('mutual')) resp = "Start SIPs ₹500/mo in mutuals. SEBI 2025: Learn risks, avoid gambling/free tips. Zerodha teen-friendly! 🌱";
       else if(q.includes('pmjdy')) resp = "PMJDY: Free accounts + RuPay. 50Cr+ opened—link Aadhaar for UPI. Jump in! 🚀";
-      else if(q.includes('pmjjby')) resp = "PMJJBY: ₹2L life cover ₹436/yr. Auto from PMJDY—family peace! 🛡";
+      else if(q.includes('pmjjby')) resp = "PMJJBY: ₹2L life cover ₹436/yr. Auto from PMJDY—family peace! 🛡️";
       else if(q.includes('apy') || q.includes('pension')) resp = "APY: ₹1k/mo now = ₹5k pension @60. Ages 18-40—early wins! ⏳";
       else if(q.includes('fraud') || q.includes('scam')) resp = "Never OTPs, ignore 'win big'. Report cybercrime.gov.in/SEBI SCORES. Vigilant! 🛑";
       else if(q.includes('neft') || q.includes('rtgs')) resp = "NEFT small/24x7, RTGS big/₹2L+. Free via UPI—seamless! ⚡";
       else if(q.includes('fixed deposit') || q.includes('fd')) resp = "FDs: 6-10% interest. Lock ₹10k/1yr for extra. Post office too! 🔒";
       else if(q.includes('literacy') || q.includes('financial')) resp = "Only 27% Indians literate, but you're ahead! 2025 NCFE quiz coming. Apps like this bridge gap! ⭐";
+      else if(q.includes('loan')) resp = "Borrow for needs, not wants. RBI rates fair—good credit early! 🏦";
+      else if(q.includes('insurance')) resp = "Safety net: Health bills, family protect. Govt cheap—2025 essential! 🛡️";
+      else if(q.includes('entre')) resp = "Solve problems: Tutor/crafts. 2025 CSR funds literacy biz—pitch! 💼";
+      else if(q.includes('upi stats') || q.includes('2025 upi')) resp = "UPI H1 2025: 10,637 Cr txns, ₹143L Cr value. 85% of digital vol—future of payments! 📈";
+      else if(q.includes('literacy week')) resp = "Feb 24-28, 2025: 'Women's Prosperity'. RBI/SEBI focus inclusion—join quizzes! 🌟";
+      const botEntry = {from:'bot', text: resp};
+      state.mentorLog.push(botEntry);
+      setTimeout(() => renderMentorLog(), 500);
+      mentorQ.value='';
+      saveState();
+    };
+
+    clearLog.onclick = ()=>{
+      if(confirm('Clear the mentor conversation? Fresh start! 🆕')){
+        state.mentorLog = [];
+        saveState();
+        renderMentorLog();
+      }
+    }
+
+    backDash2.onclick = ()=> showSection('dashboard');
+
+    function escapeHtml(unsafe){
+      return unsafe
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    // Reward Popup
+    function showReward(title, msg) {
+      rewardTitle.innerText = title;
+      rewardMsg.innerText = msg;
+      rewardPopup.style.display = 'block';
+    }
+
+    function closeReward() {
+      rewardPopup.style.display = 'none';
+    }
+
+    // Simple Confetti
+    function triggerConfetti() {
+      const canvas = confetti;
+      canvas.innerHTML = '';
+      for (let i = 0; i < 100; i++) {
+        const emoji = ['🎉', '⭐', '🚀', '🏆', '💰', '📱'][Math.floor(Math.random() * 6)]; // Added 📱
+        const span = document.createElement('span');
+        span.innerText = emoji;
+        span.style.position = 'fixed';
+        span.style.left = Math.random() * 100 + 'vw';
+        span.style.top = '-10px';
+        span.style.fontSize = '20px';
+        span.style.pointerEvents = 'none';
+        span.style.animation = 'confetti-fall 2s linear forwards';
+        canvas.appendChild(span);
+        setTimeout(() => span.remove(), 2000);
+      }
+    }
+
+    // Add confetti animation
+    const style = document.createElement('style');
+    style.innerHTML = `
+      @keyframes confetti-fall {
+        to {
+          transform: translateY(100vh) rotate(360deg);
+          opacity: 0;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Enhanced Modal Functions
+    function showMVPModal(title = 'FinTeens Tour', initialText = 'Welcome! Let\'s explore the app together. 🚀') {
+      modalTitle.innerText = title;
+      modalText.innerText = initialText;
+      renderSteps();
+      currentStep = 0;
+      updateStepUI();
+      modal.classList.remove('hidden');
+    }
+
+    function renderSteps() {
+      modalSteps.innerHTML = '';
+      tourSteps.forEach((step, index) => {
+        const stepEl = document.createElement('div');
+        stepEl.className = 'step';
+        stepEl.innerHTML = `<strong>${step.title}</strong><p>${step.text}</p>`;
+        modalSteps.appendChild(stepEl);
+      });
+    }
+
+    function updateStepUI() {
+      const steps = modalSteps.querySelectorAll('.step');
+      steps.forEach((s, i) => s.classList.toggle('active', i === currentStep));
+      prevStep.style.display = currentStep > 0 ? 'block' : 'none';
+      nextStep.style.display = currentStep < tourSteps.length - 1 ? 'block' : 'none';
+      finishTour.style.display = currentStep === tourSteps.length - 1 ? 'block' : 'none';
+    }
+
+    closeModal.onclick = () => modal.classList.add('hidden');
+    nextStep.onclick = () => { if (currentStep < tourSteps.length - 1) { currentStep++; updateStepUI(); } };
+    prevStep.onclick = () => { if (currentStep > 0) { currentStep--; updateStepUI(); } };
+    finishTour.onclick = () => {
+      modal.classList.add('hidden');
+      if (!state.badges.includes('Tour Explorer')) {
+        state.badges.push('Tour Explorer 🌍');
+        state.points += 10;
+        saveState();
+        updateUI();
+        showReward('Tour Complete!', '+10 points & Tour Explorer badge! 🎉');
+        triggerConfetti();
+      }
+    };
+    window.onclick = (e) => { if (e.target === modal) modal.classList.add('hidden'); };
+
+    // Initial Load
+    showSection('onboard');
+    loadState();
+  </script>
+</body>
+</html>
