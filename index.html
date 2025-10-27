@@ -128,4 +128,171 @@
       background:#f1f5f9;color:#06283d;border-radius:10px;padding:14px;border:none;
       transition:background 0.3s ease, transform 0.2s ease;
     }
-    #answers button:hover{transform:translateX(4px);}...
+    #answers button:hover{transform:translateX(4px);}
+    #answers button.correct{background:linear-gradient(135deg,#dff7e2,#c3e6cb);box-shadow:0 4px 12px rgba(40,167,69,0.2);}
+    #answers button.wrong{background:linear-gradient(135deg,#ffe6e6,#f8d7da);box-shadow:0 4px 12px rgba(220,53,69,0.2);}
+    #questionArea h3{margin:0 0 12px 0;color:var(--primary);font-weight:600;}
+  </style>
+</head>
+<body>
+  <!-- App content would follow here, omitted for brevity in this paste snippet -->
+  <script>
+    function checkDailyLogin() {
+      const today = new Date().toDateString();
+      if (state.lastLogin !== today) {
+        state.streak = (state.lastLogin && new Date(state.lastLogin).toDateString() === new Date(Date.now() - 86400000).toDateString()) ? state.streak + 1 : 1;
+        state.points += 5 * state.streak; // Bonus for streak
+        state.lastLogin = today;
+        saveState();
+        updateUI();
+        showReward('Daily Login Bonus!', `+${5 * state.streak} points for streak of ${state.streak}! 🔥`);
+        triggerConfetti();
+        if (state.streak >= 7) {
+          if (!state.badges.includes('Streak Master 🔥')) {
+            state.badges.push('Streak Master 🔥');
+            saveState();
+            updateUI();
+            showReward('Streak Master Achieved!', '7-day streak! Extra badge unlocked! 🏆');
+          }
+        }
+      }
+    }
+
+    function updateStreak() {
+      streakDisplay.style.display = state.streak > 0 ? 'inline-flex' : 'none';
+      if (state.streak > 0) streakDisplay.innerHTML = `Streak: ${state.streak} 🔥`;
+    }
+
+    function updateLevelContent() {
+      hubLevel.innerText = state.level;
+      // Unlock lessons and activities based on level
+      if (state.level >= 3) {
+        loansCard.style.display = 'block';
+        stockGameCard.style.display = 'block';
+      }
+      if (state.level >= 5) {
+        insuranceCard.style.display = 'block';
+      }
+      if (state.level >= 7) {
+        entreCard.style.display = 'block';
+      }
+      // Remove level-locked class if unlocked
+      if (state.level >= 3) investBtn.parentElement.classList.remove('level-locked');
+    }
+
+    startBtn.onclick = ()=>{
+      const nm = nameInput.value.trim();
+      const ag = parseInt(ageInput.value);
+      if(!nm || !ag){ alert('Please enter name and age to start your adventure! 🌟'); return; }
+      state.name = nm;
+      state.age = ag;
+      state.points = state.points || 0;
+      state.level = state.level || 1;
+      state.badges = state.badges || [];
+      state.streak = state.streak || 0;
+      state.lastLogin = state.lastLogin || null;
+      state.challenges = state.challenges || {quiz: false, lesson: false, activity: false, mentor: false};
+      state.activitiesCompleted = state.activitiesCompleted || {budget: false, savings: false, stock: false};
+      state.currentQ = 0;
+      state.score = 0;
+      state.quizAnswered = false;
+      state.lessonsCompleted = state.lessonsCompleted || 0;
+      saveState();
+      updateUI();
+      updateLevelContent();
+      showSection('dashboard');
+      checkDailyLogin();
+    }
+
+    tourBtn.onclick = () => showMVPModal('Quick Tour 🎉', 'Swipe to learn how FinTeens works! Ready for fun? 🚀');
+
+    resetBtn.onclick = ()=>{ if(confirm('Reset demo data? Your adventure starts fresh! 🌱')){ localStorage.removeItem('finteens_state'); location.reload(); } }
+
+    function showSection(s){
+      [onboard, dashboard, quiz, hub, activities, mentor].forEach(el => el.classList.add('hidden'));
+      const target = document.getElementById(s);
+      target.classList.remove('hidden');
+      target.style.animation = 'fadeIn 0.6s ease-out';
+    }
+
+    function updateUI(){
+      welcomeMsg.innerText = state.name ? `Hi ${state.name}! 🌟` : 'Hi! 👋';
+      userNameDisplay.innerText = state.name ? state.name : '';
+      pointsEl.innerText = state.points || 0;
+      levelEl.innerText = state.level || 1;
+      const pct = Math.min(100, (state.points || 0) % 100);
+      bar.style.width = pct + '%';
+      badgesEl.innerHTML = '';
+      (state.badges || []).forEach(b=>{
+        const bdiv = document.createElement('span');
+        bdiv.className = 'badge';
+        bdiv.innerText = b;
+        badgesEl.appendChild(bdiv);
+      });
+      tipText.innerText = [
+        "Save small, start today. Your future self thanks you! 🌈",
+        "Track one expense daily. Knowledge is power! 💪",
+        "Ask mentor for quick tips. You're not alone! 🤝",
+        "Level up by completing activities—fun awaits! 🎮"
+      ][Math.floor(Math.random()*4)];
+      updateStreak();
+      updateLevelContent();
+    }
+
+    // Challenges
+    challengesBtn.onclick = () => {
+      showSection('dashboard');
+      challenges.classList.toggle('hidden');
+    };
+
+    function updateChallenges() {
+      const items = challengeList.querySelectorAll('.challenge-item');
+      items.forEach(item => {
+        const challenge = item.dataset.challenge;
+        item.classList.toggle('completed', state.challenges[challenge]);
+      });
+      claimRewards.style.display = Object.values(state.challenges).every(c => c) ? 'block' : 'none';
+    }
+
+    claimRewards.onclick = () => {
+      let totalReward = 0;
+      Object.keys(state.challenges).forEach(key => {
+        if (state.challenges[key]) {
+          const rewards = {quiz: 20, lesson: 15, activity: 25, mentor: 10};
+          totalReward += rewards[key];
+          state.challenges[key] = false; // Reset for next day
+        }
+      });
+      if (totalReward > 0) {
+        state.points += totalReward;
+        saveState();
+        updateUI();
+        showReward('Challenges Complete!', `+${totalReward} bonus points! 🎁`);
+        triggerConfetti();
+        updateChallenges();
+      }
+    }
+
+    // Quiz
+    quizBtn.onclick = ()=>{ startQuiz(); showSection('quiz'); }
+    function startQuiz(){
+      state.currentQ = 0;
+      state.score = 0;
+      state.quizAnswered = false;
+      renderQuestion();
+      nextQ.classList.add('hidden');
+      prevQ.classList.add('hidden');
+      finish.classList.add('hidden');
+    }
+
+    function renderQuestion(){
+      const q = sampleQuestions[state.currentQ];
+      questionArea.innerHTML = `<h3>Q${state.currentQ+1}. ${q.q} ❓</h3>`;
+      answers.innerHTML = '';
+      state.quizAnswered = false;
+      q.options.forEach((opt,i)=>{
+        const btn = document.createElement('button');
+        btn.innerText = `• ${opt}`;
+        btn.onclick = ()=> checkAnswer(i);
+        answers.appendChild(btn);
+      });
