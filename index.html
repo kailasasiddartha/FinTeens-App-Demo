@@ -17,6 +17,7 @@
       --bg2:#e8f7ff;
       --shadow-light:0 4px 12px rgba(11,102,179,0.1);
       --shadow-hover:0 8px 24px rgba(11,102,179,0.15);
+      --glass: rgba(255,255,255,0.6);
     }
     body{
       background:linear-gradient(135deg,var(--bg1),var(--bg2));
@@ -24,7 +25,7 @@
       animation:fadeIn 0.8s ease-out;
     }
     @keyframes fadeIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
-    .container{max-width:980px;margin:0 auto}
+    .container{max-width:1100px;margin:0 auto}
     .topbar{
       display:flex;justify-content:space-between;align-items:center;
       background:linear-gradient(135deg,white, rgba(255,255,255,0.8));
@@ -35,8 +36,8 @@
     h1{margin:0;color:var(--primary);font-weight:700;font-size:1.8em;letter-spacing:-0.5px;}
     .card{
       background:linear-gradient(145deg,white, rgba(255,255,255,0.9));
-      padding:24px;border-radius:20px;margin-top:20px;box-shadow:var(--shadow-light);
-      transition:transform 0.3s ease, box-shadow 0.3s ease;
+      padding:20px;border-radius:16px;margin-top:16px;box-shadow:var(--shadow-light);
+      transition:transform 0.28s ease, box-shadow 0.28s ease;
       position:relative;overflow:hidden;
     }
     .card::before{content:'';position:absolute;top:0;left:0;width:100%;height:4px;background:linear-gradient(90deg,var(--primary),var(--accent));}
@@ -44,53 +45,50 @@
     .center{text-align:center}
     .small{font-size:13px}
     .hidden{display:none}
-    input{
-      display:block;padding:14px;margin:12px 0;border-radius:12px;border:2px solid #e6eef7;
-      width:100%;font-size:16px;transition:border-color 0.3s ease;
-      background:rgba(255,255,255,0.8);
+    input, select{
+      display:block;padding:10px;margin:8px 0;border-radius:10px;border:1px solid #e6eef7;
+      width:100%;font-size:14px;background:rgba(255,255,255,0.95);
     }
-    input:focus{border-color:var(--primary);outline:none;box-shadow:0 0 0 3px rgba(11,102,179,0.1);}
     button{
       background:linear-gradient(135deg,var(--primary),#085a9a);color:#fff;border:none;
-      padding:12px 20px;border-radius:12px;cursor:pointer;font-weight:500;
-      transition:transform 0.2s ease, box-shadow 0.2s ease;
+      padding:10px 14px;border-radius:10px;cursor:pointer;font-weight:600;
+      transition:transform 0.14s ease, box-shadow 0.14s ease;
     }
-    button:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(11,102,179,0.3);}
+    button:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(11,102,179,0.18);}
     button.ghost{
       background:transparent;color:var(--primary);border:2px solid #cfe6ff;
-      transition:border-color 0.3s ease, color 0.3s ease;
+      transition:border-color 0.2s ease, color 0.2s ease;
     }
-    button.ghost:hover{border-color:var(--accent);color:var(--accent);background:rgba(255,183,3,0.1);}
     .row{display:flex;gap:12px;align-items:center;flex-wrap:wrap;}
     .row.space{justify-content:space-between}
     .welcomeCard{flex:1}
-    .actions{display:flex;flex-direction:column;gap:10px;min-width:150px}
+    .actions{display:flex;flex-direction:column;gap:10px;min-width:170px}
     .progressbar{
       background:#f1f5f9;border-radius:12px;height:8px;overflow:hidden;margin-top:12px;
       box-shadow:inset 0 2px 4px rgba(0,0,0,0.05);
     }
     .bar{
       height:100%;width:0%;background:linear-gradient(90deg,var(--accent),var(--accent-dark));
-      border-radius:12px;transition:width 0.6s ease-out;
-      box-shadow:0 0 10px rgba(255,183,3,0.5);
+      border-radius:12px;transition:width 0.6s cubic-bezier(.2,.9,.2,1);
+      box-shadow:0 0 10px rgba(255,183,3,0.35);
     }
     .badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
     .badge{
-      padding:10px 14px;border-radius:50px;background:linear-gradient(135deg,#ffd6a5,#fdc49b);
-      color:#6b2a00;font-weight:600;font-size:14px;
+      padding:8px 12px;border-radius:30px;background:linear-gradient(135deg,#ffd6a5,#fdc49b);
+      color:#6b2a00;font-weight:600;font-size:13px;
       display:flex;align-items:center;gap:6px;
-      transition:transform 0.2s ease;
-      box-shadow:0 2px 8px rgba(251,86,7,0.2);
+      transition:transform 0.18s ease;
+      box-shadow:0 2px 8px rgba(251,86,7,0.14);
     }
-    .badge:hover{transform:scale(1.05);}
-    .badge::before{content:'🏆';font-size:16px;}
-    .muted{color:#667784;font-style:italic;}
+    .badge:hover{transform:scale(1.04);}
+    .badge::before{content:'🏆';font-size:14px;}
+    .muted{color:#667784;font-style:italic;font-size:13px}
     .cardsGrid{
       display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:16px;
     }
     .learnCard, .activityCard{
-      padding:20px;border-radius:16px;background:linear-gradient(145deg,#fff,#fffef6);
-      box-shadow:var(--shadow-light);transition:transform 0.3s ease, box-shadow 0.3s ease;
+      padding:16px;border-radius:12px;background:linear-gradient(145deg,#fff,#fffef6);
+      box-shadow:var(--shadow-light);transition:transform 0.22s ease, box-shadow 0.22s ease;
       position:relative;overflow:hidden;
     }
     .learnCard::before, .activityCard::before{
@@ -101,19 +99,18 @@
     .learnBtn, .activityBtn{
       margin-top:12px;background:linear-gradient(135deg,var(--accent),var(--accent-dark));
       color:#fff;border:none;padding:10px;border-radius:10px;width:100%;font-weight:600;
-      transition:transform 0.2s ease;
+      transition:transform 0.14s ease;
     }
     .learnBtn:hover, .activityBtn:hover{transform:scale(1.02);}
-    .lesson{margin-top:16px}
+    .lesson{margin-top:14px}
     .mentorBox{display:flex;flex-direction:column;gap:12px}
     .mentorLog{
-      min-height:140px;border-radius:14px;padding:16px;background:#f8fafc;
-      border:2px dashed #d1e3f8;overflow:auto;
-      animation:fadeIn 0.5s ease-out;
+      min-height:140px;border-radius:12px;padding:14px;background:#f8fafc;
+      border:2px dashed #d1e3f8;overflow:auto;animation:fadeIn 0.5s ease-out;
     }
     .mentorEntry, .mentorBot {
-      margin:12px 0;padding:12px;border-left:4px solid #ccc;border-radius:8px;
-      animation:slideIn 0.3s ease-out;
+      margin:12px 0;padding:10px;border-left:4px solid #ccc;border-radius:8px;
+      animation:slideIn 0.26s ease-out;
     }
     @keyframes slideIn{from{opacity:0;transform:translateX(-20px);}to{opacity:1;transform:translateX(0);} }
     .mentorEntry { border-left-color: var(--primary); background:rgba(11,102,179,0.05); }
@@ -121,81 +118,49 @@
     footer{
       margin-top:20px;text-align:center;color:#234;
       background:linear-gradient(135deg,white, rgba(255,255,255,0.8));
-      padding:16px;border-radius:16px;box-shadow:var(--shadow-light);
+      padding:14px;border-radius:12px;box-shadow:var(--shadow-light);
     }
     #answers button{
       display:block;width:100%;text-align:left;margin:10px 0;
-      background:#f1f5f9;color:#06283d;border-radius:10px;padding:14px;border:none;
-      transition:background 0.3s ease, transform 0.2s ease;
+      background:#f1f5f9;color:#06283d;border-radius:10px;padding:12px;border:none;
+      transition:background 0.2s ease, transform 0.14s ease;
     }
     #answers button:hover{transform:translateX(4px);}
-    #answers button.correct{background:linear-gradient(135deg,#dff7e2,#c3e6cb);box-shadow:0 4px 12px rgba(40,167,69,0.2);}
-    #answers button.wrong{background:linear-gradient(135deg,#ffe6e6,#f8d7da);box-shadow:0 4px 12px rgba(220,53,69,0.2);}
+    #answers button.correct{background:linear-gradient(135deg,#dff7e2,#c3e6cb);box-shadow:0 4px 12px rgba(40,167,69,0.12);}
+    #answers button.wrong{background:linear-gradient(135deg,#ffe6e6,#f8d7da);box-shadow:0 4px 12px rgba(220,53,69,0.12);}
     #questionArea h3{margin:0 0 12px 0;color:var(--primary);font-weight:600;}
     #userNameDisplay{font-weight:700;color:var(--primary);margin-right:12px;}
     #resetBtn{background:transparent;border:none;color:#c0392b;cursor:pointer;font-size:16px;}
     #resetBtn:hover{color:#a93226;}
-    /* Enhanced MVP Modal Styles */
-    .modal {
-      position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%;
-      background: rgba(6, 40, 61, 0.6); display: flex; align-items: center; justify-content: center;
-      backdrop-filter: blur(8px); animation: modalFade 0.4s ease-out;
-    }
-    @keyframes modalFade{from{opacity:0;}to{opacity:1;}}
+    /* Modal */
+    .modal { position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%;
+      background: rgba(6, 40, 61, 0.55); display: flex; align-items: center; justify-content: center; }
     .modal.hidden { display: none; }
-    .modal-content {
-      background: linear-gradient(145deg,white,#f8f9ff); margin: auto; padding: 0; border-radius: 20px;
-      width: 90%; max-width: 520px; max-height: 85%; overflow-y: auto;
-      box-shadow: 0 24px 48px rgba(6, 40, 61, 0.15); position: relative;
-      animation: modalSlide 0.5s ease-out;
-    }
-    @keyframes modalSlide{from{opacity:0;transform:scale(0.9) translateY(20px);}to{opacity:1;transform:scale(1) translateY(0);}}
-    .modal-header {
-      display: flex; justify-content: space-between; align-items: center; padding: 20px;
-      border-bottom: 1px solid #e6eef7; background: linear-gradient(135deg, var(--bg1), var(--bg2));
-      border-radius:20px 20px 0 0;
-    }
-    .modal-header h3 { margin: 0; color: var(--primary); font-size: 1.4em; font-weight:600; }
-    .close-btn {
-      background: none; border: none; font-size: 28px; cursor: pointer; color: #667784; padding: 0;
-      width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-      transition:background 0.3s ease, color 0.3s ease;
-    }
-    .close-btn:hover { background: #f1f5f9; color:var(--primary); transform:rotate(90deg); }
-    .modal-body { padding: 24px; text-align: center; }
-    .steps { display: flex; flex-direction: column; gap: 16px; margin-top: 16px; }
-    .step {
-      padding: 16px; background: #f8fafc; border-radius: 12px; border-left: 5px solid var(--accent);
-      text-align: left; opacity: 0.8; transition: all 0.4s ease; position:relative;
-      box-shadow:0 2px 8px rgba(0,0,0,0.05);
-    }
-    .step::before{content:'✨';position:absolute;top:12px;left:12px;font-size:18px;}
-    .step.active {
-      opacity: 1; transform:translateX(8px); background:linear-gradient(135deg,#fff,#f0f8ff);
-      box-shadow:0 6px 20px rgba(255,183,3,0.15); border-left-color:var(--primary);
-    }
-    .modal-footer {
-      display: flex; justify-content: space-between; padding: 20px; border-top: 1px solid #e6eef7; gap: 12px;
-      background:linear-gradient(135deg, var(--bg1), var(--bg2)); border-radius:0 0 20px 20px;
-    }
-    .modal-footer button { flex: 1; padding: 12px; border-radius:12px; font-weight:500; }
-    #prevStep, #finishTour { display: none; }
-    #finishTour{background:linear-gradient(135deg,var(--success),#218838);color:#fff;}
-    #mentorLog { height: 320px; overflow-y: auto; border: 1px solid #ddd; padding: 12px; border-radius:12px; }
-    .ghost { background: transparent; border: 2px solid #ccc; }
-    .streak-badge { background: linear-gradient(135deg, #ffd700, #ffed4e); color: #b8860b; }
-    .challenge-card { background: linear-gradient(135deg, #e8f5e8, #f0f8f0); border-left: 5px solid var(--success); }
-    .challenge-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #e0e0e0; }
-    .challenge-item.completed { text-decoration: line-through; color: #888; }
-    .reward-popup { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border-radius: 12px; box-shadow: 0 20px 40px rgba(0,0,0,0.15); z-index: 1002; }
-    .confetti { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1001; }
-    .level-locked { opacity: 0.5; pointer-events: none; }
-    .level-locked::after { content: '🔒 Locked'; position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.6); color: white; padding: 4px 8px; border-radius: 8px; font-size: 12px; }
-    /* New styles for updated features */
-    .activity-result { margin-top: 16px; padding: 12px; border-radius: 8px; background: #f8f9fa; }
-    .upi-stats { font-weight: bold; color: var(--success); }
-    /* small responsive */
-    @media (max-width:600px){ .row{flex-direction:column;align-items:stretch} .actions{min-width:unset} }
+    .modal-content { background: linear-gradient(145deg,white,#f8f9ff); padding: 0; border-radius: 14px; width: 94%; max-width: 960px; max-height: 90%; overflow-y:auto; box-shadow:0 26px 44px rgba(6,40,61,0.12); }
+    .modal-header{ padding:14px 18px; display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #eef3fb;}
+    .close-btn{ background:none;border:none;font-size:22px;cursor:pointer;color:#667784;padding:8px;border-radius:8px;}
+    .close-btn:hover{ color:var(--primary);transform:rotate(90deg); }
+    .modal-body{ padding:18px; }
+
+    /* Dashboard animation styles */
+    .floating { animation: floaty 6s ease-in-out infinite; will-change: transform; }
+    @keyframes floaty { 0% { transform: translateY(0px); } 50% { transform:translateY(-8px); } 100% { transform:translateY(0px); } }
+    .pulse { animation: pulse 1.8s infinite; }
+    @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(11,102,179,0.15); } 70% { box-shadow: 0 0 0 18px rgba(11,102,179,0); } 100% { box-shadow: 0 0 0 0 rgba(11,102,179,0); } }
+    .walletCard { display:flex;flex-direction:column;gap:8px; align-items:flex-start; position:relative; overflow:visible; }
+    .coin { width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#ffd166,#ffb703);display:inline-flex;align-items:center;justify-content:center;font-size:14px;margin-right:6px;box-shadow:0 6px 14px rgba(251,86,7,0.08); }
+    .portfolio-list{max-height:220px;overflow:auto;margin-top:8px;border-radius:10px;padding:8px;background:linear-gradient(180deg,#fff,#fbfffb);width:100%}
+    .portfolio-item{display:flex;justify-content:space-between;padding:8px;border-bottom:1px dashed #e6efe6}
+    .portfolio-item:last-child{border-bottom:none}
+    .animatedPoints { display:inline-block; transition:transform 0.45s cubic-bezier(.2,.9,.2,1); }
+    .grow { transform: scale(1.06); color: var(--success); }
+    /* Trading UI styles */
+    .trade-grid{display:grid;grid-template-columns:1fr 360px;gap:12px;align-items:start}
+    .market-watch{display:flex;gap:8px;flex-direction:column}
+    .watch-item{display:flex;justify-content:space-between;padding:8px;border-radius:8px;background:#fff;border:1px solid #eef6fb}
+    .order-book, .orders, .order-history{max-height:160px;overflow:auto;padding:8px;border-radius:8px;background:#fff;border:1px solid #eef6fb}
+    .row-inline{display:flex;gap:8px;align-items:center}
+    @media (max-width:900px){ .trade-grid{grid-template-columns:1fr} .actions{min-width:unset} }
   </style>
 </head>
 <body>
@@ -233,10 +198,14 @@
 
       <section id="dashboard" class="hidden">
         <div class="row space">
-          <div class="card small welcomeCard">
+          <div class="card small welcomeCard floating">
             <h3 id="welcomeMsg" style="color:var(--primary);">Hi!</h3>
-            <p id="levelMsg" style="font-weight:500;">Level: <span id="level">1</span> • Points: <span id="points">0</span></p>
+            <p id="levelMsg" style="font-weight:500;">Level: <span id="level">1</span> • Points: <span id="points" class="animatedPoints">0</span></p>
             <div class="progressbar"><div id="bar" class="bar"></div></div>
+            <div style="display:flex;gap:8px;margin-top:12px;align-items:center;">
+              <div class="coin">₹</div>
+              <div class="muted small">Pocket finance made fun — track & grow!</div>
+            </div>
           </div>
 
           <div class="card small actions">
@@ -245,32 +214,77 @@
             <button id="activitiesBtn">Fun Activities 🎮</button>
             <button id="mentorBtn">Ask Mentor 🤖</button>
             <button id="challengesBtn">Challenges ⚡</button>
+            <button id="tradingBtn" class="ghost" style="margin-top:6px;">Open Trading Desk 💹</button>
           </div>
         </div>
 
-        <div class="card badgesCard">
+        <div class="row" style="gap:16px;align-items:flex-start;margin-top:14px;">
+          <!-- Wallet Card -->
+          <div class="card walletCard floating" style="flex:1;min-width:300px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;width:100%;">
+              <h4 style="margin:0;color:var(--primary);">Wallet 💳 (Demo)</h4>
+              <div style="display:flex;align-items:center;gap:6px">
+                <div class="coin">₹</div>
+                <div style="font-weight:700;font-size:1.05em" id="walletBalance">₹0</div>
+              </div>
+            </div>
+            <p class="muted small">Use demo wallet to deposit and trade — funds & trades are simulated for learning.</p>
+            <div class="wallet-actions" style="width:100%;display:flex;gap:8px;">
+              <input id="depositAmt" placeholder="Amount to deposit (₹)" type="number" min="1" style="flex:1;padding:8px;border-radius:10px;border:1px solid #e6eef7"/>
+              <button id="depositBtn" class="ghost">Deposit</button>
+            </div>
+            <div class="wallet-actions" style="width:100%;display:flex;gap:8px;">
+              <input id="sendAmt" placeholder="Amount to withdraw (₹)" type="number" min="1" style="flex:1;padding:8px;border-radius:10px;border:1px solid #e6eef7"/>
+              <button id="withdrawBtn" class="ghost">Withdraw</button>
+            </div>
+            <div style="margin-top:10px;">
+              <small class="muted">Tip: Deposit demo funds and try trading. Orders support market & limit types; limit orders execute when price reaches your target.</small>
+            </div>
+          </div>
+
+          <!-- Portfolio Card -->
+          <div class="card floating" style="flex:1;min-width:300px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <h4 style="margin:0;color:var(--accent-dark);">Portfolio / Demat Account</h4>
+              <div style="font-weight:700;color:var(--primary)" id="portfolioValue">₹0</div>
+            </div>
+            <div class="portfolio-list" id="portfolioList">
+              <div class="muted" style="padding:6px;">No holdings yet — buy some stocks to build your portfolio!</div>
+            </div>
+            <div style="margin-top:10px;display:flex;gap:8px;">
+              <button id="refreshPrices" class="ghost">Refresh Prices</button>
+              <button id="liquidateAll" class="ghost">Sell All</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card badgesCard" style="margin-top:18px;">
           <h4 style="color:var(--primary);">Your Badges 🏅</h4>
           <div id="badges" class="badges"></div>
         </div>
 
-        <div class="card small tipsCard">
+        <div class="card small tipsCard" style="margin-top:12px;">
           <h4 style="color:var(--accent);">Tip of the day 💡</h4>
           <p id="tipText">RBI now lets teens 10+ run their own savings accounts—start yours today! 🌱 (2025 Update)</p>
         </div>
 
         <!-- New Challenges Section -->
-        <div id="challenges" class="card challenge-card hidden">
+        <div id="challenges" class="card challenge-card hidden" style="margin-top:12px;">
           <h4 style="color:var(--success);">Daily Challenges ⚡</h4>
           <div id="challengeList">
             <div class="challenge-item" data-challenge="quiz">Complete today's quiz <span class="muted">(+20 pts)</span></div>
             <div class="challenge-item" data-challenge="lesson">Finish one lesson <span class="muted">(+15 pts)</span></div>
             <div class="challenge-item" data-challenge="activity">Complete a fun activity <span class="muted">(+25 pts)</span></div>
             <div class="challenge-item" data-challenge="mentor">Ask the mentor a question <span class="muted">(+10 pts)</span></div>
+            <div class="challenge-item" data-challenge="upi">Simulate a safe UPI payment <span class="muted">(+15 pts)</span></div>
+            <div class="challenge-item" data-challenge="streak7">7-day streak achieved <span class="muted">(+35 pts)</span></div>
+            <div class="challenge-item hidden" data-challenge="stock">Try the Stock Mini-Game <span class="muted">(+30 pts)</span></div>
           </div>
           <button id="claimRewards" class="ghost hidden" style="margin-top:10px;">Claim All Rewards! 🎁</button>
         </div>
       </section>
 
+      <!-- Quiz / Hub / Activities / Mentor sections (unchanged) -->
       <section id="quiz" class="card hidden">
         <h2>Daily Quiz 🎯✨</h2>
         <p class="muted">Earn points for correct answers. Complete all Qs to finish & unlock badges! Updated for 2025 trends.</p>
@@ -287,48 +301,8 @@
       <section id="hub" class="card hidden">
         <h2>Learning Hub 📚🌟</h2>
         <p class="muted">Unlock more lessons as you level up! Current Level: <span id="hubLevel"></span>. Featuring 2025 RBI/SEBI updates.</p>
-        <div class="cardsGrid">
-          <div class="learnCard">
-            <h3>Budgeting Basics 💰</h3>
-            <p>Learn a simple 3-step budget: Save, Spend, Share. Master your money magic!</p>
-            <button class="learnBtn" data-topic="budget">Dive In! 🔍</button>
-          </div>
-          <div class="learnCard">
-            <h3>Smart Saving 🐷</h3>
-            <p>Why saving matters and how small goals help. Turn pennies into power! (Rates up to 8.05% in 2025 RBI bonds)</p>
-            <button class="learnBtn" data-topic="saving">Explore! 🚀</button>
-          </div>
-          <div class="learnCard">
-            <h3>Digital Payments 📱</h3>
-            <p>UPI, wallets, and safe payment habits. UPI hit 10,637 crore txns in H1 2025—go cashless like a pro!</p>
-            <button class="learnBtn" data-topic="digital">Learn More! 💳</button>
-          </div>
-          <div class="learnCard">
-            <h3>Safe Investing (SEBI Tips) 📈</h3>
-            <p>Beginner tips from SEBI on smart, safe investing for teens. Grow your future with compounding!</p>
-            <button class="learnBtn" data-topic="investing" id="investBtn">Start Investing! 🌱</button>
-          </div>
-          <div class="learnCard level-locked hidden" id="loansCard">
-            <h3>Understanding Loans 🏦</h3>
-            <p>Good vs bad debt, interest rates, and how to borrow wisely.</p>
-            <button class="learnBtn" data-topic="loans">Borrow Smart! 💡</button>
-          </div>
-          <div class="learnCard level-locked hidden" id="insuranceCard">
-            <h3>Insurance Essentials 🛡</h3>
-            <p>Why you need it, types like health and life insurance for teens.</p>
-            <button class="learnBtn" data-topic="insurance">Protect Yourself! 🔒</button>
-          </div>
-          <div class="learnCard level-locked hidden" id="entreCard">
-            <h3>Teen Entrepreneurship 💼</h3>
-            <p>Start your side hustle: Ideas, budgeting for business.</p>
-            <button class="learnBtn" data-topic="entre">Launch Your Biz! 🚀</button>
-          </div>
-          <!-- New 2025 Lesson -->
-          <div class="learnCard level-locked hidden" id="literacyCard">
-            <h3>Financial Literacy Week 2025 🌟</h3>
-            <p>Theme: Women's Prosperity. RBI's annual drive—learn inclusion & empowerment tips.</p>
-            <button class="learnBtn" data-topic="literacy">Join the Week! 📅</button>
-          </div>
+        <div class="cardsGrid" id="hubGrid">
+          <!-- hub topics injected by JS -->
         </div>
         <div id="lesson" class="lesson hidden card small"></div>
         <div class="row">
@@ -355,7 +329,6 @@
             <p>Make virtual investments and track returns. Risk vs reward! Enhanced with SEBI tips.</p>
             <button class="activityBtn" onclick="startStockActivity()">Invest Virtually! 🎲</button>
           </div>
-          <!-- New Activity -->
           <div class="activityCard">
             <h3>UPI Transaction Simulator 📱</h3>
             <p>Simulate safe UPI payments and learn fraud avoidance. Based on 2025 volumes!</p>
@@ -382,67 +355,247 @@
         </div>
       </section>
 
-      <footer class="card small center">
+      <!-- Trading Modal (full-featured trading desk) -->
+      <div id="tradingModal" class="modal hidden" aria-hidden="true">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3>Trading Desk — Demo Demat Account</h3>
+            <div style="display:flex;gap:8px;align-items:center">
+              <div class="muted small">Wallet: <strong id="modalWallet">₹0</strong></div>
+              <button id="closeTrading" class="close-btn" aria-label="Close">&times;</button>
+            </div>
+          </div>
+          <div class="modal-body">
+            <div class="trade-grid">
+              <div>
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                  <h4 style="margin:0">Market Watch</h4>
+                  <div class="muted small">Live-ish demo prices</div>
+                </div>
+                <div class="market-watch" id="marketWatch">
+                  <!-- watch items inserted by JS -->
+                </div>
+
+                <div style="margin-top:12px;">
+                  <h4 style="margin:0">Place Order</h4>
+                  <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;">
+                    <select id="orderSymbol" style="width:160px;">
+                      <option value="A">A</option>
+                      <option value="B">B</option>
+                      <option value="C">C</option>
+                    </select>
+                    <select id="orderType" style="width:160px;">
+                      <option value="market">Market</option>
+                      <option value="limit">Limit</option>
+                    </select>
+                    <input id="orderQty" type="number" min="1" value="1" style="width:120px;" />
+                    <input id="orderPrice" type="number" min="1" placeholder="Limit ₹ (for limit orders)" style="width:160px;" />
+                  </div>
+                  <div style="display:flex;gap:8px;margin-top:8px;">
+                    <button id="placeBuy" class="ghost">Buy</button>
+                    <button id="placeSell" class="ghost">Sell</button>
+                  </div>
+                </div>
+
+                <div style="margin-top:12px;">
+                  <h4 style="margin:0">Open Orders</h4>
+                  <div class="orders" id="openOrders"></div>
+                </div>
+
+                <div style="margin-top:12px;">
+                  <h4 style="margin:0">Order History</h4>
+                  <div class="order-history" id="orderHistory"></div>
+                </div>
+              </div>
+
+              <div>
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                  <h4 style="margin:0">Portfolio Snapshot</h4>
+                  <div class="muted small">P&L shows live delta</div>
+                </div>
+                <div style="margin-top:8px;" id="portfolioSnapshot"></div>
+
+                <div style="margin-top:12px;">
+                  <h4 style="margin:0">Order Book (Simulated)</h4>
+                  <div class="order-book" id="orderBook">
+                    <div class="muted small" style="padding:6px;">No active book — limit orders are stored here until matched</div>
+                  </div>
+                </div>
+
+                <div style="margin-top:12px;">
+                  <h4 style="margin:0">Quick Actions</h4>
+                  <div style="display:flex;gap:8px;margin-top:8px;">
+                    <button id="refreshMarket" class="ghost">Refresh Market</button>
+                    <button id="cancelAllOrders" class="ghost">Cancel All Orders</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="card small center" style="margin-top:18px;">
         <small>Prototype demo — no server. Works offline in browser. Updated Oct 2025 with latest RBI/SEBI data. Built for hackathon with love! ❤</small>
       </footer>
     </main>
   </div>
 
-  <!-- Enhanced MVP Modal -->
-  <div id="mvpModal" class="modal hidden" aria-hidden="true">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 id="modalTitle">Welcome Tour 🌟</h3>
-        <button id="closeModal" class="close-btn" aria-label="Close">&times;</button>
-      </div>
-      <div class="modal-body">
-        <p id="modalText">This is the MVP modal for FinTeens! Swipe through features: Quiz for points, Hub for lessons, Mentor for tips. Let's make finance fun! 🎉 Updated for 2025.</p>
-        <div id="modalSteps" class="steps"></div>
-      </div>
-      <div class="modal-footer">
-        <button id="prevStep" class="ghost">⬅ Previous</button>
-        <button id="nextStep">Next ➡</button>
-        <button id="finishTour">Got It! 🚀</button>
-      </div>
-    </div>
-  </div>
-
   <script>
-    /* Patched app.js integrated here: fixes for template literals, missing functions, truncated placeholders */
-    const sampleQuestions = [
-      {q:"What is a budget?", options:["A plan for money","A bank account","A phone app"], a:0, explain:"A budget helps you plan spending and saving."},
-      {q:"If you save ₹50 every week, what happens?", options:["Your money decreases","You build savings for goals","You lose money"], a:1, explain:"Small regular savings grow over time."},
-      {q:"Which is a safe payment method in India?", options:["UPI","Cash only","Letter"], a:0, explain:"UPI is secure and instant with apps like Google Pay."},
-      {q:"What is interest?", options:["Extra money earned on savings","A loan only","A tax"], a:0, explain:"Banks pay interest to reward your savings."},
-      {q:"Why track your expenses?", options:["To know where money goes","To hide spending","To waste time"], a:0, explain:"Tracking helps you control spending and save better."},
-      {q:"What does KYC stand for?", options:["Know Your Customer","Keep Your Cash","Know Your Card"], a:0, explain:"KYC verifies your identity for safe banking in India."},
-      {q:"Why save money in a bank?", options:["It's unsafe","No interest earned","Safe and earns interest"], a:2, explain:"Banks keep your money secure and pay interest."},
-      {q:"What is NEFT used for?", options:["Buying groceries","Transferring money electronically","ATM withdrawals"], a:1, explain:"NEFT is a safe way to send money between banks in India."},
-      {q:"What is PMJDY?", options:["A shopping app","Zero-balance bank account scheme","A game app"], a:1, explain:"Pradhan Mantri Jan Dhan Yojana promotes financial inclusion."},
-      {q:"What is RuPay card?", options:["International credit card","Indian debit card network","Shopping voucher"], a:1, explain:"RuPay is India's own payment system for cards and UPI."},
-      {q:"What does Aadhaar seeding mean?", options:["Linking Aadhaar to bank account","New Aadhaar card","Aadhaar payment"], a:0, explain:"It links your Aadhaar for easy, secure transactions."},
-      {q:"What is Atal Pension Yojana?", options:["Health insurance","Retirement savings plan","Travel scheme"], a:1, explain:"APY helps young people save for pension starting early."},
-      {q:"What is a mutual fund?", options:["Pooled money invested in stocks/bonds","Personal bank loan","Shopping credit"], a:0, explain:"Start investing small amounts through SIPs."},
-      {q:"What is compound interest?", options:["Interest on principal only","Interest on principal + previous interest","Tax on savings"], a:1, explain:"It grows your money faster over time."},
-      {q:"What is a credit score?", options:["Your bank balance","Number showing creditworthiness","Phone rating"], a:1, explain:"Higher score means better loan terms."},
-      {q:"What is an emergency fund?", options:["Money for vacations","3-6 months expenses saved","Investment portfolio"], a:1, explain:"For unexpected events like medical costs or job loss."},
-      {q:"What was UPI's transaction volume in H1 2025?", options:["5,000 crore","10,637 crore","15,000 crore"], a:1, explain:"UPI processed 10,637 crore transactions in H1 2025."},
-      {q:"RBI's 2025 update: Minors over what age can operate savings accounts alone?", options:["12","10","15"], a:1, explain:"Teens 10+ can now independently manage savings."},
-      {q:"Financial Literacy Week 2025 theme?", options:["Youth Power","Women's Prosperity","Digital Future"], a:1, explain:"Theme focused on women's financial inclusion and prosperity."},
-      {q:"SEBI 2025 tip: Avoid which for safe investing?", options:["Diversification","Influencer tips without research","Compounding"], a:1, explain:"Ignore unverified social media advice; research investments."}
+    /* Fixes and helpers added:
+       - Initialize missing state pieces (quizProgress, unlockedGameLevels)
+       - Provide updateUI(), renderPortfolio(), renderPortfolioSnapshot(), showReward(), closeReward(), triggerConfetti(), checkDailyLogin()
+       - Provide orderIdCounter and references to trading modal elements
+       - Wire missing event handlers: placeBuy/placeSell/closeTrading/refreshMarket/cancelAllOrders
+       These were the root cause: missing functions/vars caused JS runtime errors which prevented startBtn and back-buttons from working.
+    */
+
+    // Full 50-question bank (5 levels × 10 questions)
+    const quizLevels = [
+      // Level 1
+      [
+        {q:"What does UPI stand for?", o:["Unified Payments Interface","Universal Payment Instant","User Payment Interface","United Payment India"], a:0, exp:"Unified Payments Interface."},
+        {q:"Best habit to save money?", o:["Spend all","Save a part regularly","Hide cash","Lend to friends"], a:1, exp:"Save regularly to build habit."},
+        {q:"What is bank interest?", o:["Fee","Money bank pays","Tax","Discount"], a:1, exp:"Bank pays interest to savers."},
+        {q:"Emergency fund covers how many months?", o:["0","1","3-6","12"], a:2, exp:"3-6 months is recommended."},
+        {q:"Credit card is?", o:["Free money","Short-term loan","Gift","Savings"], a:1, exp:"Repay to avoid interest."},
+        {q:"50/30/20 rule means?", o:["50% savings","50% needs","50% wants","50% needs,30% wants,20% save"], a:3, exp:"50/30/20 splits income."},
+        {q:"NEFT timing typically?", o:["Instant","Same day","Next working day","1 week"], a:2, exp:"NEFT settles by next working day."},
+        {q:"SIP stands for?", o:["Systematic Investment Plan","Single Investment Plan","Standard Investment Program","Safe Investment Plan"], a:0, exp:"SIP = Systematic Investment Plan."},
+        {q:"GST on movie tickets?", o:["0%","5%","18%","28%"], a:2, exp:"Usually 18%."},
+        {q:"Teens open bank account?", o:["No","Yes with parent","Only 18+","Only savings"], a:1, exp:"Minors can open accounts with parent."}
+      ],
+      // Level 2
+      [
+        {q:"EMI means?", o:["Full payment","Equated Monthly Installment","Extra Money Installment","Electronic Money Interface"], a:1, exp:"EMI is fixed monthly loan payment."},
+        {q:"FD is usually:", o:["High risk","Safe fixed interest","Speculative","Illegal"], a:1, exp:"Fixed Deposit offers fixed interest."},
+        {q:"Diversification does what?", o:["Increases risk","Reduces risk","Removes all risk","No effect"], a:1, exp:"Spreads risk across assets."},
+        {q:"Red flag for a scam:", o:["Guaranteed returns","Regulated","Transparent","Well-known"], a:0, exp:"Guaranteed high returns usually scam."},
+        {q:"Share OTP with bank?", o:["Yes","No","Sometimes","Only SMS"], a:1, exp:"Never share OTP."},
+        {q:"Credit score range (approx)?", o:["0-100","300-900","1-10","100-1000"], a:1, exp:"CIBIL approx 300-900."},
+        {q:"Mutual fund is:", o:["Single stock","Pooled fund","Cash only","FD"], a:1, exp:"Pools many investors' money."},
+        {q:"KYC stands for?", o:["Know Your Customer","Keep Your Cash","Key Your Code","None"], a:0, exp:"KYC verifies identity."},
+        {q:"PPF max annually (approx)?", o:["₹500","₹1.5L","₹10L","No limit"], a:1, exp:"PPF limit ~₹1.5L/year (check current rules)."},
+        {q:"Inflation does?", o:["Decrease prices","Increase prices","Freeze prices","Remove tax"], a:1, exp:"Inflation raises prices."}
+      ],
+      // Level 3
+      [
+        {q:"GST on packaged biscuits?", o:["0%","5%","12%","18%"], a:1, exp:"Typically 5%."},
+        {q:"Income tax threshold roughly?", o:["₹1L","₹2.5L","₹10L","₹50L"], a:1, exp:"Base exemption around ₹2.5L historically."},
+        {q:"Good side hustle for teens?", o:["Illegal sales","Tutoring","Gambling","Plagiarism"], a:1, exp:"Tutoring is safe and legal."},
+        {q:"Profit formula?", o:["Income + Expense","Income - Expense","Savings - Tax","Interest + Loan"], a:1, exp:"Profit = Income - Expenses."},
+        {q:"Trademark protects?", o:["Brand name","Invention","Idea","Currency"], a:0, exp:"Trademark protects brand identity."},
+        {q:"Health insurance covers?", o:["Hospital bills","Car repairs","Phone damage","Tuition"], a:0, exp:"Covers medical expenses."},
+        {q:"Good debt example?", o:["Credit card overspend","Education loan","Payday loan","Gambling debt"], a:1, exp:"Education loans can be good debt."},
+        {q:"CIBIL measures?", o:["Credit history","Height","Grades","Phone"], a:0, exp:"Measures repayment behaviour."},
+        {q:"Who controls banks in India?", o:["RBI","State gov","Police","Court"], a:0, exp:"RBI is central bank."},
+        {q:"Who regulates stock market?", o:["RBI","SEBI","Tax Dept","Election Comm"], a:1, exp:"SEBI regulates securities."}
+      ],
+      // Level 4
+      [
+        {q:"Stock market hours (India)?", o:["24/7","9:15-15:30","Weekends","Morning only"], a:1, exp:"Markets open 9:15–15:30 weekdays."},
+        {q:"Blue chip stocks are?", o:["New startups","Large established firms","Penny stocks","Cryptos"], a:1, exp:"Large, stable companies."},
+        {q:"Compounding is?", o:["Interest on interest","Simple interest only","Tax","Fee"], a:0, exp:"Earning interest on interest."},
+        {q:"₹100 at 10% for 10 yrs -> approx?", o:["₹110","₹200","₹259","₹1000"], a:2, exp:"Approximately ₹259."},
+        {q:"Index fund tracks?", o:["One stock","Market index","Gold","Crypto"], a:1, exp:"Tracks an index like Nifty."},
+        {q:"Demat account holds?", o:["Cash","Shares electronically","Gold bars","Property papers"], a:1, exp:"Holds securities electronically."},
+        {q:"Dividend is?", o:["Profit shared","Loan","FD interest","Tax"], a:0, exp:"Share of company profit to shareholders."},
+        {q:"Bull market means?", o:["Prices fall","Prices rise","Stable","Crash"], a:1, exp:"Prices are rising."},
+        {q:"Bear market means?", o:["Prices rise","Prices fall","Stable","IPO"], a:1, exp:"Prices are falling."},
+        {q:"IPO stands for?", o:["Initial Public Offering","Internal Payment Order","Income Per Owner","Indian Post Office"], a:0, exp:"Company offers shares to public."}
+      ],
+      // Level 5
+      [
+        {q:"Rule of 72: years to double at 8%?", o:["6","9","12","15"], a:1, exp:"72/8=9 years (approx)."},
+        {q:"Asset allocation means?", o:["All in gold","Spread across assets","Only stocks","Only FD"], a:1, exp:"Spread investments to manage risk."},
+        {q:"Liquidity means?", o:["Hard to sell","Easy to convert to cash","Locked 10 yrs","Taxable"], a:1, exp:"How quickly you can turn assets into cash."},
+        {q:"Who invests in hedge funds?", o:["Teenagers","Wealthy investors","Beginners","Governments"], a:1, exp:"Usually high-net-worth investors."},
+        {q:"Futures are?", o:["Past trades","Agreements to trade later","Savings","FD"], a:1, exp:"Contracts to buy/sell at future date."},
+        {q:"NPS is for?", o:["Health","Retirement","Travel","Education"], a:1, exp:"Designed for retirement savings."},
+        {q:"ULIP combines?", o:["Insurance+Investment","Loan+FD","Gold+Cash","Crypto+Stock"], a:0, exp:"Insurance plus market-linked investment."},
+        {q:"Arbitrage is?", o:["Gambling","Profit from price differences","Long-term hold","Tax trick"], a:1, exp:"Buy low in one market, sell higher in another."},
+        {q:"PE ratio measures?", o:["Price/Earnings","Employees","Debt","Profit"], a:0, exp:"Price relative to earnings."},
+        {q:"Financial freedom means?", o:["No job","Passive income covers expenses","Rich parents","Owning property"], a:1, exp:"Investments cover your lifestyle."}
+      ]
     ];
 
-    const lessons = {
-      budget: {title:"Budgeting Basics 💰", text:"Split money into three buckets: Save (for goals), Spend (for daily things), and Share (for gifts or charity). Start small and track weekly."},
-      saving: {title:"Smart Saving 🐷", text:"Set small goals like 'Save ₹200 this month'. Use jars or digital piggybanks. Teens 10+ can open/run accounts independently."},
-      digital: {title:"Digital Payments 📱", text:"UPI is an instant payment method. Always check recipient's name and avoid sharing OTPs."},
-      investing: {title:"Safe Investing (SEBI Tips) 📈", text:"SEBI's tips for beginners: invest early, use registered platforms, diversify and avoid get-rich-quick promises."},
-      loans: {title:"Understanding Loans 🏦", text:"Good debt (education, home) can build wealth; avoid informal high-interest lenders."},
-      insurance: {title:"Insurance Essentials 🛡", text:"Health insurance helps protect against high medical costs; read terms before buying."},
-      entre: {title:"Teen Entrepreneurship 💼", text:"Start simple: tutoring, crafts. Track costs, price product/service, and learn from feedback."},
-      literacy: {title:"Financial Literacy Week 2025 🌟", text:"Join events Feb 2025: focus on women's prosperity, inclusion and practical tips."}
-    };
+    // Hub topics (full topics and lesson steps)
+    const hubTopics = [
+      {
+        id:'budget',
+        title:'Budgeting Basics',
+        slides: [
+          {title:'What is budgeting?', body:'Budgeting means planning how to spend and save your money so you can reach goals.'},
+          {title:'50/30/20 Rule', body:'Split income: 50% for needs, 30% for wants, 20% for savings.'},
+          {title:'Track expenses', body:'Write down what you spend for 2 weeks to find where money goes.'}
+        ]
+      },
+      {
+        id:'saving',
+        title:'Smart Saving',
+        slides: [
+          {title:'Pay yourself first', body:'Transfer some amount to savings as soon as you get money.'},
+          {title:'Emergency fund', body:'Aim for 3-6 months of expenses in a safe account.'},
+          {title:'Small habits', body:'Save small amounts regularly; they add up.'}
+        ]
+      },
+      {
+        id:'digital',
+        title:'Digital Payments',
+        slides: [
+          {title:'UPI basics', body:'UPI lets you send/receive instantly from your phone.'},
+          {title:'Safety tips', body:'Always verify recipient name and don’t share OTP or UPI PIN.'},
+          {title:'Recognize scams', body:'Be wary of unknown links, promises of gifts, or urgent requests.'}
+        ]
+      },
+      {
+        id:'investing',
+        title:'Safe Investing (SEBI Tips)',
+        slides: [
+          {title:'Start early', body:'Start with small SIPs; compounding helps over time.'},
+          {title:'Diversify', body:'Mix equity, debt and other assets to reduce risk.'},
+          {title:'Check registrations', body:'Use SEBI-registered platforms and advisers.'}
+        ]
+      },
+      {
+        id:'loans',
+        title:'Understanding Loans',
+        slides: [
+          {title:'Good vs Bad debt', body:'Good debt helps you grow (education); bad debt doesn’t.'},
+          {title:'EMI basics', body:'EMI is equal monthly installment to repay loans.'},
+          {title:'Interest and tenure', body:'Longer tenure lowers EMI but increases total interest.'}
+        ]
+      },
+      {
+        id:'insurance',
+        title:'Insurance Essentials',
+        slides: [
+          {title:'Why insurance', body:'Protects you and family from unexpected medical costs.'},
+          {title:'Types', body:'Health, term life, and asset insurance are common types.'},
+          {title:'Choosing cover', body:'Pick cover amount and read exclusions carefully.'}
+        ]
+      },
+      {
+        id:'entre',
+        title:'Teen Entrepreneurship',
+        slides: [
+          {title:'Start small', body:'Validate an idea with minimal cost before scaling.'},
+          {title:'Budget your biz', body:'Track costs, price fairly, reinvest profits.'},
+          {title:'Market yourself', body:'Use social media and word-of-mouth to reach customers.'}
+        ]
+      },
+      {
+        id:'literacy',
+        title:'Financial Literacy Week 2025',
+        slides: [
+          {title:'Theme & Goals', body:'Focus on women’s prosperity and inclusive finance.'},
+          {title:'How to participate', body:'Join local events, read RBI/SEBI resources.'},
+          {title:'Community action', body:'Share simple lessons with family & friends.'}
+        ]
+      }
+    ];
 
+    // State initialization (unchanged)
     let state = {
       name: null,
       age: null,
@@ -451,786 +604,520 @@
       badges: [],
       streak: 0,
       lastLogin: null,
-      challenges: {quiz: false, lesson: false, activity: false, mentor: false},
+      challenges: {quiz:false,lesson:false,activity:false,mentor:false,upi:false,streak7:false,stock:false},
       currentQ: 0,
       score: 0,
       mentorLog: [],
       quizAnswered: false,
-      lessonsCompleted: 0,
-      activitiesCompleted: {budget: false, savings: false, stock: false, upi: false}
+      lessonsCompleted: {},
+      activitiesCompleted: {budget:false,savings:false,stock:false,upi:false},
+      wallet: { balance: 2000 },      // demo wallet balance
+      portfolio: {},                  // holdings keyed by symbol: {qty, avgPrice}
+      marketPrices: { A: 100, B: 120, C: 80 }, // simulated market prices
+      orders: [],                     // open limit orders {id, side, symbol, qty, price, type:'limit', created}
+      orderHistory: []                // executed orders history
     };
 
-    // Elements (expanded)
-    const onboard = document.getElementById('onboard');
-    const dashboard = document.getElementById('dashboard');
-    const quizSec = document.getElementById('quiz');
-    const hub = document.getElementById('hub');
-    const activities = document.getElementById('activities');
-    const mentor = document.getElementById('mentor');
-    const challengesEl = document.getElementById('challenges');
-    const streakDisplay = document.getElementById('streakDisplay');
-    const hubLevel = document.getElementById('hubLevel');
-    const investBtn = document.getElementById('investBtn');
-    const loansCard = document.getElementById('loansCard');
-    const insuranceCard = document.getElementById('insuranceCard');
-    const entreCard = document.getElementById('entreCard');
-    const literacyCard = document.getElementById('literacyCard');
-    const stockGameCard = document.getElementById('stockGameCard');
-    const activityArea = document.getElementById('activityArea');
+    // small missing pieces initialization that previously caused runtime errors
+    let orderIdCounter = 0;
+    state.quizProgress = state.quizProgress || { level: 0, index: 0 };
+    state.unlockedGameLevels = state.unlockedGameLevels || { 1: true };
 
-    const nameInput = document.getElementById('name');
-    const ageInput = document.getElementById('age');
-    const startBtn = document.getElementById('startBtn');
-    const tourBtn = document.getElementById('tourBtn');
-    const resetBtn = document.getElementById('resetBtn');
+    // DOM refs used by helpers
+    const tradingModal = document.getElementById('tradingModal');
+    const modalWallet = document.getElementById('modalWallet');
 
-    const welcomeMsg = document.getElementById('welcomeMsg');
-    const pointsEl = document.getElementById('points');
-    const levelEl = document.getElementById('level');
-    const bar = document.getElementById('bar');
-    const badgesEl = document.getElementById('badges');
-    const userNameDisplay = document.getElementById('userNameDisplay');
-    const tipText = document.getElementById('tipText');
-
-    const quizBtn = document.getElementById('quizBtn');
-    const hubBtn = document.getElementById('hubBtn');
-    const activitiesBtn = document.getElementById('activitiesBtn');
-    const mentorBtn = document.getElementById('mentorBtn');
-    const challengesBtn = document.getElementById('challengesBtn');
-
-    const questionArea = document.getElementById('questionArea');
-    const answers = document.getElementById('answers');
-    const nextQ = document.getElementById('nextQ');
-    const prevQ = document.getElementById('prevQ');
-    const finish = document.getElementById('finish');
-    const quitQuiz = document.getElementById('quitQuiz');
-
-    const learnBtns = document.querySelectorAll('.learnBtn');
-    const lessonBox = document.getElementById('lesson');
-    const backDash = document.getElementById('backDash');
-    const backDashAct = document.getElementById('backDashAct');
-
-    const mentorQ = document.getElementById('mentorQ');
-    const askMentor = document.getElementById('askMentor');
-    const mentorLog = document.getElementById('mentorLog');
-    const clearLog = document.getElementById('clearLog');
-    const backDash2 = document.getElementById('backDash2');
-
-    // Modal Elements
-    const modal = document.getElementById('mvpModal');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalText = document.getElementById('modalText');
-    const modalSteps = document.getElementById('modalSteps');
-    const closeModal = document.getElementById('closeModal');
-    const prevStep = document.getElementById('prevStep');
-    const nextStep = document.getElementById('nextStep');
-    const finishTour = document.getElementById('finishTour');
-
-    // Gamification Elements
-    const challengeList = document.getElementById('challengeList');
-    const claimRewards = document.getElementById('claimRewards');
-    const rewardPopup = document.getElementById('rewardPopup');
-    const rewardTitle = document.getElementById('rewardTitle');
-    const rewardMsg = document.getElementById('rewardMsg');
-    const confetti = document.getElementById('confetti');
-
-    const tourSteps = [
-      { title: 'Daily Quiz 🎯', text: 'Test your knowledge with questions on budgeting, UPI (2025 stats), and SEBI. Earn points for correct answers and level up!' },
-      { title: 'Learning Hub 📚', text: 'Bite-sized lessons cover budgeting, saving, digital payments and safe investing. Complete lessons for badges.' },
-      { title: 'Fun Activities 🎮', text: 'Play interactive simulators like the budget game and UPI simulator to practice real skills.' },
-      { title: 'AI Mentor 🤖', text: 'Ask quick questions about money and get friendly, practical answers. Great for on-the-go learning!' },
-      { title: 'Progress Tracker 📊', text: 'Watch your level and points grow. Collect badges, build streaks and unlock new lessons.' },
-      { title: 'Challenges ⚡', text: 'Daily missions give bonus points. Complete them for extra rewards and streak boosts.' }
-    ];
-
-    let currentStep = 0;
-    let currentActivity = null;
-
-    // ---------- State persistence ----------
-    function loadState(){
-      const s = localStorage.getItem('finteens_state');
-      if(s){
-        try {
-          const parsed = JSON.parse(s);
-          state = Object.assign(state, parsed);
-          // ensure nested shape
-          state.challenges = Object.assign({quiz:false,lesson:false,activity:false,mentor:false}, state.challenges || {});
-          state.activitiesCompleted = Object.assign({budget:false,savings:false,stock:false,upi:false}, state.activitiesCompleted || {});
-        } catch(e){
-          console.warn('Failed to parse state, using defaults', e);
-        }
-      }
-      if(state.name) nameInput.value = state.name;
-      if(state.age) ageInput.value = state.age;
-      updateStreak();
-      updateUI();
-      renderMentorLog();
-      updateChallenges();
-      updateLevelContent();
-      if(state.name && state.age) {
-        showSection('dashboard');
-        checkDailyLogin();
-      } else {
-        showSection('onboard');
-      }
-    }
-
-    function saveState(){
-      const toSave = {...state};
+    // Helper functions (these were missing and caused early runtime errors that prevented other handlers from attaching)
+    function updateUI(){
       try {
-        localStorage.setItem('finteens_state', JSON.stringify(toSave));
+        document.getElementById('userNameDisplay').textContent = state.name ? state.name : '';
+        document.getElementById('points').textContent = state.points || 0;
+        document.getElementById('level').textContent = state.level || 1;
+        document.getElementById('walletBalance').textContent = `₹${Number((state.wallet && state.wallet.balance) || 0).toLocaleString()}`;
+        // Progress: simple mapping of level across 5 levels
+        const pct = Math.min(100, Math.round(((state.level - 1) / (5 - 1)) * 100));
+        const bar = document.getElementById('bar');
+        if(bar) bar.style.width = (isNaN(pct) ? 0 : pct) + '%';
+        // portfolio value
+        document.getElementById('portfolioValue').textContent = `₹${calcPortfolioValue().toLocaleString()}`;
+        // streak display
+        const sd = document.getElementById('streakDisplay');
+        if(state.streak && state.streak > 0){ sd.classList.remove('hidden'); sd.textContent = `Streak: ${state.streak} 🔥`; }
+        else sd.classList.add('hidden');
+        // badges
+        const badgesEl = document.getElementById('badges');
+        if(badgesEl){
+          badgesEl.innerHTML = '';
+          (state.badges || []).forEach(b=>{
+            const el = document.createElement('div');
+            el.className = 'badge';
+            el.textContent = b;
+            badgesEl.appendChild(el);
+          });
+        }
       } catch(e){
-        console.warn('Could not save state', e);
+        console.warn('updateUI error', e);
       }
     }
 
-    // ---------- Helpers ----------
-    function isoToday() {
-      return new Date().toISOString().slice(0,10); // YYYY-MM-DD
+    function calcPortfolioValue(){
+      let v = 0;
+      Object.keys(state.portfolio || {}).forEach(sym => {
+        const h = state.portfolio[sym];
+        const p = state.marketPrices[sym] || 0;
+        v += (h.qty || 0) * p;
+      });
+      return Math.round(v);
+    }
+
+    function renderPortfolio(){
+      const pl = document.getElementById('portfolioList');
+      if(!pl) return;
+      pl.innerHTML = '';
+      const keys = Object.keys(state.portfolio || {});
+      if(keys.length === 0){
+        pl.innerHTML = '<div class="muted" style="padding:6px;">No holdings yet — buy some stocks to build your portfolio!</div>';
+        document.getElementById('portfolioValue').textContent = `₹0`;
+        return;
+      }
+      keys.forEach(sym => {
+        const h = state.portfolio[sym];
+        const p = state.marketPrices[sym] || 0;
+        const div = document.createElement('div');
+        div.className = 'portfolio-item';
+        div.innerHTML = `<div><strong>${sym}</strong><div class="muted small">Avg ₹${h.avgPrice}</div></div><div><div>Qty ${h.qty}</div><div class="muted small">Val ₹${(h.qty * p).toLocaleString()}</div></div>`;
+        pl.appendChild(div);
+      });
+      document.getElementById('portfolioValue').textContent = `₹${calcPortfolioValue().toLocaleString()}`;
+    }
+
+    function renderPortfolioSnapshot(){
+      const snap = document.getElementById('portfolioSnapshot');
+      if(!snap) return;
+      snap.innerHTML = '';
+      const keys = Object.keys(state.portfolio || {});
+      if(keys.length === 0){ snap.innerHTML = '<div class="muted small">No holdings</div>'; return; }
+      keys.forEach(sym => {
+        const h = state.portfolio[sym];
+        const p = state.marketPrices[sym] || 0;
+        const pnl = Math.round((p - h.avgPrice) * h.qty);
+        const d = document.createElement('div');
+        d.className = 'muted small';
+        d.style.marginBottom = '6px';
+        d.innerHTML = `<strong>${sym}</strong> ${h.qty} @ ₹${h.avgPrice} • Now ₹${p} • P&L ₹${pnl}`;
+        snap.appendChild(d);
+      });
     }
 
     function showReward(title, msg){
-      rewardTitle.innerText = title;
-      rewardMsg.innerText = msg;
-      rewardPopup.classList.remove('hidden');
-      rewardPopup.setAttribute('aria-hidden','false');
-      // auto-close after a bit
-      setTimeout(()=> {
-        closeReward();
-      }, 3000);
+      try {
+        const popup = document.getElementById('rewardPopup');
+        document.getElementById('rewardTitle').textContent = title || 'Achievement';
+        document.getElementById('rewardMsg').textContent = msg || '';
+        popup.classList.remove('hidden');
+        popup.setAttribute('aria-hidden', 'false');
+      } catch(e){ console.warn('showReward', e); }
     }
     function closeReward(){
-      rewardPopup.classList.add('hidden');
-      rewardPopup.setAttribute('aria-hidden','true');
+      try {
+        const popup = document.getElementById('rewardPopup');
+        popup.classList.add('hidden');
+        popup.setAttribute('aria-hidden', 'true');
+      } catch(e){ console.warn('closeReward', e); }
     }
+    window.closeReward = closeReward;
 
     function triggerConfetti(){
-      // lightweight confetti placeholder (simple colored dots)
-      confetti.innerHTML = '';
-      const colors = ['#ffb703','#fb5607','#0b66b3','#28a745'];
-      for(let i=0;i<24;i++){
-        const d = document.createElement('div');
-        d.style.position = 'absolute';
-        d.style.left = Math.random()*100 + '%';
-        d.style.top = Math.random()*100 + '%';
-        d.style.width = '8px';
-        d.style.height = '8px';
-        d.style.borderRadius = '50%';
-        d.style.background = colors[Math.floor(Math.random()*colors.length)];
-        d.style.opacity = '0.9';
-        d.style.transform = `translateY(${Math.random()*100 - 50}px)`;
-        confetti.appendChild(d);
-      }
-      setTimeout(()=> confetti.innerHTML = '', 1000);
+      // lightweight visual feedback: pulse the confetti element
+      const el = document.getElementById('confetti');
+      if(!el) return;
+      el.classList.add('pulse');
+      setTimeout(()=> el.classList.remove('pulse'), 1000);
     }
 
-    function showSection(id){
-      // hide all main sections
-      [onboard, dashboard, quizSec, hub, activities, mentor].forEach(el => el.classList.add('hidden'));
-      const target = document.getElementById(id);
-      if(target){
-        target.classList.remove('hidden');
-        target.style.animation = 'fadeIn 0.6s ease-out';
-      }
-    }
-
-    function updateStreak(){
-      if(state.streak && state.streak > 0){
-        streakDisplay.classList.remove('hidden');
-        streakDisplay.innerText = `Streak: ${state.streak} 🔥`;
-      } else {
-        streakDisplay.classList.add('hidden');
-      }
-    }
-
-    function updateLevelContent(){
-      hubLevel.innerText = state.level;
-      // Unlock lessons and activities based on level
-      if(state.level >= 2) literacyCard.classList.remove('hidden');
-      if(state.level >= 3){
-        loansCard.classList.remove('hidden');
-        stockGameCard.classList.remove('hidden');
-      }
-      if(state.level >= 5) insuranceCard.classList.remove('hidden');
-      if(state.level >= 7) entreCard.classList.remove('hidden');
-
-      // Remove level-locked class from invest card if level allows
-      if(state.level >= 3 && investBtn){
-        const investParent = investBtn.closest('.learnCard');
-        if(investParent) investParent.classList.remove('level-locked');
-      }
-    }
-
-    function updateUI(){
-      welcomeMsg.innerText = state.name ? `Hi ${state.name}! 🌟` : 'Hi! 👋';
-      userNameDisplay.innerText = state.name ? state.name : '';
-      pointsEl.innerText = state.points || 0;
-      levelEl.innerText = state.level || 1;
-      const pct = Math.min(100, (state.points || 0) % 100);
-      if(bar) bar.style.width = pct + '%';
-      badgesEl.innerHTML = '';
-      (state.badges || []).forEach(b=>{
-        const bdiv = document.createElement('span');
-        bdiv.className = 'badge';
-        bdiv.innerText = b;
-        badgesEl.appendChild(bdiv);
-      });
-      const tips = [
-        "RBI now lets teens 10+ run savings accounts—start yours! (2025) 🌈",
-        "UPI: 10,637 Cr txns H1 2025. Track one digital spend daily! 💪",
-        "SEBI: Invest early, avoid influencer traps. Ask mentor! 🤝",
-        "Financial Literacy Week Feb 2025: Join for women's prosperity theme! 🎮",
-        "Save at 8.05% RBI bonds—small habits grow big dreams! 📈"
-      ];
-      tipText.innerText = tips[Math.floor(Math.random()*tips.length)];
-      updateStreak();
-      updateLevelContent();
-    }
-
-    // ---------- Daily login/streak logic ----------
     function checkDailyLogin(){
-      const today = isoToday();
+      // simple daily check — increase streak if lastLogin differs from today
+      const today = new Date().toDateString();
       if(state.lastLogin !== today){
-        const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0,10);
-        if(state.lastLogin === yesterday){
-          state.streak = (state.streak || 0) + 1;
-        } else {
-          state.streak = 1;
-        }
-        const bonus = 5 * state.streak;
-        state.points = (state.points || 0) + bonus;
+        if(state.lastLogin) state.streak = (state.streak || 0) + 1;
         state.lastLogin = today;
         saveState();
-        updateUI();
-        showReward('Daily Login Bonus!', `${bonus} points for streak of ${state.streak}! 🔥`);
-        triggerConfetti();
-        if(state.streak >= 7 && !state.badges.includes('Streak Master 🔥')){
-          state.badges.push('Streak Master 🔥');
-          saveState();
-          updateUI();
-          showReward('Streak Master Achieved!', '7-day streak! Extra badge unlocked! 🏆');
-        }
       }
-    }
-
-    // ---------- Challenges ----------
-    function updateChallenges(){
-      const items = challengeList ? challengeList.querySelectorAll('.challenge-item') : [];
-      items.forEach(item => {
-        const challenge = item.dataset.challenge;
-        item.classList.toggle('completed', !!state.challenges[challenge]);
-      });
-      if(Object.values(state.challenges).every(c => c)){
-        claimRewards.classList.remove('hidden');
-      } else {
-        claimRewards.classList.add('hidden');
-      }
-    }
-
-    claimRewards.addEventListener('click', ()=> {
-      let totalReward = 0;
-      const rewards = {quiz: 20, lesson: 15, activity: 25, mentor: 10};
-      Object.keys(state.challenges).forEach(key => {
-        if(state.challenges[key]){
-          totalReward += rewards[key] || 0;
-          state.challenges[key] = false;
-        }
-      });
-      if(totalReward > 0){
-        state.points += totalReward;
-        saveState();
-        updateUI();
-        showReward('Challenges Complete!', `${totalReward} bonus points! 🎁`);
-        triggerConfetti();
-        updateChallenges();
-      }
-    });
-
-    // ---------- Quiz ----------
-    quizBtn.onclick = ()=>{ startQuiz(); showSection('quiz'); }
-
-    function startQuiz(){
-      state.questions = [...sampleQuestions].sort(() => Math.random() - 0.5);
-      state.currentQ = 0;
-      state.score = 0;
-      state.quizAnswered = false;
-      renderQuestion();
-      nextQ.classList.add('hidden');
-      prevQ.classList.add('hidden');
-      finish.classList.add('hidden');
-    }
-
-    function renderQuestion(){
-      const q = state.questions[state.currentQ];
-      questionArea.innerHTML = `<h3>Q${state.currentQ+1}. ${q.q} ❓</h3>`;
-      answers.innerHTML = '';
-      state.quizAnswered = false;
-      q.options.forEach((opt,i)=>{
-        const btn = document.createElement('button');
-        btn.innerText = `• ${opt}`;
-        btn.onclick = ()=> checkAnswer(i);
-        answers.appendChild(btn);
-      });
-      prevQ.classList.toggle('hidden', state.currentQ===0);
-      nextQ.classList.add('hidden');
-      finish.classList.add('hidden');
-    }
-
-    function checkAnswer(i){
-      const q = state.questions[state.currentQ];
-      const btns = answers.querySelectorAll('button');
-      btns.forEach((b, idx)=>{
-        b.disabled = true;
-        if(idx === q.a) b.classList.add('correct');
-        if(idx === i && idx !== q.a) b.classList.add('wrong');
-      });
-      const explain = document.createElement('p');
-      explain.className = 'muted';
-      explain.innerHTML = `<strong>💡 Tip:</strong> ${q.explain}`;
-      explain.style.marginTop = '12px';
-      questionArea.appendChild(explain);
-      if(i === q.a){
-        state.points = (state.points || 0) + 20;
-        state.score = (state.score || 0) + 1;
-        showReward('Correct!', '+20 points! Keep going! ⭐');
-        triggerConfetti();
-      } else {
-        showReward('Try Again!', "Learn from it—next one's yours! 📚");
-      }
-      state.quizAnswered = true;
-      saveState();
       updateUI();
-      if(state.currentQ < state.questions.length - 1){
-        nextQ.classList.remove('hidden');
-      } else {
-        finish.classList.remove('hidden');
-      }
     }
 
-    nextQ.onclick = ()=>{
-      if(state.currentQ < state.questions.length - 1){
-        state.currentQ += 1;
-        state.quizAnswered = false;
-        renderQuestion();
-      }
+    // DOM refs (reused)
+    const panels = {onboard:document.getElementById('onboard'), dashboard:document.getElementById('dashboard'), quiz:document.getElementById('quiz'), hub:document.getElementById('hub'), activities:document.getElementById('activities'), mentor:document.getElementById('mentor')};
+
+    // load/save helpers (re-using names)
+    function saveState(){ try{ localStorage.setItem('finteens_state', JSON.stringify(state)); }catch(e){console.warn(e);} }
+    function loadState(){ try{ const s = localStorage.getItem('finteens_state'); if(s){ const parsed = JSON.parse(s); state = Object.assign(state, parsed); state.wallet = state.wallet || {balance:2000}; state.portfolio = state.portfolio || {}; state.marketPrices = state.marketPrices || {A:100,B:120,C:80}; state.orders = state.orders || []; state.orderHistory = state.orderHistory || []; state.quizProgress = state.quizProgress || {level:0,index:0}; state.unlockedGameLevels = state.unlockedGameLevels || {1:true}; } }catch(e){console.warn(e);} updateUI(); renderPortfolio(); renderMarketWatch(); renderOpenOrders(); renderOrderHistory(); renderOrderBook(); renderPortfolioSnapshot(); }
+
+    // showSection helper (used elsewhere)
+    function showSection(id){
+      Object.values(panels).forEach(el => el.classList.add('hidden'));
+      const target = panels[id];
+      if(target) target.classList.remove('hidden');
     }
 
-    prevQ.onclick = ()=>{
-      if(state.currentQ > 0){
-        state.currentQ -= 1;
-        state.quizAnswered = false;
-        renderQuestion();
-      }
+    // --- QUIZ: rendering and navigation ---
+    const questionArea = document.getElementById('questionArea');
+    const answersDiv = document.getElementById('answers');
+    const prevQbtn = document.getElementById('prevQ');
+    const nextQbtn = document.getElementById('nextQ');
+    const finishBtn = document.getElementById('finish');
+    const quitQuizBtn = document.getElementById('quitQuiz');
+
+    function renderQuiz(){
+      const lvl = Math.max(0, Math.min(state.quizProgress.level, quizLevels.length-1));
+      const arr = quizLevels[lvl];
+      const idx = Math.max(0, Math.min(state.quizProgress.index, arr.length-1));
+      // build question UI
+      if(!arr) return;
+      questionArea.innerHTML = `<div id="qTitle" style="font-weight:700;margin-top:8px">${arr[idx].q}</div>`;
+      answersDiv.innerHTML = '';
+      answersDiv.dataset.answered = 'false';
+      arr[idx].o.forEach((opt,i)=>{
+        const b = document.createElement('button');
+        b.textContent = opt;
+        b.addEventListener('click', ()=> handleAnswer(i, arr[idx]));
+        answersDiv.appendChild(b);
+      });
+      // show navigation buttons
+      prevQbtn.classList.toggle('hidden', idx === 0);
+      nextQbtn.classList.toggle('hidden', idx === arr.length-1);
+      finishBtn.classList.toggle('hidden', true); // keep finish hidden; finishing logic handled automatically when level ends
+      quitQuizBtn.classList.remove('hidden');
     }
 
-    finish.onclick = ()=>{
-      // determine results before resetting score
-      const totalQs = state.questions ? state.questions.length : 0;
-      const scored = state.score || 0;
-      state.challenges.quiz = true;
-      updateChallenges();
-
-      const badges = state.badges || [];
-      let badgeToAdd = '';
-      if(scored === totalQs && totalQs > 0) badgeToAdd = 'Quiz Master 🏆';
-      else if(scored >= Math.floor(totalQs / 2)) badgeToAdd = 'Quick Learner ⚡';
-      else badgeToAdd = 'Getting Started 🌱';
-      if(badgeToAdd && !badges.includes(badgeToAdd)){
-        badges.push(badgeToAdd);
-        showReward('Badge Unlocked!', `${badgeToAdd} earned! 🏅`);
-        triggerConfetti();
-      }
-      state.badges = badges;
-      state.level = Math.min(10, 1 + Math.floor((state.points || 0) / 50));
-      const finalScoreMsg = `Quiz complete! You scored ${scored}/${totalQs} 🎉 Great job with 2025 updates!`;
-      // cleanup
-      state.currentQ = 0;
-      state.score = 0;
-      state.quizAnswered = false;
-      delete state.questions;
-      saveState();
-      updateUI();
-      showSection('dashboard');
-      setTimeout(()=> alert(finalScoreMsg), 200);
-    }
-
-    quitQuiz.onclick = ()=> showSection('dashboard');
-
-    // ---------- Lessons ----------
-    hubBtn.onclick = ()=>{ showSection('hub'); }
-
-    learnBtns.forEach(b=> b.addEventListener('click', (e)=>{
-      const t = e.currentTarget.dataset.topic;
-      const requiredLevel = {literacy: 2, loans: 3, insurance: 5, entre: 7}[t] || 1;
-      if (lessons[t] && state.level >= requiredLevel) {
-        lessonBox.classList.remove('hidden');
-        lessonBox.innerHTML = `
-          <h4 style="color:var(--primary);">${lessons[t].title}</h4>
-          <p style="line-height:1.5;">${lessons[t].text}</p>
-          <div class="row" style="margin-top:12px;">
-            <button id="markDone" class="ghost">Mark Done ✅</button>
-            <button id="closeLesson" class="ghost">Close</button>
-          </div>
-        `;
-        const markBtn = document.getElementById('markDone');
-        const closeLesson = document.getElementById('closeLesson');
-        if(markBtn) markBtn.onclick = ()=>{
-          state.challenges.lesson = true;
-          state.lessonsCompleted = (state.lessonsCompleted || 0) + 1;
-          state.badges = state.badges || [];
-          const badgeName = `${lessons[t].title.split(' ')[0]} Expert`;
-          if(!state.badges.includes(badgeName)) state.badges.push(badgeName);
-          state.points = (state.points || 0) + 15;
-          if (state.lessonsCompleted >= 4 && !state.badges.includes('Knowledge Guru 📚')) {
-            state.badges.push('Knowledge Guru 📚');
-            showReward('All Lessons Mastered!', 'Knowledge Guru badge! 🌟');
-            triggerConfetti();
-          }
-          if (state.lessonsCompleted >= 8 && !state.badges.includes('Finance Wizard 🧙‍♂')) {
-            state.badges.push('Finance Wizard 🧙‍♂');
-            showReward('Ultimate Learner!', 'Finance Wizard badge! 🎓');
-            triggerConfetti();
-          }
-          state.level = Math.min(10, 1 + Math.floor((state.points || 0) / 50));
-          saveState();
-          updateUI();
-          updateChallenges();
-          lessonBox.classList.add('hidden');
-          alert('Lesson completed! +15 points & badge unlocked! 🎊');
-        };
-        if(closeLesson) closeLesson.onclick = ()=> lessonBox.classList.add('hidden');
-      } else {
-        alert(`Level ${requiredLevel} required to unlock this lesson! 📚 Keep earning points.`);
-      }
-    }));
-
-    backDash.onclick = ()=> showSection('dashboard');
-
-    // ---------- Activities ----------
-    activitiesBtn.onclick = ()=>{ showSection('activities'); }
-
-    function startBudgetActivity() {
-      if(state.activitiesCompleted.budget) {
-        alert('You\'ve mastered this! Try another. 🎯');
-        return;
-      }
-      currentActivity = 'budget';
-      activityArea.innerHTML = `
-        <div class="card small">
-          <h3>Budget ₹1000 Pocket Money 💰</h3>
-          <p>Allocate to: Food (₹<input id="food" type="number" min="0" max="1000" value="300">), Fun (₹<input id="fun" type="number" min="0" max="1000" value="300">), Save (₹<input id="save" type="number" min="0" max="1000" value="400">)</p>
-          <div style="margin-top:12px;"><button id="submitBudget" class="ghost">Submit Budget! ✅</button></div>
-          <div id="budgetResult" class="activity-result"></div>
-        </div>
-      `;
-      activityArea.classList.remove('hidden');
-      document.getElementById('submitBudget').onclick = checkBudget;
-      state.challenges.activity = true;
-      updateChallenges();
-    }
-
-    function checkBudget() {
-      const food = parseInt(document.getElementById('food').value) || 0;
-      const fun = parseInt(document.getElementById('fun').value) || 0;
-      const save = parseInt(document.getElementById('save').value) || 0;
-      const total = food + fun + save;
-      const result = document.getElementById('budgetResult');
-      if (total === 1000) {
-        if (save >= 200) {
-          state.points += 25;
-          state.activitiesCompleted.budget = true;
-          if (!state.badges.includes('Budget Boss 💼')) {
-            state.badges.push('Budget Boss 💼');
-          }
-          result.innerHTML = `<p style="color:green;">Great job! Saved ₹${save}. +25 points! 🎉</p>`;
-          showReward('Perfect Budget!', 'Budget Boss badge! +25 pts 🏆');
-          triggerConfetti();
-        } else {
-          state.points += 10;
-          result.innerHTML = `<p style="color:orange;">Good effort! Try saving more next time (aim 20%+). +10 points. 💪</p>`;
+    function handleAnswer(selected, q){
+      if(answersDiv.dataset.answered === 'true') return;
+      answersDiv.dataset.answered = 'true';
+      const buttons = answersDiv.querySelectorAll('button');
+      buttons.forEach((b,i)=>{ b.disabled = true; if(i === q.a) b.classList.add('correct'); if(i === selected && i !== q.a) b.classList.add('wrong'); });
+      // show explanation below
+      const expl = document.createElement('div'); expl.className='muted'; expl.style.marginTop='8px'; expl.textContent = q.exp || '';
+      answersDiv.appendChild(expl);
+      if(selected === q.a){ state.points += 5; state.score = (state.score||0)+1; saveState(); updateUI(); triggerConfetti(); } else { saveState(); updateUI(); }
+      // move next after short delay
+      setTimeout(()=> {
+        const lvl = state.quizProgress.level;
+        const arr = quizLevels[lvl];
+        if(state.quizProgress.index < arr.length-1){ state.quizProgress.index++; saveState(); renderQuiz(); }
+        else {
+          // level complete
+          const bonus = (state.score||0) * 5;
+          state.points += bonus;
+          state.score = 0;
+          // unlock next game level
+          const unlockedCount = Object.keys(state.unlockedGameLevels || {}).length;
+          state.unlockedGameLevels[unlockedCount+1] = true;
+          saveState(); updateUI(); alert(`Quiz level complete! Bonus +${bonus} pts. Next game level unlocked.`);
+          showSection('dashboard');
         }
-        saveState();
-        updateUI();
-        if(Object.values(state.activitiesCompleted).every(v => v)){
-          if (!state.badges.includes('Activity Ace 🎮')) {
-            state.badges.push('Activity Ace 🎮');
-            showReward('All Activities Done!', 'Activity Ace badge! 🌟');
-          }
+      }, 900);
+    }
+
+    prevQbtn.addEventListener('click', ()=> { if(state.quizProgress.index > 0){ state.quizProgress.index--; saveState(); renderQuiz(); }});
+    nextQbtn.addEventListener('click', ()=> { const arr = quizLevels[state.quizProgress.level]; if(state.quizProgress.index < arr.length-1){ state.quizProgress.index++; saveState(); renderQuiz(); }});
+    quitQuizBtn.addEventListener('click', ()=> { showSection('dashboard'); });
+
+    // --- Learning Hub: render topics and lesson flow ---
+    const hubGridEl = document.getElementById('hubGrid');
+    const lessonEl = document.getElementById('lesson');
+    const backDashBtn = document.getElementById('backDash');
+
+    function renderHub(){
+      hubGridEl.innerHTML = '';
+      hubTopics.forEach(t => {
+        const c = document.createElement('div'); c.className='card learnCard';
+        const h = document.createElement('h3'); h.textContent = t.title;
+        const p = document.createElement('p'); p.className='muted'; p.textContent = t.slides[0].body;
+        const btn = document.createElement('button'); btn.className='learnBtn'; btn.textContent='Open Lesson';
+        btn.addEventListener('click', ()=> openLesson(t.id));
+        c.appendChild(h); c.appendChild(p); c.appendChild(btn);
+        hubGridEl.appendChild(c);
+      });
+      document.getElementById('hubLevel').textContent = state.level || 1;
+    }
+
+    function openLesson(id){
+      const topic = hubTopics.find(t => t.id === id);
+      if(!topic) return;
+      lessonEl.classList.remove('hidden');
+      lessonEl.innerHTML = '';
+      const title = document.createElement('h3'); title.textContent = topic.title;
+      lessonEl.appendChild(title);
+      // render slides vertically with next/previous inside the lesson element
+      let cur = 0;
+      const content = document.createElement('div'); content.style.marginTop='8px';
+      function renderSlide(){
+        content.innerHTML = `<h4 style="margin:0">${topic.slides[cur].title}</h4><p class="muted" style="margin-top:8px">${topic.slides[cur].body}</p>`;
+      }
+      renderSlide();
+      const nav = document.createElement('div'); nav.className='row'; nav.style.marginTop='12px';
+      const prev = document.createElement('button'); prev.className='ghost'; prev.textContent='Prev'; prev.addEventListener('click', ()=> { if(cur>0){ cur--; renderSlide(); }});
+      const mark = document.createElement('button'); mark.textContent='Mark as Read (+15 pts)'; mark.addEventListener('click', ()=> {
+        if(!state.lessonsCompleted[id]){ state.lessonsCompleted[id] = true; state.points += 15; saveState(); updateUI(); showReward('Lesson marked','+15 pts'); }
+      });
+      const close = document.createElement('button'); close.className='ghost'; close.textContent='Close'; close.addEventListener('click', ()=> { lessonEl.classList.add('hidden'); });
+      const next = document.createElement('button'); next.className='ghost'; next.textContent='Next'; next.addEventListener('click', ()=> { if(cur < topic.slides.length -1) { cur++; renderSlide(); } else { // finish lesson
+        if(!state.lessonsCompleted[id]){ state.lessonsCompleted[id] = true; state.points += 15; saveState(); updateUI(); showReward('Lesson complete','+15 pts'); }
+        lessonEl.classList.add('hidden');
+      }});
+      nav.appendChild(prev); nav.appendChild(next); nav.appendChild(mark); nav.appendChild(close);
+      lessonEl.appendChild(content); lessonEl.appendChild(nav);
+    }
+
+    backDashBtn.addEventListener('click', ()=> showSection('dashboard'));
+
+    // --- Wire other "Back" buttons that might exist to return to dashboard (kept from earlier patch) ---
+    (function wireBackButtons(){
+      const backIds = [
+        'quitQuiz','backDash','backFromGames','backFromHub','backFromShop','backFromMarket',
+        'backDashAct','backDash2','backFromWallet','backToDash','backToDashboard'
+      ];
+      backIds.forEach(id => {
+        const el = document.getElementById(id);
+        if(el){
+          el.addEventListener('click', (e) => {
+            if(e && typeof e.preventDefault === 'function') e.preventDefault();
+            try { showSection('dashboard'); } catch(err) {
+              const panelsList = ['onboard','dashboard','quiz','games','hub','shop','market','activities','mentor'];
+              panelsList.forEach(p => { const pEl = document.getElementById(p); if(pEl) pEl.classList.add('hidden'); });
+              const dash = document.getElementById('dashboard'); if(dash) dash.classList.remove('hidden');
+            }
+          });
         }
+      });
+    })();
+
+    // --- Remaining trading and UI code (unchanged but with a few wiring additions) ---
+    function renderMarketWatch(){
+      const marketWatch = document.getElementById('marketWatch');
+      if(!marketWatch) return;
+      marketWatch.innerHTML='';
+      Object.keys(state.marketPrices).forEach(sym=>{
+        const price = state.marketPrices[sym];
+        const d = document.createElement('div'); d.className='watch-item';
+        d.innerHTML = `<div><strong>${sym}</strong><div class="muted small">Demo stock</div></div><div style="text-align:right"><div style="font-weight:700">₹${price}</div><div class="muted small">Vol sim</div></div>`;
+        marketWatch.appendChild(d);
+      });
+    }
+
+    function renderOpenOrders(){
+      const openOrdersEl = document.getElementById('openOrders');
+      openOrdersEl.innerHTML='';
+      if(state.orders.length===0){ openOrdersEl.innerHTML = '<div class="muted small" style="padding:6px">No open orders</div>'; return; }
+      state.orders.forEach(o=>{
+        const div = document.createElement('div'); div.style.padding='8px'; div.style.border='1px solid #eef6fb'; div.style.borderRadius='8px'; div.style.marginBottom='8px';
+        div.innerHTML = `<div style="display:flex;justify-content:space-between"><strong>${o.side.toUpperCase()} ${o.symbol}</strong><div class="muted small">Qty ${o.qty} • ₹${o.price}</div></div><div class="muted small">Placed ${new Date(o.created).toLocaleString()}</div><div style="margin-top:6px;"><button class="ghost" data-cancel="${o.id}">Cancel</button></div>`;
+        openOrdersEl.appendChild(div);
+        const cancelBtn = div.querySelector('[data-cancel]');
+        if(cancelBtn) cancelBtn.onclick = ()=> { cancelOrder(o.id); };
+      });
+    }
+
+    function renderOrderHistory(){
+      const orderHistoryEl = document.getElementById('orderHistory');
+      orderHistoryEl.innerHTML='';
+      if(!state.orderHistory || state.orderHistory.length===0){ orderHistoryEl.innerHTML = '<div class="muted small" style="padding:6px">No trades yet</div>'; return; }
+      state.orderHistory.slice().reverse().forEach(h=>{
+        const d = document.createElement('div'); d.style.padding='6px'; d.style.borderBottom='1px dashed #eef6fb';
+        d.innerHTML = `<div style="display:flex;justify-content:space-between"><div><strong>${h.side.toUpperCase()} ${h.symbol}</strong> <span class="muted small">(${h.type})</span></div><div><strong>₹${h.price}</strong></div></div><div class="muted small">Qty ${h.qty} • ${new Date(h.ts).toLocaleString()}</div>`;
+        orderHistoryEl.appendChild(d);
+      });
+    }
+
+    function renderOrderBook(){
+      const orderBookEl = document.getElementById('orderBook');
+      orderBookEl.innerHTML='';
+      if(state.orders.length===0){ orderBookEl.innerHTML = '<div class="muted small" style="padding:6px">Order book empty</div>'; return; }
+      const groups = {};
+      state.orders.forEach(o=>{
+        groups[o.symbol] = groups[o.symbol] || {buy:[], sell:[]};
+        groups[o.symbol][o.side].push(o);
+      });
+      Object.keys(groups).forEach(sym=>{
+        const g = groups[sym];
+        const div = document.createElement('div'); div.style.border='1px dashed #eef6fb'; div.style.padding='8px'; div.style.marginBottom='8px'; div.style.borderRadius='8px';
+        div.innerHTML = `<div style="display:flex;justify-content:space-between"><strong>${sym}</strong><div class="muted small">Buy / Sell</div></div>`;
+        const buyList = g.buy.map(o=>`B ${o.qty}@${o.price}`).join(', ') || '—';
+        const sellList = g.sell.map(o=>`S ${o.qty}@${o.price}`).join(', ') || '—';
+        const inner = document.createElement('div'); inner.className='muted small'; inner.innerHTML = `<div>Buys: ${buyList}</div><div style="margin-top:6px">Sells: ${sellList}</div>`;
+        div.appendChild(inner);
+        orderBookEl.appendChild(div);
+      });
+    }
+
+    function isoNow(){ return new Date().toISOString(); }
+    function placeOrder(side, symbol, qty, type='market', price=null){
+      if(qty <= 0){ alert('Enter a valid quantity'); return; }
+      if(type === 'market'){
+        const execPrice = state.marketPrices[symbol];
+        executeTrade({side,symbol,qty,price:execPrice,type:'market'});
       } else {
-        result.innerHTML = '<p style="color:red;">Total not 1000! Adjust and try again. 🔄</p>';
+        const id = 'o'+(++orderIdCounter);
+        state.orders.push({id, side, symbol, qty, price: Number(price), type:'limit', created: isoNow()});
+        saveState(); renderOpenOrders(); renderOrderBook();
+        showReward('Limit Order Placed', `${side.toUpperCase()} ${qty} ${symbol} @ ₹${price}`);
       }
     }
 
-    function startSavingsActivity() {
-      if(state.activitiesCompleted.savings) {
-        alert('You\'ve mastered this! Try another. 📊');
-        return;
-      }
-      currentActivity = 'savings';
-      activityArea.innerHTML = `
-        <div class="card small">
-          <h3>Savings Goal Calculator 🐷</h3>
-          <p>Goal: ₹<input id="goal" type="number" value="5000"> | Monthly Save: ₹<input id="monthly" type="number" value="500"> | Interest Rate (% p.a.): <input id="rate" type="number" step="0.01" value="8.05"></p>
-          <div style="margin-top:12px;"><button id="calcSavings" class="ghost">Calculate Time! ⏱</button></div>
-          <div id="savingsResult" class="activity-result"></div>
-        </div>
-      `;
-      activityArea.classList.remove('hidden');
-      document.getElementById('calcSavings').onclick = calculateSavings;
-      state.challenges.activity = true;
-      updateChallenges();
-    }
-
-    function calculateSavings() {
-      const goal = parseFloat(document.getElementById('goal').value) || 0;
-      const monthly = parseFloat(document.getElementById('monthly').value) || 0;
-      const rate = (parseFloat(document.getElementById('rate').value) || 0) / 100 / 12;
-      if(goal <= 0 || monthly <= 0) {
-        document.getElementById('savingsResult').innerHTML = '<p style="color:red;">Enter valid goal & monthly save! 🔄</p>';
-        return;
-      }
-      let months = 0;
-      let balance = 0;
-      while (balance < goal && months < 1000) {
-        balance = (balance + monthly) * (1 + rate);
-        months++;
-      }
-      const years = Math.floor(months / 12);
-      const remMonths = months % 12;
-      const result = document.getElementById('savingsResult');
-      state.points += 25;
-      state.activitiesCompleted.savings = true;
-      if (!state.badges.includes('Savings Pro 🏅')) {
-        state.badges.push('Savings Pro 🏅');
-      }
-      result.innerHTML = `<p style="color:green;">Takes ${years} years & ${remMonths} months (approx). Great planning at ${ (rate*12).toFixed(2) }%! +25 points 🎉</p>`;
-      saveState();
-      updateUI();
-      triggerConfetti();
-    }
-
-    function startStockActivity(){
-      if(state.activitiesCompleted.stock){
-        alert('You already tried the stock mini-game. 🎲');
-        return;
-      }
-      currentActivity = 'stock';
-      activityArea.innerHTML = `
-        <div class="card small">
-          <h3>Stock Market Mini-Game (Sim)</h3>
-          <p>Pick a virtual stock and watch a simulated 5-day return. (Demo)</p>
-          <div style="margin-top:12px;"><button id="runStock" class="ghost">Run Simulation</button></div>
-          <div id="stockResult" class="activity-result"></div>
-        </div>
-      `;
-      activityArea.classList.remove('hidden');
-      document.getElementById('runStock').onclick = ()=>{
-        const outcome = (Math.random()*20 - 5).toFixed(2); // -5% to +15%
-        const el = document.getElementById('stockResult');
-        el.innerHTML = `<p>Simulation result: ${outcome}% over 5 days. Learn: diversify & think long-term.</p>`;
-        state.points += 20;
-        state.activitiesCompleted.stock = true;
-        if(!state.badges.includes('Market Starter 📈')) state.badges.push('Market Starter 📈');
-        saveState();
-        updateUI();
-        triggerConfetti();
-      };
-      state.challenges.activity = true;
-      updateChallenges();
-    }
-
-    function startUPIActivity(){
-      if(state.activitiesCompleted.upi){
-        alert('You already tried the UPI simulator. ⚡');
-        return;
-      }
-      currentActivity = 'upi';
-      activityArea.innerHTML = `
-        <div class="card small">
-          <h3>UPI Transaction Simulator 📱</h3>
-          <p>Send ₹<input id="upiAmount" type="number" value="50" min="1"> to a contact: <input id="upiTo" type="text" value="Ravi"></p>
-          <div style="margin-top:12px;"><button id="sendUpi" class="ghost">Send (Simulate)</button></div>
-          <div id="upiResult" class="activity-result"></div>
-        </div>
-      `;
-      activityArea.classList.remove('hidden');
-      document.getElementById('sendUpi').onclick = ()=>{
-        const to = document.getElementById('upiTo').value || '';
-        const amt = parseFloat(document.getElementById('upiAmount').value) || 0;
-        const el = document.getElementById('upiResult');
-        if(!to || amt <= 0){
-          el.innerHTML = `<p style="color:red;">Enter a recipient and valid amount.</p>`;
+    function executeTrade(order){
+      const {side,symbol,qty,price,type} = order;
+      const cost = qty * price;
+      if(side === 'sell'){
+        const holding = state.portfolio[symbol];
+        if(!holding || holding.qty < qty){
+          showReward('Sell Failed', 'Not enough shares to sell.');
           return;
         }
-        // Simple fraud check hint demo
-        if(Math.random() < 0.05){
-          el.innerHTML = `<p style="color:red;">Warning: Suspicious request detected. Do not share OTPs. Transaction blocked.</p>`;
-          showReward('Security Alert', 'Always verify recipients and never share OTPs.');
+        state.portfolio[symbol].qty -= qty;
+        if(state.portfolio[symbol].qty === 0) delete state.portfolio[symbol];
+        state.wallet.balance += cost;
+      } else {
+        if(cost > state.wallet.balance){ showReward('Buy Failed','Insufficient wallet balance.'); return; }
+        state.wallet.balance -= cost;
+        const h = state.portfolio[symbol];
+        if(h){
+          const newQty = h.qty + qty;
+          const newAvg = ((h.avgPrice * h.qty) + (price * qty)) / newQty;
+          state.portfolio[symbol] = { qty: newQty, avgPrice: Number(newAvg.toFixed(2)) };
         } else {
-          el.innerHTML = `<p style="color:green;">Transaction simulated: ₹${amt} sent to ${to}. Good job checking details! +10 pts</p>`;
-          state.points += 10;
-          state.activitiesCompleted.upi = true;
-          if(!state.badges.includes('UPI Pro ⚡')) state.badges.push('UPI Pro ⚡');
-          saveState();
-          updateUI();
-          triggerConfetti();
+          state.portfolio[symbol] = { qty: qty, avgPrice: price };
         }
-      };
-      state.challenges.activity = true;
-      updateChallenges();
-    }
-
-    backDashAct.onclick = ()=> {
-      activityArea.classList.add('hidden');
-      activityArea.innerHTML = '';
-      showSection('dashboard');
-    };
-
-    // ---------- Mentor ----------
-    mentorBtn.onclick = ()=> showSection('mentor');
-
-    function renderMentorLog(){
-      mentorLog.innerHTML = '';
-      (state.mentorLog || []).forEach(entry=>{
-        const div = document.createElement('div');
-        div.className = entry.from === 'user' ? 'mentorEntry' : 'mentorBot';
-        div.innerText = entry.text;
-        mentorLog.appendChild(div);
-      });
-      mentorLog.scrollTop = mentorLog.scrollHeight;
-    }
-
-    askMentor.onclick = ()=>{
-      const q = mentorQ.value && mentorQ.value.trim();
-      if(!q) return alert('Type a question for your Money Buddy! 💬');
-      const userEntry = {from:'user', text:q};
-      state.mentorLog.push(userEntry);
-      renderMentorLog();
-      mentorQ.value = '';
-      // simple rule-based answers
-      let ans = "Great question! Here's a tip: always check official sources.";
-      const key = q.toLowerCase();
-      if(key.includes('upi')) ans = "UPI processed 10,637 crore transactions in H1 2025. Always verify recipient name and never share OTPs.";
-      else if(key.includes('rbi')) ans = "RBI is India's central bank. For teens: you can now open & operate savings accounts from 10+.";
-      else if(key.includes('sebi')) ans = "SEBI regulates markets. Use SEBI-registered brokers and avoid influencer tips without research.";
-      else if(key.includes('save')) ans = "Start with small goals, automate saving, and try a 20% target of pocket money.";
-      else if(key.includes('loan')) ans = "Compare interest rates, read the terms, and avoid unregulated lenders.";
-      const botEntry = {from:'bot', text:ans};
-      setTimeout(()=>{
-        state.mentorLog.push(botEntry);
-        renderMentorLog();
-        state.challenges.mentor = true;
-        saveState();
-        updateChallenges();
-      }, 500);
-    };
-
-    clearLog.onclick = ()=> {
-      if(confirm('Clear the mentor chat?')) {
-        state.mentorLog = [];
-        saveState();
-        renderMentorLog();
       }
-    };
-
-    backDash2.onclick = ()=> showSection('dashboard');
-
-    // ---------- Modal Tour ----------
-    function populateModal(){
-      modalSteps.innerHTML = '';
-      tourSteps.forEach((s, idx)=>{
-        const div = document.createElement('div');
-        div.className = 'step' + (idx === currentStep ? ' active' : '');
-        div.innerHTML = `<strong>${s.title}</strong><p style="margin:6px 0 0 0;">${s.text}</p>`;
-        modalSteps.appendChild(div);
-      });
-      prevStep.style.display = currentStep > 0 ? 'inline-flex' : 'none';
-      nextStep.style.display = currentStep < tourSteps.length - 1 ? 'inline-flex' : 'none';
-      finishTour.style.display = currentStep === tourSteps.length - 1 ? 'inline-flex' : 'none';
-    }
-
-    function showMVPModal(title, text){
-      modalTitle.innerText = title || 'Welcome Tour';
-      modalText.innerText = text || '';
-      modal.classList.remove('hidden');
-      modal.setAttribute('aria-hidden','false');
-      currentStep = 0;
-      populateModal();
-    }
-    closeModal.addEventListener('click', ()=> {
-      modal.classList.add('hidden');
-      modal.setAttribute('aria-hidden','true');
-    });
-    nextStep.addEventListener('click', ()=> {
-      if(currentStep < tourSteps.length - 1) currentStep++;
-      populateModal();
-    });
-    prevStep.addEventListener('click', ()=> {
-      if(currentStep > 0) currentStep--;
-      populateModal();
-    });
-    finishTour.addEventListener('click', ()=> {
-      modal.classList.add('hidden');
-      modal.setAttribute('aria-hidden','true');
-    });
-
-    tourBtn.onclick = () => showMVPModal('Quick Tour 2025 🎉', 'Swipe to learn how FinTeens works with latest updates! Ready for fun? 🚀');
-
-    // ---------- Small interactions ----------
-    resetBtn.onclick = ()=>{ if(confirm('Reset demo data? Your adventure starts fresh! 🌱')){ localStorage.removeItem('finteens_state'); location.reload(); } }
-
-    challengesBtn.onclick = ()=> {
-      // toggle challenges panel
-      challengesEl.classList.toggle('hidden');
-      showSection('dashboard');
-    };
-
-    // ---------- Init ----------
-    window.addEventListener('load', ()=> {
-      loadState();
-      populateModal();
-      // Wire basic nav buttons
-      quizBtn.onclick = ()=> { startQuiz(); showSection('quiz'); };
-      hubBtn.onclick = ()=> showSection('hub');
-      activitiesBtn.onclick = ()=> showSection('activities');
-      mentorBtn.onclick = ()=> showSection('mentor');
-      backDash.addEventListener('click', ()=> showSection('dashboard'));
-      backDash2.addEventListener('click', ()=> showSection('dashboard'));
-      finish.addEventListener('click', ()=> {}); // handled earlier
-    });
-
-    // ---------- Start button ----------
-    startBtn.onclick = ()=>{
-      const nm = nameInput.value.trim();
-      const ag = parseInt(ageInput.value,10);
-      if(!nm || isNaN(ag) || ag < 10 || ag > 19){ alert('Please enter name and age (10-19) to start your adventure! 🌟'); return; }
-      state.name = nm;
-      state.age = ag;
-      state.points = state.points || 0;
-      state.level = state.level || 1;
-      state.badges = state.badges || [];
-      state.streak = state.streak || 0;
-      state.lastLogin = state.lastLogin || null;
-      state.challenges = state.challenges || {quiz: false, lesson: false, activity: false, mentor: false};
-      state.activitiesCompleted = state.activitiesCompleted || {budget: false, savings: false, stock: false, upi: false};
-      state.currentQ = 0;
-      state.score = 0;
-      state.quizAnswered = false;
-      state.lessonsCompleted = state.lessonsCompleted || 0;
+      const rec = { id: 't'+(++orderIdCounter), side, symbol, qty, price, type, ts: isoNow() };
+      state.orderHistory.push(rec);
+      if(type === 'limit'){
+        const idx = state.orders.findIndex(o => o.side===side && o.symbol===symbol && o.price===price && o.qty===qty);
+        if(idx >= 0) state.orders.splice(idx,1);
+      }
+      state.points += 5;
       saveState();
+      renderPortfolio();
+      renderOpenOrders();
+      renderOrderHistory();
+      renderOrderBook();
+      renderPortfolioSnapshot();
       updateUI();
-      updateLevelContent();
-      showSection('dashboard');
-      checkDailyLogin();
-    };
+      triggerConfetti();
+      showReward('Trade Executed', `${side.toUpperCase()} ${qty} ${symbol} @ ₹${price} executed.`);
+    }
 
-    // Expose a couple functions for inline onclicks (for older browsers)
-    window.startBudgetActivity = startBudgetActivity;
-    window.startSavingsActivity = startSavingsActivity;
-    window.startStockActivity = startStockActivity;
-    window.startUPIActivity = startUPIActivity;
-    window.closeReward = closeReward;
+    function cancelOrder(id){
+      const idx = state.orders.findIndex(o => o.id === id);
+      if(idx>=0){ state.orders.splice(idx,1); saveState(); renderOpenOrders(); renderOrderBook(); showReward('Order Cancelled','Limit order cancelled.'); }
+    }
+
+    function matchLimitOrders(){
+      const ordersToExec = [];
+      state.orders.forEach(o => {
+        const market = state.marketPrices[o.symbol];
+        if(o.side === 'buy' && market <= o.price){ ordersToExec.push({...o, price: market}); }
+        if(o.side === 'sell' && market >= o.price){ ordersToExec.push({...o, price: market}); }
+      });
+      if(ordersToExec.length === 0) return;
+      ordersToExec.forEach(o => { executeTrade({side:o.side,symbol:o.symbol,qty:o.qty,price:o.price,type:'limit'}); });
+    }
+
+    function randomizePrices(){
+      Object.keys(state.marketPrices).forEach(k=>{
+        const move = (Math.random()*8) - 3; // -3% .. +5%
+        state.marketPrices[k] = Math.max(1, Math.round(state.marketPrices[k] * (1 + move/100)));
+      });
+      renderMarketWatch();
+    }
+
+    // wallet handlers
+    document.getElementById('depositBtn').addEventListener('click', ()=> {
+      const amt = Number(document.getElementById('depositAmt').value) || 0;
+      if(amt<=0){ alert('Enter a positive amount'); return; }
+      state.wallet.balance += amt; document.getElementById('depositAmt').value=''; saveState(); updateUI(); showReward('Deposit', `₹${amt} added (demo)`); triggerConfetti();
+    });
+    document.getElementById('withdrawBtn').addEventListener('click', ()=> {
+      const amt = Number(document.getElementById('sendAmt').value) || 0; if(amt<=0){ alert('Enter a positive amount'); return; }
+      if(amt > state.wallet.balance){ alert('Insufficient demo balance'); return; }
+      state.wallet.balance -= amt; document.getElementById('sendAmt').value=''; saveState(); updateUI(); showReward('Withdraw', `₹${amt} withdrawn (demo)`); triggerConfetti();
+    });
+
+    document.getElementById('refreshPrices').addEventListener('click', ()=> { randomizePrices(); matchLimitOrders(); saveState(); updateUI(); renderPortfolio(); showReward('Market Refreshed','Prices updated'); });
+    document.getElementById('liquidateAll').addEventListener('click', ()=> {
+      const keys = Object.keys(state.portfolio);
+      if(keys.length===0){ alert('No holdings'); return; }
+      if(!confirm('Sell all holdings at market price?')) return;
+      keys.forEach(sym => { const h = state.portfolio[sym]; const price = state.marketPrices[sym]||0; state.wallet.balance += h.qty * price; });
+      state.portfolio = {}; state.points += 20; saveState(); updateUI(); renderPortfolio(); showReward('Liquidated','All holdings sold at market price');
+    });
+
+    // mentor handlers
+    document.getElementById('askMentor').addEventListener('click', ()=> {
+      const q = document.getElementById('mentorQ').value.trim(); if(!q) return;
+      const a = (()=>{ const low=q.toLowerCase(); if(low.includes('upi')) return 'UPI is instant & secure. Verify recipient name & never share OTP.'; if(low.includes('rbi')) return 'RBI updates vary; teens 10+ can now run their own accounts (demo).'; if(low.includes('sebi')) return 'SEBI recommends registered platforms, diversification and research.'; return 'Nice question! Explore the Hub lessons to learn more.'; })();
+      state.mentorLog = state.mentorLog||[]; state.mentorLog.push({q,a}); saveState(); renderMentorLog(); document.getElementById('mentorQ').value=''; if(!state.challenges.mentor){ state.challenges.mentor=true; state.points+=10; saveState(); updateUI(); showReward('Mentor used','+10 points'); }
+    });
+    document.getElementById('clearLog').addEventListener('click', ()=> { state.mentorLog = []; saveState(); renderMentorLog(); });
+
+    function renderMentorLog(){ const mentorLog = document.getElementById('mentorLog'); mentorLog.innerHTML=''; (state.mentorLog||[]).forEach(e=>{ const ue=document.createElement('div'); ue.className='mentorEntry'; ue.innerText='You: '+e.q; mentorLog.appendChild(ue); const be=document.createElement('div'); be.className='mentorBot'; be.innerText='Buddy: '+e.a; mentorLog.appendChild(be); }); }
+
+    // Wire trading modal buttons that were referenced earlier
+    const placeBuyBtn = document.getElementById('placeBuy');
+    const placeSellBtn = document.getElementById('placeSell');
+    if(placeBuyBtn) placeBuyBtn.addEventListener('click', ()=> {
+      const sym = document.getElementById('orderSymbol').value;
+      const qty = Number(document.getElementById('orderQty').value) || 0;
+      const type = document.getElementById('orderType').value;
+      const price = document.getElementById('orderPrice').value ? Number(document.getElementById('orderPrice').value) : null;
+      placeOrder('buy', sym, qty, type, price);
+    });
+    if(placeSellBtn) placeSellBtn.addEventListener('click', ()=> {
+      const sym = document.getElementById('orderSymbol').value;
+      const qty = Number(document.getElementById('orderQty').value) || 0;
+      const type = document.getElementById('orderType').value;
+      const price = document.getElementById('orderPrice').value ? Number(document.getElementById('orderPrice').value) : null;
+      placeOrder('sell', sym, qty, type, price);
+    });
+
+    const closeTradingBtn = document.getElementById('closeTrading');
+    if(closeTradingBtn) closeTradingBtn.addEventListener('click', ()=> {
+      tradingModal.classList.add('hidden');
+      tradingModal.setAttribute('aria-hidden', 'true');
+    });
+
+    const refreshMarketBtn = document.getElementById('refreshMarket');
+    if(refreshMarketBtn) refreshMarketBtn.addEventListener('click', ()=> { randomizePrices(); matchLimitOrders(); saveState(); updateUI(); renderPortfolio(); renderOpenOrders(); renderOrderBook(); showReward('Market Refreshed','Prices updated'); });
+
+    const cancelAllBtn = document.getElementById('cancelAllOrders');
+    if(cancelAllBtn) cancelAllBtn.addEventListener('click', ()=> { state.orders = []; saveState(); renderOpenOrders(); renderOrderBook(); showReward('Cancelled','All orders cancelled'); });
+
+    // Navigation wiring
+    document.getElementById('startBtn').addEventListener('click', ()=> {
+      const nm = document.getElementById('name').value.trim(), ag = parseInt(document.getElementById('age').value,10);
+      if(!nm){ alert('Please enter your name'); return; }
+      if(isNaN(ag) || ag<10 || ag>19){ alert('Enter valid age (10-19)'); return; }
+      state.name = nm; state.age = ag; saveState(); updateUI(); renderHub(); renderQuiz(); showSection('dashboard'); checkDailyLogin();
+    });
+    document.getElementById('quizBtn').addEventListener('click', ()=> { showSection('quiz'); renderQuiz(); });
+    document.getElementById('hubBtn').addEventListener('click', ()=> { showSection('hub'); renderHub(); });
+    document.getElementById('activitiesBtn').addEventListener('click', ()=> { showSection('activities'); });
+    document.getElementById('mentorBtn').addEventListener('click', ()=> { showSection('mentor'); renderMentorLog(); });
+    document.getElementById('tradingBtn').addEventListener('click', ()=> {
+      tradingModal.classList.remove('hidden');
+      tradingModal.setAttribute('aria-hidden','false');
+      modalWallet.innerText = `₹${Number(state.wallet.balance).toLocaleString()}`;
+      renderMarketWatch(); renderOpenOrders(); renderOrderHistory(); renderOrderBook(); renderPortfolio(); renderPortfolioSnapshot();
+    });
+
+    document.getElementById('resetBtn').addEventListener('click', ()=> { if(confirm('Reset demo?')){ localStorage.removeItem('finteens_state'); location.reload(); } });
+
+    // Initialize state and UI
+    loadState();
+    // periodic price refresh & limit matching
+    setInterval(()=>{ randomizePrices(); matchLimitOrders(); saveState(); updateUI(); renderPortfolio(); renderOpenOrders(); renderOrderBook(); }, 30000);
+
+    // Expose for debugging
+    window._finteens_state = ()=> JSON.parse(JSON.stringify(state));
   </script>
 </body>
 </html>
