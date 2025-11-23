@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>FinTeens Gaming Edition</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="glow"></div>
+  <div class="app">
+    <header>
+      <div class="logo">
+        <div class="logo-icon">₹</div>
+        <div class="logo-text">
+          <h1>FinTeens Arena</h1>
+          <span>Level up your money skills — gaming style 💙🟣</span>
+        </div>
+      </div>
+      <div class="top-meta">
+        <div class="pill">
+          Player: <strong id="topPlayer">Guest</strong>
+        </div>
+        <div class="pill streak">
+          🔥 Streak: <span id="streakCount">0</span>d
+        </div>
+        <button id="btnReset" class="btn btn-sm btn-ghost">Reset Save</button>
+      </div>
+    </header>
+
+    <!-- SCREENS -->
+    <div id="screen-onboard">
+      <div class="card fade-in">
+        <div class="row" style="justify-content:space-between;align-items:flex-start;">
+          <div style="max-width:270px;">
+            <div class="game-title"><span class="big-emoji">🎮</span>FinTeens: XP Quest</div>
+            <p class="sub">Build your money brain with quizzes, wallet, trading mini-games, UPI sim and daily challenges. Everything is simulated, safe, and offline.</p>
+            <div class="chips">
+              <span class="chip good">No real money</span>
+              <span class="chip">Local save only</span>
+              <span class="chip">Teen-friendly</span>
+            </div>
+          </div>
+          <div>
+            <div class="tag">Season <span>2025</span></div>
+            <div class="xp-bar" style="margin-top:8px;width:180px;"><div class="xp-fill" style="width:85%"></div></div>
+            <p class="tag-mini">Tip: you’ll unlock badges, streaks and challenges as you play.</p>
+          </div>
+        </div>
+
+        <div class="onboard-row">
+          <div>
+            <label>Gamer tag</label>
+            <input id="inpName" placeholder="e.g. MoneySlayer, CryptoKing, AshaPro" />
+          </div>
+          <div>
+            <label>Age (10–19)</label>
+            <input id="inpAge" type="number" min="10" max="19" placeholder="16" />
+          </div>
+          <div class="row" style="margin-top:4px;gap:8px;">
+            <button id="btnStart" class="btn">Start Adventure ⚡</button>
+            <button id="btnSkipOnboard" class="btn btn-ghost btn-sm">Skip & play as Guest</button>
+          </div>
+          <p class="tag-mini">You can always reset later — progress is stored on this device only.</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="screen-main" class="hidden">
+      <div class="grid">
+        <!-- LEFT: player stats + nav -->
+        <div>
+          <div class="card">
+            <div class="row row-between">
+              <div>
+                <div class="card-title">Player Dashboard</div>
+                <p class="sub">
+                  Welcome back, <strong id="playerNameLabel">Player</strong>. Keep earning XP to level up your rank.
+                </p>
+              </div>
+              <div style="text-align:right;">
+                <div class="coins-label" id="pointsLabel">0 XP</div>
+                <span class="stat">Level <strong id="levelLabel">1</strong> • Rank: <span id="rankLabel">Rookie</span></span>
+              </div>
+            </div>
+            <div class="xp-bar"><div id="xpFill" class="xp-fill"></div></div>
+            <div class="chips">
+              <span class="chip">Wallet: <strong id="walletChip">₹0</strong></span>
+              <span class="chip">Portfolio: <strong id="portfolioChip">₹0</strong></span>
+              <span class="chip">Quizzes cleared: <strong id="quizChip">0</strong></span>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-title">Game Modes</div>
+            <div class="nav-grid">
+              <button class="nav-btn active" data-target="panel-quiz">
+                <strong>Daily Quiz 🎯</strong>
+                <span>Rapid-fire money questions, XP for right answers.</span>
+              </button>
+              <button class="nav-btn" data-target="panel-wallet">
+                <strong>Wallet & UPI 💳</strong>
+                <span>Deposit, withdraw & simulate safe UPI transfers.</span>
+              </button>
+              <button class="nav-btn" data-target="panel-trading">
+                <strong>Trading Mini-Game 📈</strong>
+                <span>Buy/sell virtual stocks with no risk.</span>
+              </button>
+              <button class="nav-btn" data-target="panel-mentor">
+                <strong>Mentor Bot 🤖</strong>
+                <span>Ask doubts, get quick guidance.</span>
+              </button>
+              <button class="nav-btn" data-target="panel-challenges">
+                <strong>Daily Challenges ⚡</strong>
+                <span>Complete tasks to boost streak & XP.</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: dynamic panel -->
+        <div id="panel-container">
+          <!-- QUIZ PANEL -->
+          <div id="panel-quiz" class="card fade-in">
+            <div class="section-title">Daily Quiz – Money Basics 🎯</div>
+            <p class="sub">Answer correctly to earn XP. You get +15 XP per correct answer (only once per question).</p>
+            <div class="quiz-meta">
+              Question <span id="quizIndex">1</span>/<span id="quizTotal">5</span> •
+              Score: <strong id="quizScore">0</strong>
+            </div>
+            <div id="quizQuestion" class="quiz-question"></div>
+            <div id="quizOptions" class="quiz-options"></div>
+            <div class="row row-between" style="margin-top:4px;">
+              <button id="btnPrevQ" class="btn btn-sm btn-ghost">⬅ Prev</button>
+              <button id="btnNextQ" class="btn btn-sm btn-ghost">Next ➡</button>
+            </div>
+            <p class="tag-mini" id="quizNote"></p>
+          </div>
+
+          <!-- WALLET + UPI PANEL -->
+          <div id="panel-wallet" class="card hidden fade-in">
+            <div class="section-title">Wallet & UPI Arena 💳</div>
+            <p class="sub">Practice deposit, withdraw and safe UPI transfers. All virtual, all for learning.</p>
+            <div class="row row-between">
+              <div>
+                <div class="wallet-num" id="walletBig">₹0<span>virtual balance</span></div>
+                <p class="stat">Locked in portfolio: <strong id="walletLocked">₹0</strong></p>
+              </div>
+              <div class="tag pill-good">No real bank connected ✔</div>
+            </div>
+            <div class="input-row" style="margin-top:8px;">
+              <input id="inpDeposit" type="number" min="1" placeholder="Deposit amount (₹)" />
+              <button id="btnDeposit" class="btn btn-sm">Deposit</button>
+            </div>
+            <div class="input-row">
+              <input id="inpWithdraw" type="number" min="1" placeholder="Withdraw amount (₹)" />
+              <button id="btnWithdraw" class="btn btn-sm btn-ghost">Withdraw</button>
+            </div>
+            <p class="tag-mini">Tip: use deposits to try out the trading mini-game or to simulate UPI sends.</p>
+
+            <div class="upi-box">
+              <div class="row row-between">
+                <strong>UPI Simulator 📱</strong>
+                <span class="tag-mini">No real money, just practice.</span>
+              </div>
+              <div style="margin-top:6px;">
+                <div class="row" style="gap:6px;">
+                  <input id="upiTo" placeholder="Friend / Shop name" />
+                </div>
+                <div class="input-row">
+                  <input id="upiAmount" type="number" min="1" placeholder="Amount (₹)" />
+                  <button id="btnUPI" class="btn btn-sm">Send UPI ⚡</button>
+                </div>
+                <p class="tag-mini" id="upiMsg">Never share OTP, PIN or passwords with anyone — even if they say they are “from the bank”.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- TRADING PANEL -->
+          <div id="panel-trading" class="card hidden fade-in">
+            <div class="section-title">Trading Mini-Game 📈</div>
+            <p class="sub">
+              Use your virtual wallet to buy/sell these fictional assets. Prices wiggle each time you refresh.
+            </p>
+            <div class="table-head">Market Watch</div>
+            <div id="marketList"></div>
+            <div class="row" style="margin-top:6px;">
+              <select id="tradeAsset"></select>
+              <input id="tradeQty" type="number" min="1" placeholder="Qty" style="max-width:80px;" />
+              <button id="btnBuy" class="btn btn-sm">Buy</button>
+              <button id="btnSell" class="btn btn-sm btn-ghost">Sell</button>
+            </div>
+            <div class="row row-between" style="margin-top:6px;">
+              <span class="stat">Portfolio value: <strong id="portfolioValue">₹0</strong></span>
+              <button id="btnRefreshMarket" class="btn btn-sm btn-ghost">Roll Prices 🎲</button>
+            </div>
+            <div class="portfolio-list" style="margin-top:6px;">
+              <div class="table-head">Your Holdings</div>
+              <div id="portfolioList"></div>
+            </div>
+          </div>
+
+          <!-- MENTOR PANEL -->
+          <div id="panel-mentor" class="card hidden fade-in">
+            <div class="section-title">Mentor Bot – Money Buddy 🤖</div>
+            <p class="sub">Ask anything about saving, UPI safety, investing basics, or RBI/SEBI style rules. Answers are simplified for teens.</p>
+            <div class="mentor-log" id="mentorLog"></div>
+            <div class="input-row" style="margin-top:6px;">
+              <input id="mentorInput" placeholder="e.g. How much emergency fund do I need? " />
+              <button id="btnAskMentor" class="btn btn-sm">Ask</button>
+            </div>
+            <button id="btnClearMentor" class="btn btn-sm btn-ghost" style="margin-top:4px;">Clear Chat</button>
+          </div>
+
+          <!-- CHALLENGES PANEL -->
+          <div id="panel-challenges" class="card hidden fade-in">
+            <div class="section-title">Daily Challenges & Badges ⚡</div>
+            <p class="sub">Crush these to grow your streak, unlock badges and flex your XP.</p>
+            <div class="row row-between">
+              <div class="tag">
+                Streak: <span id="streakLabel">0 days</span>
+              </div>
+              <div class="tag">
+                Last login: <span id="lastLoginLabel">–</span>
+              </div>
+            </div>
+
+            <div class="section" style="margin-top:8px;">
+              <div class="section-title">Challenges</div>
+              <div id="challengeList" class="challenge-list"></div>
+            </div>
+
+            <div class="section" style="margin-top:8px;">
+              <div class="section-title">Badges</div>
+              <div id="badgeList" class="badge-list"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="toast"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
