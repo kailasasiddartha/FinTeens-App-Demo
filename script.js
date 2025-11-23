@@ -450,6 +450,7 @@ function setupTrading() {
     refreshMarketPrices();
     renderMarket();
     renderPortfolio();
+    updateMarketChart($("tradeAsset").value); 
     showToast("Market prices rolled. Remember: volatility is normal.");
   });
 
