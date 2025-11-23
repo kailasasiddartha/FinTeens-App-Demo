@@ -83,14 +83,13 @@ const marketAssets = [
   { id: "EDU", name: "EduVerse Learn Coin", base: 80 },
   { id: "GRW", name: "Growth Guild Stock", base: 150 },
 ];
-let marketPrices = {let marketChart = null;
+let marketPrices = {};
+ let marketChart = null;
 let priceData = {
   FNT: [],
   EDU: [],
   GRW: []
 };
-};
-
 const challengeMeta = {
   quizToday: { label: "Finish quiz with at least 3 correct", reward: 40 },
   depositToday: { label: "Deposit into wallet once", reward: 15 },
