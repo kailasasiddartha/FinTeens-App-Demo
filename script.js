@@ -83,7 +83,13 @@ const marketAssets = [
   { id: "EDU", name: "EduVerse Learn Coin", base: 80 },
   { id: "GRW", name: "Growth Guild Stock", base: 150 },
 ];
-let marketPrices = {};
+let marketPrices = {let marketChart = null;
+let priceData = {
+  FNT: [],
+  EDU: [],
+  GRW: []
+};
+};
 
 const challengeMeta = {
   quizToday: { label: "Finish quiz with at least 3 correct", reward: 40 },
@@ -642,4 +648,49 @@ function updateAllUI() {
   renderBadges();
   renderPortfolio();
   saveState();
+function updateMarketChart(assetId) {
+  const canvas = document.getElementById("marketChart").getContext("2d");
+  const latestPrice = marketPrices[assetId];
+
+  // save price history
+  priceData[assetId].push(latestPrice);
+
+  // limit history points (like real apps)
+  if (priceData[assetId].length > 40) priceData[assetId].shift();
+
+  // destroy old chart so redraw is clean
+  if (marketChart) marketChart.destroy();
+
+  // create gradient line like investing apps
+  const gradient = canvas.createLinearGradient(0, 0, 500, 0);
+  gradient.addColorStop(0, "#00eaff");
+  gradient.addColorStop(1, "#7b5bff");
+
+  marketChart = new Chart(canvas, {
+    type: "line",
+    data: {
+      labels: priceData[assetId].map((_, i) => i + 1),
+      datasets: [{
+        label: assetId + " Price",
+        data: priceData[assetId],
+        borderColor: gradient,
+        borderWidth: 3,
+        fill: true,
+        tension: 0.35,
+        backgroundColor: "rgba(0, 225, 255, 0.09)",
+        pointRadius: 0,
+        pointHoverRadius: 5,
+        pointBackgroundColor: "#00eaff"
+      }]
+    },
+    options: {
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { display: false },
+        y: { display: true, ticks: { color: "#cbd5e1" } }
+      },
+      interaction: {mode: "index", intersect: false}
+    }
+  });
+}
 }
