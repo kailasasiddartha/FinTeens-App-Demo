@@ -1,11 +1,22 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <title>FinTeens Gaming Edition</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description"
+    content="FinTeens - A gamified financial literacy app for teens. Learn money skills through quizzes, trading simulations, and interactive challenges." />
+  <meta name="theme-color" content="#4f46e5" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="FinTeens" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%234f46e5' width='100' height='100' rx='20'/><text x='50' y='65' font-size='50' text-anchor='middle' fill='white'>₹</text></svg>" />
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
   <div class="glow"></div>
   <div class="app">
@@ -18,6 +29,8 @@
         </div>
       </div>
       <div class="top-meta">
+        <button id="btnToggleSound" class="btn btn-sm btn-ghost" title="Toggle Sound">🔊</button>
+        <button id="btnThemeToggle" class="btn btn-sm btn-ghost" title="Toggle Theme">🌙</button>
         <div class="pill">
           Player: <strong id="topPlayer">Guest</strong>
         </div>
@@ -34,7 +47,8 @@
         <div class="row" style="justify-content:space-between;align-items:flex-start;">
           <div style="max-width:270px;">
             <div class="game-title"><span class="big-emoji">🎮</span>FinTeens: XP Quest</div>
-            <p class="sub">Build your money brain with quizzes, wallet, trading mini-games, UPI sim and daily challenges. Everything is simulated, safe, and offline.</p>
+            <p class="sub">Build your money brain with quizzes, wallet, trading mini-games, UPI sim, budget builder and
+              daily challenges. Everything is simulated, safe, and offline.</p>
             <div class="chips">
               <span class="chip good">No real money</span>
               <span class="chip">Local save only</span>
@@ -42,9 +56,11 @@
             </div>
           </div>
           <div>
-            <div class="tag">Season <span>2025</span></div>
-            <div class="xp-bar" style="margin-top:8px;width:180px;"><div class="xp-fill" style="width:85%"></div></div>
-            <p class="tag-mini">Tip: you’ll unlock badges, streaks and challenges as you play.</p>
+            <div class="tag">Season <span>2026</span></div>
+            <div class="xp-bar" style="margin-top:8px;width:180px;">
+              <div class="xp-fill" style="width:85%"></div>
+            </div>
+            <p class="tag-mini">Tip: you'll unlock badges, streaks and challenges as you play.</p>
           </div>
         </div>
 
@@ -80,14 +96,23 @@
               </div>
               <div style="text-align:right;">
                 <div class="coins-label" id="pointsLabel">0 XP</div>
-                <span class="stat">Level <strong id="levelLabel">1</strong> • Rank: <span id="rankLabel">Rookie</span></span>
+                <span class="stat">Level <strong id="levelLabel">1</strong> • Rank: <span
+                    id="rankLabel">Rookie</span></span>
               </div>
             </div>
-            <div class="xp-bar"><div id="xpFill" class="xp-fill"></div></div>
+            <div class="xp-bar">
+              <div id="xpFill" class="xp-fill"></div>
+            </div>
             <div class="chips">
               <span class="chip">Wallet: <strong id="walletChip">₹0</strong></span>
               <span class="chip">Portfolio: <strong id="portfolioChip">₹0</strong></span>
               <span class="chip">Quizzes cleared: <strong id="quizChip">0</strong></span>
+            </div>
+
+            <!-- Daily Reward Banner -->
+            <div id="dailyRewardBanner" class="daily-reward-banner hidden">
+              <span>🎁 Daily Reward Ready!</span>
+              <button id="btnClaimDaily" class="btn btn-sm">Claim +<span id="dailyRewardAmount">10</span> XP</button>
             </div>
           </div>
 
@@ -106,13 +131,57 @@
                 <strong>Trading Mini-Game 📈</strong>
                 <span>Buy/sell virtual stocks with no risk.</span>
               </button>
+              <button class="nav-btn" data-target="panel-budget">
+                <strong>Budget Builder 💰</strong>
+                <span>Plan your monthly budget like a pro.</span>
+              </button>
+              <button class="nav-btn" data-target="panel-goals">
+                <strong>Savings Goals 🎯</strong>
+                <span>Set goals and track your progress.</span>
+              </button>
+              <button class="nav-btn" data-target="panel-learn">
+                <strong>Money School 📚</strong>
+                <span>Bite-sized financial lessons.</span>
+              </button>
               <button class="nav-btn" data-target="panel-mentor">
                 <strong>Mentor Bot 🤖</strong>
                 <span>Ask doubts, get quick guidance.</span>
               </button>
               <button class="nav-btn" data-target="panel-challenges">
-                <strong>Daily Challenges ⚡</strong>
+                <strong>Challenges & Badges ⚡</strong>
                 <span>Complete tasks to boost streak & XP.</span>
+              </button>
+              <button class="nav-btn" data-target="panel-leaderboard">
+                <strong>Leaderboard 🏆</strong>
+                <span>See top players on this device.</span>
+              </button>
+              <button class="nav-btn" data-target="panel-expenses">
+                <strong>Expense Tracker 📝</strong>
+                <span>Log and analyze your spending.</span>
+              </button>
+              <button class="nav-btn" data-target="panel-scenarios">
+                <strong>Money Scenarios 🎮</strong>
+                <span>Interactive financial decisions.</span>
+              </button>
+              <button class="nav-btn" data-target="panel-analytics">
+                <strong>Analytics 📊</strong>
+                <span>Track your progress over time.</span>
+              </button>
+              <button class="nav-btn" data-target="panel-news">
+                <strong>Market News 📰</strong>
+                <span>News that affects your trades.</span>
+              </button>
+              <button class="nav-btn" data-target="panel-calculators">
+                <strong>Calculators 🧮</strong>
+                <span>SIP, EMI, Compound Interest.</span>
+              </button>
+              <button class="nav-btn" data-target="panel-powerups">
+                <strong>Power-ups 🚀</strong>
+                <span>Boost your XP earnings!</span>
+              </button>
+              <button class="nav-btn" data-target="panel-speedquiz">
+                <strong>Speed Quiz ⚡</strong>
+                <span>Race against time!</span>
               </button>
             </div>
           </div>
@@ -124,9 +193,39 @@
           <div id="panel-quiz" class="card fade-in">
             <div class="section-title">Daily Quiz – Money Basics 🎯</div>
             <p class="sub">Answer correctly to earn XP. You get +15 XP per correct answer (only once per question).</p>
+
+            <!-- Quiz Category Selector -->
+            <div class="quiz-controls">
+              <div class="row" style="gap:8px;margin-bottom:8px;">
+                <select id="quizCategory">
+                  <option value="all">All Categories</option>
+                  <option value="basics">Money Basics</option>
+                  <option value="upi">UPI & Digital Safety</option>
+                  <option value="investing">Investing Basics</option>
+                  <option value="banking">Banking 101</option>
+                  <option value="taxes">Taxes & Income</option>
+                  <option value="crypto">Cryptocurrency</option>
+                  <option value="insurance">Insurance</option>
+                  <option value="creditcards">Credit Cards</option>
+                  <option value="entrepreneurship">Entrepreneurship</option>
+                </select>
+                <select id="quizDifficulty">
+                  <option value="all">All Levels</option>
+                  <option value="beginner">Beginner</option>
+                  <option value="intermediate">Intermediate</option>
+                  <option value="advanced">Advanced</option>
+                </select>
+              </div>
+              <div class="row row-between">
+                <button id="btnTimedQuiz" class="btn btn-sm btn-ghost">⏱️ Timed Mode</button>
+                <div id="quizTimer" class="quiz-timer hidden">⏱️ <span id="timerDisplay">30</span>s</div>
+              </div>
+            </div>
+
             <div class="quiz-meta">
               Question <span id="quizIndex">1</span>/<span id="quizTotal">5</span> •
               Score: <strong id="quizScore">0</strong>
+              <span id="quizCategoryLabel" class="chip" style="margin-left:8px;"></span>
             </div>
             <div id="quizQuestion" class="quiz-question"></div>
             <div id="quizOptions" class="quiz-options"></div>
@@ -171,43 +270,190 @@
                   <input id="upiAmount" type="number" min="1" placeholder="Amount (₹)" />
                   <button id="btnUPI" class="btn btn-sm">Send UPI ⚡</button>
                 </div>
-                <p class="tag-mini" id="upiMsg">Never share OTP, PIN or passwords with anyone — even if they say they are “from the bank”.</p>
+                <p class="tag-mini" id="upiMsg">Never share OTP, PIN or passwords with anyone — even if they say they
+                  are "from the bank".</p>
               </div>
             </div>
           </div>
 
           <!-- TRADING PANEL -->
           <div id="panel-trading" class="card hidden fade-in">
-            <div class="section-title">Trading Mini-Game 📈</div>
+            <div class="section-title">Trading Simulator 📈</div>
             <p class="sub">
-              Use your virtual wallet to buy/sell these fictional assets. Prices wiggle each time you refresh.
+              Trade virtual assets in a realistic market simulation. Watch price movements and make strategic decisions!
             </p>
+
+            <!-- Market Watch with enhanced display -->
             <div class="table-head">Market Watch</div>
-            <div id="marketList"></div>
-            <div class="row" style="margin-top:6px;">
-              <select id="tradeAsset"></select>
-              <input id="tradeQty" type="number" min="1" placeholder="Qty" style="max-width:80px;" />
-              <button id="btnBuy" class="btn btn-sm">Buy</button>
-              <button id="btnSell" class="btn btn-sm btn-ghost">Sell</button>
+            <div id="marketList" class="market-list-enhanced"></div>
+
+            <!-- Trading Controls -->
+            <div class="trading-controls">
+              <select id="tradeAsset" class="trade-select"></select>
+              <input id="tradeQty" type="number" min="1" placeholder="Qty" class="trade-qty-input" />
+              <button id="btnBuy" class="btn btn-sm btn-buy">📈 Buy</button>
+              <button id="btnSell" class="btn btn-sm btn-sell">📉 Sell</button>
             </div>
-            <div class="row row-between" style="margin-top:6px;">
-              <span class="stat">Portfolio value: <strong id="portfolioValue">₹0</strong></span>
-              <button id="btnRefreshMarket" class="btn btn-sm btn-ghost">Roll Prices 🎲</button>
+
+            <!-- Portfolio Summary -->
+            <div class="portfolio-summary">
+              <div class="portfolio-stat">
+                <span class="stat-label">Portfolio Value</span>
+                <strong id="portfolioValue" class="stat-value">₹0</strong>
+              </div>
+              <div class="portfolio-stat">
+                <span class="stat-label">Wallet</span>
+                <strong id="walletBalance2" class="stat-value">₹0</strong>
+              </div>
+              <button id="btnRefreshMarket" class="btn btn-sm btn-ghost">Simulate Market 🎲</button>
             </div>
-            <div class="portfolio-list" style="margin-top:6px;">
+
+            <!-- Holdings List -->
+            <div class="portfolio-list">
               <div class="table-head">Your Holdings</div>
               <div id="portfolioList"></div>
-              <div style="margin-top:18px;padding:12px;background:#0d1324;border-radius:14px;">
-  <canvas id="marketChart" height="230"></canvas>
-</div>
+            </div>
 
+            <!-- Professional Chart Section -->
+            <div class="chart-container-pro">
+              <div class="chart-header">
+                <div class="chart-asset-info">
+                  <span id="chartAssetName" class="chart-asset-name">Select an asset</span>
+                  <span id="chartAssetPrice" class="chart-asset-price">₹0</span>
+                  <span id="chartPriceChange" class="chart-price-change neutral">+0.00%</span>
+                </div>
+                <div class="chart-time-range">
+                  <button class="time-btn active" data-range="10">10T</button>
+                  <button class="time-btn" data-range="20">20T</button>
+                  <button class="time-btn" data-range="40">40T</button>
+                </div>
+              </div>
+
+              <div class="chart-stats-row">
+                <div class="chart-stat">
+                  <span class="chart-stat-label">Open</span>
+                  <span id="chartOpen" class="chart-stat-value">-</span>
+                </div>
+                <div class="chart-stat">
+                  <span class="chart-stat-label">High</span>
+                  <span id="chartHigh" class="chart-stat-value high">-</span>
+                </div>
+                <div class="chart-stat">
+                  <span class="chart-stat-label">Low</span>
+                  <span id="chartLow" class="chart-stat-value low">-</span>
+                </div>
+                <div class="chart-stat">
+                  <span class="chart-stat-label">Volume</span>
+                  <span id="chartVolume" class="chart-stat-value">-</span>
+                </div>
+              </div>
+
+              <div class="chart-wrapper">
+                <canvas id="marketChart" height="280"></canvas>
+              </div>
+
+              <div class="chart-legend">
+                <span class="legend-item"><span class="legend-dot up"></span> Price Up</span>
+                <span class="legend-item"><span class="legend-dot down"></span> Price Down</span>
+                <span class="legend-item"><span class="legend-bar"></span> Volume</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- BUDGET BUILDER PANEL -->
+          <div id="panel-budget" class="card hidden fade-in">
+            <div class="section-title">Budget Builder Challenge 💰</div>
+            <p class="sub">You have a monthly allowance. Allocate it wisely across categories!</p>
+
+            <div class="budget-scenario">
+              <div class="row row-between">
+                <div>
+                  <span class="tag">Monthly Income:</span>
+                  <strong id="budgetIncome" class="budget-income">₹5000</strong>
+                </div>
+                <div>
+                  <span class="tag">Remaining:</span>
+                  <strong id="budgetRemaining" class="budget-remaining">₹5000</strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="budget-categories" id="budgetCategories">
+              <!-- Categories will be rendered by JS -->
+            </div>
+
+            <div class="budget-chart-container">
+              <canvas id="budgetChart" height="200"></canvas>
+            </div>
+
+            <div class="row" style="margin-top:12px;gap:8px;">
+              <button id="btnSubmitBudget" class="btn">Submit Budget 📊</button>
+              <button id="btnResetBudget" class="btn btn-ghost btn-sm">Reset</button>
+              <button id="btnNewScenario" class="btn btn-ghost btn-sm">New Scenario 🎲</button>
+            </div>
+
+            <div id="budgetFeedback" class="budget-feedback hidden">
+              <!-- Feedback will appear here -->
+            </div>
+          </div>
+
+          <!-- SAVINGS GOALS PANEL -->
+          <div id="panel-goals" class="card hidden fade-in">
+            <div class="section-title">Savings Goals Tracker 🎯</div>
+            <p class="sub">Set financial goals and track your progress. Save from your virtual wallet!</p>
+
+            <div class="goals-form">
+              <div class="row" style="gap:6px;">
+                <input id="goalName" placeholder="Goal name (e.g. New Phone)" style="flex:2;" />
+                <input id="goalTarget" type="number" min="100" placeholder="Target ₹" style="flex:1;" />
+              </div>
+              <div class="row" style="margin-top:6px;">
+                <button id="btnAddGoal" class="btn btn-sm">Create Goal 🎯</button>
+              </div>
+            </div>
+
+            <div class="goals-list" id="goalsList">
+              <!-- Goals will be rendered by JS -->
+            </div>
+
+            <div id="goalsEmpty" class="goals-empty">
+              <span class="big-emoji">🎯</span>
+              <p>No savings goals yet. Create one above to start tracking!</p>
+            </div>
+          </div>
+
+          <!-- LEARNING HUB PANEL -->
+          <div id="panel-learn" class="card hidden fade-in">
+            <div class="section-title">Money School 📚</div>
+            <p class="sub">Quick lessons on money topics. Each takes 2 minutes or less!</p>
+
+            <div class="learn-tabs">
+              <button class="learn-tab active" data-tab="lessons">Lessons</button>
+              <button class="learn-tab" data-tab="glossary">Glossary</button>
+              <button class="learn-tab" data-tab="facts">Fun Facts</button>
+            </div>
+
+            <div id="learnContent" class="learn-content">
+              <!-- Content rendered by JS -->
             </div>
           </div>
 
           <!-- MENTOR PANEL -->
           <div id="panel-mentor" class="card hidden fade-in">
             <div class="section-title">Mentor Bot – Money Buddy 🤖</div>
-            <p class="sub">Ask anything about saving, UPI safety, investing basics, or RBI/SEBI style rules. Answers are simplified for teens.</p>
+            <p class="sub">Ask anything about saving, UPI safety, investing basics, or RBI/SEBI style rules. Answers are
+              simplified for teens.</p>
+
+            <div class="mentor-suggestions" id="mentorSuggestions">
+              <span class="tag-mini">Quick questions:</span>
+              <div class="suggestion-chips">
+                <button class="suggestion-chip" data-q="What is compound interest?">Compound interest?</button>
+                <button class="suggestion-chip" data-q="How do I save money?">How to save?</button>
+                <button class="suggestion-chip" data-q="Is UPI safe to use?">Is UPI safe?</button>
+                <button class="suggestion-chip" data-q="What are mutual funds?">Mutual funds?</button>
+              </div>
+            </div>
+
             <div class="mentor-log" id="mentorLog"></div>
             <div class="input-row" style="margin-top:6px;">
               <input id="mentorInput" placeholder="e.g. How much emergency fund do I need? " />
@@ -230,13 +476,334 @@
             </div>
 
             <div class="section" style="margin-top:8px;">
-              <div class="section-title">Challenges</div>
+              <div class="section-title">Daily Challenges</div>
               <div id="challengeList" class="challenge-list"></div>
             </div>
 
             <div class="section" style="margin-top:8px;">
-              <div class="section-title">Badges</div>
+              <div class="section-title">Weekly Challenges 🏆</div>
+              <div id="weeklyChallenge" class="weekly-challenge">
+                <!-- Rendered by JS -->
+              </div>
+            </div>
+
+            <div class="section" style="margin-top:8px;">
+              <div class="row row-between">
+                <div class="section-title">Badges</div>
+                <select id="badgeFilter" style="width:auto;padding:4px 8px;">
+                  <option value="all">All</option>
+                  <option value="unlocked">Unlocked</option>
+                  <option value="locked">Locked</option>
+                </select>
+              </div>
               <div id="badgeList" class="badge-list"></div>
+            </div>
+          </div>
+
+          <!-- LEADERBOARD PANEL -->
+          <div id="panel-leaderboard" class="card hidden fade-in">
+            <div class="section-title">Leaderboard 🏆</div>
+            <p class="sub">Top players on this device. Create multiple profiles to compete!</p>
+
+            <div id="leaderboardList" class="leaderboard-list">
+              <!-- Rendered by JS -->
+            </div>
+
+            <div class="leaderboard-stats">
+              <div class="stat-box">
+                <span class="stat-value" id="yourRank">#1</span>
+                <span class="stat-label">Your Rank</span>
+              </div>
+              <div class="stat-box">
+                <span class="stat-value" id="totalPlayers">1</span>
+                <span class="stat-label">Total Players</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- EXPENSE TRACKER PANEL -->
+          <div id="panel-expenses" class="card hidden fade-in">
+            <div class="section-title">Expense Tracker 📝</div>
+            <p class="sub">Log your expenses to understand where your money goes. Track by category!</p>
+
+            <div class="expense-form">
+              <div class="row" style="gap:6px;">
+                <input id="expenseAmount" type="number" min="1" placeholder="Amount (₹)" style="flex:1;" />
+                <select id="expenseCategory" style="flex:1;">
+                  <option value="food">🍔 Food & Drinks</option>
+                  <option value="transport">🚌 Transport</option>
+                  <option value="entertainment">🎮 Entertainment</option>
+                  <option value="shopping">🛍️ Shopping</option>
+                  <option value="education">📚 Education</option>
+                  <option value="other">📦 Other</option>
+                </select>
+              </div>
+              <div class="row" style="margin-top:6px;gap:6px;">
+                <input id="expenseNote" placeholder="Note (optional)" style="flex:1;" />
+                <button id="btnAddExpense" class="btn btn-sm">Add Expense</button>
+              </div>
+            </div>
+
+            <div class="row row-between" style="margin-top:12px;">
+              <div>Total Spent: <strong id="expenseTotal">₹0</strong></div>
+              <select id="expenseCatFilter">
+                <option value="all">All Categories</option>
+                <option value="food">🍔 Food</option>
+                <option value="transport">🚌 Transport</option>
+                <option value="entertainment">🎮 Entertainment</option>
+                <option value="shopping">🛍️ Shopping</option>
+                <option value="education">📚 Education</option>
+                <option value="other">📦 Other</option>
+              </select>
+            </div>
+
+            <div class="expense-chart-container" style="margin-top:10px;">
+              <canvas id="expenseChart" height="180"></canvas>
+            </div>
+
+            <div id="expenseList" class="expense-list" style="margin-top:10px;max-height:200px;overflow-y:auto;">
+              <!-- Rendered by JS -->
+            </div>
+
+            <div id="expenseEmpty" class="goals-empty">
+              <span class="big-emoji">📝</span>
+              <p>No expenses logged yet. Start tracking!</p>
+            </div>
+          </div>
+
+          <!-- INVESTMENT SCENARIOS PANEL -->
+          <div id="panel-scenarios" class="card hidden fade-in">
+            <div class="section-title">Money Scenarios 🎮</div>
+            <p class="sub">Make financial decisions in realistic scenarios. Learn from your choices!</p>
+
+            <div class="row row-between" style="margin-bottom:10px;">
+              <div id="scenarioStats" class="tag">Scenarios completed: <strong>0</strong> / 5</div>
+              <button id="btnNewScenarioGame" class="btn btn-sm">New Scenario 🎲</button>
+            </div>
+
+            <div id="scenarioContent" class="scenario-content">
+              <div class="scenario-empty">
+                <span class="big-emoji">🎮</span>
+                <p>Click "New Scenario" to start a financial decision challenge!</p>
+              </div>
+            </div>
+
+            <div id="scenarioFeedback" class="scenario-feedback hidden">
+              <!-- Feedback rendered by JS -->
+            </div>
+          </div>
+
+          <!-- ANALYTICS DASHBOARD PANEL -->
+          <div id="panel-analytics" class="card hidden fade-in">
+            <div class="section-title">Analytics Dashboard 📊</div>
+            <p class="sub">Track your financial progress over time.</p>
+
+            <div class="row row-between" style="margin-bottom:10px;">
+              <div class="tag">Progress Overview</div>
+              <select id="analyticsTimeRange">
+                <option value="7">Last 7 Days</option>
+                <option value="14">Last 14 Days</option>
+                <option value="30">Last 30 Days</option>
+                <option value="90">Last 90 Days</option>
+              </select>
+            </div>
+
+            <div class="analytics-chart-container" style="margin-bottom:14px;">
+              <canvas id="analyticsChart" height="200"></canvas>
+            </div>
+
+            <div class="analytics-stats">
+              <div class="stat-box">
+                <span class="stat-value" id="analyticsXp">0</span>
+                <span class="stat-label">Total XP</span>
+              </div>
+              <div class="stat-box">
+                <span class="stat-value" id="analyticsNetWorth">₹0</span>
+                <span class="stat-label">Net Worth</span>
+              </div>
+              <div class="stat-box">
+                <span class="stat-value" id="analyticsQuizzes">0</span>
+                <span class="stat-label">Quizzes</span>
+              </div>
+              <div class="stat-box">
+                <span class="stat-value" id="analyticsTrades">0</span>
+                <span class="stat-label">Trades</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- MARKET NEWS PANEL -->
+          <div id="panel-news" class="card hidden fade-in">
+            <div class="section-title">Market News 📰</div>
+            <p class="sub">Stay updated with market-moving news! News affects asset prices.</p>
+
+            <div class="row row-between" style="margin-bottom:10px;">
+              <div class="tag">📰 Breaking News</div>
+              <button id="btnRefreshNews" class="btn btn-sm btn-ghost">Refresh News 🔄</button>
+            </div>
+
+            <div id="newsList" class="news-list">
+              <!-- Rendered by JS -->
+            </div>
+
+            <p class="tag-mini" style="margin-top:10px;">
+              💡 Tip: News affects stock prices. Check news before trading!
+            </p>
+          </div>
+
+          <!-- FINANCIAL CALCULATORS PANEL -->
+          <div id="panel-calculators" class="card hidden fade-in">
+            <div class="section-title">Financial Calculators 🧮</div>
+            <p class="sub">Calculate compound interest, SIP returns, and EMI payments!</p>
+
+            <div class="calc-tabs">
+              <button class="calc-tab active" data-calc="compound">Compound Interest</button>
+              <button class="calc-tab" data-calc="sip">SIP Calculator</button>
+              <button class="calc-tab" data-calc="emi">EMI Calculator</button>
+            </div>
+
+            <!-- Compound Interest Calculator -->
+            <div id="calc-compound" class="calc-panel">
+              <div class="calc-form">
+                <div class="row" style="gap:6px;">
+                  <div style="flex:1;"><label>Principal (₹)</label><input id="calcPrincipal" type="number"
+                      placeholder="10000" /></div>
+                  <div style="flex:1;"><label>Rate (%/year)</label><input id="calcRate" type="number"
+                      placeholder="10" /></div>
+                </div>
+                <div class="row" style="gap:6px;margin-top:6px;">
+                  <div style="flex:1;"><label>Years</label><input id="calcYears" type="number" placeholder="5" /></div>
+                  <div style="flex:1;">
+                    <label>Compound</label>
+                    <select id="calcFrequency">
+                      <option value="1">Yearly</option>
+                      <option value="2">Half-yearly</option>
+                      <option value="4">Quarterly</option>
+                      <option value="12">Monthly</option>
+                    </select>
+                  </div>
+                </div>
+                <button id="btnCalcCompound" class="btn btn-sm" style="margin-top:10px;">Calculate 📊</button>
+              </div>
+              <div id="calcResult" class="calc-result"></div>
+            </div>
+
+            <!-- SIP Calculator -->
+            <div id="calc-sip" class="calc-panel hidden">
+              <div class="calc-form">
+                <div class="row" style="gap:6px;">
+                  <div style="flex:1;"><label>Monthly Investment (₹)</label><input id="sipMonthly" type="number"
+                      placeholder="5000" /></div>
+                  <div style="flex:1;"><label>Expected Return (%/year)</label><input id="sipRate" type="number"
+                      placeholder="12" /></div>
+                </div>
+                <div class="row" style="gap:6px;margin-top:6px;">
+                  <div style="flex:1;"><label>Years</label><input id="sipYears" type="number" placeholder="10" /></div>
+                </div>
+                <button id="btnCalcSIP" class="btn btn-sm" style="margin-top:10px;">Calculate SIP 📈</button>
+              </div>
+              <div id="sipResult" class="calc-result"></div>
+            </div>
+
+            <!-- EMI Calculator -->
+            <div id="calc-emi" class="calc-panel hidden">
+              <div class="calc-form">
+                <div class="row" style="gap:6px;">
+                  <div style="flex:1;"><label>Loan Amount (₹)</label><input id="emiLoan" type="number"
+                      placeholder="500000" /></div>
+                  <div style="flex:1;"><label>Interest Rate (%/year)</label><input id="emiRate" type="number"
+                      placeholder="10" /></div>
+                </div>
+                <div class="row" style="gap:6px;margin-top:6px;">
+                  <div style="flex:1;"><label>Tenure (months)</label><input id="emiMonths" type="number"
+                      placeholder="60" /></div>
+                </div>
+                <button id="btnCalcEMI" class="btn btn-sm" style="margin-top:10px;">Calculate EMI 💳</button>
+              </div>
+              <div id="emiResult" class="calc-result"></div>
+            </div>
+          </div>
+
+          <!-- POWER-UPS PANEL -->
+          <div id="panel-powerups" class="card hidden fade-in">
+            <div class="section-title">Power-ups & Boosters 🚀</div>
+            <p class="sub">Activate boosters to earn more XP! Track your streak progress.</p>
+
+            <div class="powerup-section">
+              <div class="powerup-card">
+                <div class="powerup-icon">🚀</div>
+                <div class="powerup-info">
+                  <div class="powerup-title">2x XP Boost</div>
+                  <div class="powerup-desc">Double your XP for 10 minutes! Costs 50 XP.</div>
+                </div>
+                <button id="btnActivateBoost" class="btn btn-sm">Activate (50 XP)</button>
+              </div>
+              <div id="boostIndicator" class="boost-indicator hidden"></div>
+            </div>
+
+            <div class="section" style="margin-top:14px;">
+              <div class="section-title">Streak Calendar 🔥</div>
+              <p class="tag-mini">Keep your daily streak going for bonus rewards!</p>
+              <div id="streakCalendar" class="streak-calendar">
+                <!-- Rendered by JS -->
+              </div>
+            </div>
+
+            <div class="powerup-tips">
+              <div class="tip-item">💡 Activate boost before taking quizzes for maximum XP!</div>
+              <div class="tip-item">🔥 7-day streaks unlock special badges!</div>
+              <div class="tip-item">📈 Complete daily challenges to maintain streak!</div>
+            </div>
+          </div>
+
+          <!-- SPEED QUIZ PANEL -->
+          <div id="panel-speedquiz" class="card hidden fade-in">
+            <div class="section-title">Speed Quiz Challenge ⚡</div>
+            <p class="sub">Answer 10 questions as fast as you can! 60 seconds on the clock!</p>
+
+            <!-- Start Screen -->
+            <div id="speedQuizStart" class="speed-quiz-start">
+              <div class="speed-intro">
+                <span class="big-emoji">⚡</span>
+                <h3>Race Against Time!</h3>
+                <p>10 questions • 60 seconds • Max 100 XP</p>
+                <button id="btnStartSpeedQuiz" class="btn">Start Speed Quiz 🏁</button>
+              </div>
+              <div class="speed-rules">
+                <div class="rule">✅ +10 XP per correct answer</div>
+                <div class="rule">⏱️ 60 seconds total time</div>
+                <div class="rule">🎯 No going back!</div>
+              </div>
+            </div>
+
+            <!-- Game Screen -->
+            <div id="speedQuizGame" class="speed-quiz-game hidden">
+              <div class="speed-header">
+                <div class="speed-timer">⏱️ <span id="speedQuizTime">60</span>s</div>
+                <div class="speed-progress">Q: <span id="speedQuizProgress">1/10</span></div>
+                <div class="speed-score">Score: <span id="speedQuizScore">0</span></div>
+              </div>
+              <div id="speedQuizQ" class="speed-question"></div>
+              <div id="speedQuizOptions" class="speed-options"></div>
+            </div>
+
+            <!-- Result Screen -->
+            <div id="speedQuizResult" class="speed-quiz-result hidden">
+              <div class="result-content">
+                <span class="big-emoji">🏆</span>
+                <h3 id="speedQuizMessage">Great Job!</h3>
+                <div class="result-stats">
+                  <div class="result-stat">
+                    <span class="stat-value" id="speedQuizFinalScore">0</span>
+                    <span class="stat-label">/10 Correct</span>
+                  </div>
+                  <div class="result-stat">
+                    <span class="stat-value">+<span id="speedQuizXP">0</span></span>
+                    <span class="stat-label">XP Earned</span>
+                  </div>
+                </div>
+                <button id="btnSpeedQuizAgain" class="btn btn-ghost">Play Again 🔄</button>
+              </div>
             </div>
           </div>
         </div>
@@ -245,12 +812,23 @@
 
     <!-- Toast -->
     <div id="toast" class="toast"></div>
+
+    <!-- Confetti Container -->
+    <div id="confetti" class="confetti-container"></div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="script.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="script.js"></script>
-
-  
+  <script>
+    // Register Service Worker for PWA
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(reg => console.log('FinTeens: SW registered'))
+          .catch(err => console.log('FinTeens: SW failed', err));
+      });
+    }
+  </script>
 </body>
+
 </html>
