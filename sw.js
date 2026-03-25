@@ -1,10 +1,17 @@
 // FinTeens Service Worker for PWA support
-const CACHE_NAME = 'finteens-v1';
+const CACHE_NAME = 'finteens-v2';
 const urlsToCache = [
     '/',
     '/index.html',
     '/style.css',
-    '/script.js',
+    '/constants.js',
+    '/state.js',
+    '/utils.js',
+    '/trading.js',
+    '/quiz.js',
+    '/finance.js',
+    '/learning.js',
+    '/main.js',
     '/manifest.json'
 ];
 
@@ -64,4 +71,23 @@ self.addEventListener('fetch', event => {
                 return caches.match('/index.html');
             })
     );
+});
+
+// Push event - handle notifications
+self.addEventListener('push', event => {
+    const data = event.data ? event.data.json() : { title: 'FinTeens Arena', body: 'Market movement detected! 📈' };
+    const options = {
+        body: data.body,
+        icon: '/assets/icons/icon-192x192.png',
+        badge: '/assets/icons/badge.png',
+        vibrate: [100, 50, 100],
+        data: { url: '/' }
+    };
+    event.waitUntil(self.registration.showNotification(data.title, options));
+});
+
+// Notification click event
+self.addEventListener('notificationclick', event => {
+    event.notification.close();
+    event.waitUntil(clients.openWindow(event.notification.data.url));
 });
